@@ -86,11 +86,11 @@
                 </ul>
                 <div class="hidden md:flex items-center space-x-3">
                     <a href="signin.html"
-                        class="text-gray-600 hover:text-gray-950 whitespace-nowrap ring-offset-background transition duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none w-full">
+                        class="text-gray-600 hover:text-gray-950 whitespace-nowrap transition duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none w-full">
                         Sign In
                     </a>
                     <a href="signup.html"
-                        class="inline-flex justify-center gap-2 bg-stone-950 text-white hover:bg-gray-700 px-4 py-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 w-full">
+                        class="inline-flex justify-center gap-2 bg-stone-950 text-white hover:bg-gray-700 px-4 py-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 w-full">
                         Sign Up
                     </a>
                 </div>
@@ -108,12 +108,15 @@
     </header>
 
     <main>
+        <!-- Hero Section -->
         <section class="py-16 md:py-32 h-[750px] relative overflow-hidden shadow-sm">
             <div class="absolute inset-0 opacity-60"></div>
             <div class="container mx-auto px-6 relative z-10">
+                <!-- Konten Hero -->
             </div>
         </section>
 
+        <!-- Why NutriTrack Section -->
         <section class="relative text-center py-16 sm:py-32 overflow-hidden">
             <div aria-hidden="true" class="absolute inset-0 z-0">
                 <div
@@ -142,6 +145,7 @@
             </div>
         </section>
 
+        <!-- See NutriTrack in Action Section -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <section class="py-16 sm:py-24">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -166,6 +170,7 @@
                 </div>
             </section>
 
+            <!-- Riview Section -->
             <section class="py-16 sm:py-24">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="text-center mb-6 md:mb-0">
@@ -325,7 +330,8 @@
     </footer>
 
     <script>
-        const dropdownButton = document.getElementById('dropdownButton');
+         // === Dropdown Menu Logic ===
+         const dropdownButton = document.getElementById('dropdownButton');
         const dropdownMenu = document.getElementById('dropdownMenu');
 
         dropdownButton.addEventListener('click', () => {
@@ -340,9 +346,8 @@
                 dropdownButton.setAttribute('aria-expanded', 'false');
             }
         });
-    </script>
 
-    <script>
+        // === Theme Switcher Logic ===
         const body = document.body;
         const systemBtn = document.getElementById('system-btn');
         const lightBtn = document.getElementById('light-btn');
@@ -350,12 +355,8 @@
         const buttons = [systemBtn, lightBtn, darkBtn];
 
         const getActiveTheme = () => {
-            if (localStorage.theme === 'dark') {
-                return 'dark';
-            }
-            if (localStorage.theme === 'light') {
-                return 'light';
-            }
+            if (localStorage.theme === 'dark') return 'dark';
+            if (localStorage.theme === 'light') return 'light';
             return 'system';
         };
 
@@ -382,80 +383,49 @@
                 }
                 localStorage.removeItem('theme');
             }
+            updateButtonStyles(theme);
         };
 
         const updateButtonStyles = (activeTheme) => {
             buttons.forEach(btn => {
                 btn.classList.remove('btn-active', 'btn-inactive');
+                if (btn.id.includes(activeTheme)) {
+                    btn.classList.add('btn-active');
+                } else {
+                    btn.classList.add('btn-inactive');
+                }
             });
-
-            if (activeTheme === 'system') {
-                systemBtn.classList.add('btn-active');
-                lightBtn.classList.add('btn-inactive');
-                darkBtn.classList.add('btn-inactive');
-            } else if (activeTheme === 'light') {
-                systemBtn.classList.add('btn-inactive');
-                lightBtn.classList.add('btn-active');
-                darkBtn.classList.add('btn-inactive');
-            } else if (activeTheme === 'dark') {
-                systemBtn.classList.add('btn-inactive');
-                lightBtn.classList.add('btn-inactive');
-                darkBtn.classList.add('btn-active');
-            }
         };
 
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
             if (!('theme' in localStorage)) {
                 applyTheme('system');
-                updateButtonStyles('system');
             }
         });
 
-        systemBtn.addEventListener('click', () => {
-            applyTheme('system');
-            updateButtonStyles('system');
-        });
+        systemBtn.addEventListener('click', () => applyTheme('system'));
+        lightBtn.addEventListener('click', () => applyTheme('light'));
+        darkBtn.addEventListener('click', () => applyTheme('dark'));
 
-        lightBtn.addEventListener('click', () => {
-            applyTheme('light');
-            updateButtonStyles('light');
-        });
-
-        darkBtn.addEventListener('click', () => {
-            applyTheme('dark');
-            updateButtonStyles('dark');
-        });
-
-        // Inisialisasi tema saat memuat halaman
+        // Initialize theme on page load
         const initialTheme = getActiveTheme();
         applyTheme(initialTheme);
-        updateButtonStyles(initialTheme);
-    </script>
 
-    <script>
-        const headerColor = document.getElementById('sticky-header');
-        const navLinksColor = headerColor.querySelectorAll('a');
+        // === Sticky Header Logic ===
         const header = document.getElementById('sticky-header');
         const scrollThreshold = 50;
 
         window.addEventListener('scroll', () => {
             if (window.scrollY > scrollThreshold) {
-                headerColor.classList.add('bg-light', 'shadow-lg', 'backdrop-blur-sm');
-                header.classList.add('h-18', 'py-3');
-                header.classList.remove('h-20', 'py-4');
+                header.classList.add('bg-white', 'shadow-lg', 'backdrop-blur-sm', 'bg-opacity-80', 'py-4');
+                header.classList.remove('py-6');
             } else {
-                headerColor.classList.remove('bg-light', 'shadow-lg', 'backdrop-blur-sm');
-                header.classList.add('h-20', 'py-4');
-                header.classList.remove('h-18', 'py-3');
+                header.classList.remove('bg-white', 'shadow-lg', 'backdrop-blur-sm', 'bg-opacity-80', 'py-4');
+                header.classList.add('py-6');
             }
-
-            // navLinksColor.forEach(link => {
-            //     link.classList.remove('');
-            //     link.classList.add('');
-            // });
         });
     </script>
-    
+
 </body>
 
 </html>
