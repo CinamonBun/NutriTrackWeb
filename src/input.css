@@ -1,1 +1,117 @@
 @import "tailwindcss";
+
+/* Custom CSS untuk theme switching */
+@layer base {
+  :root {
+    --light-bg: #f5f5f5;
+    --dark-bg: #1c1c1c;
+    --light-text: #1f2937;
+    --dark-text: #f5f5f5;
+    --light-card: #ffffff;
+    --dark-card: #2a2a2a;
+    --light-border: #cccccc;
+    --dark-border: #404040;
+    --light-hover: #f9fafb;
+    --dark-hover: #374151;
+    --light-active: #ffffff;
+    --dark-active: #374151;
+    --light-inactive: #f5f5f5;
+    --dark-inactive: #9ca3af;
+  }
+  
+  body {
+    background-color: var(--light-bg);
+    color: var(--light-text);
+  }
+  
+  .dark body {
+    background-color: var(--dark-bg);
+    color: var(--dark-text);
+  }
+}
+
+@layer components {
+  /* Button styles untuk theme switcher */
+  .btn-inactive {
+    color: var(--light-inactive);
+  }
+  
+  .dark .btn-inactive {
+    color: var(--dark-inactive);
+  }
+  
+  .btn-active {
+    background-color: var(--light-active);
+    color: var(--light-text);
+  }
+  
+  .dark .btn-active {
+    background-color: var(--dark-active);
+    color: var(--dark-text);
+  }
+  
+  /* Card styles */
+  .card {
+    background-color: var(--light-card);
+    border-color: var(--light-border);
+  }
+  
+  .dark .card {
+    background-color: var(--dark-card);
+    border-color: var(--dark-border);
+  }
+  
+  /* Hover effects */
+  .hover-card {
+    transition: background-color 0.2s;
+  }
+  
+  .hover-card:hover {
+    background-color: var(--light-hover);
+  }
+  
+  .dark .hover-card:hover {
+    background-color: var(--dark-hover);
+  }
+  
+  /* Custom utility classes */
+  .bg-light-bg {
+    background-color: var(--light-bg);
+  }
+  
+  .bg-dark-bg {
+    background-color: var(--dark-bg);
+  }
+  
+  .bg-light-card {
+    background-color: var(--light-card);
+  }
+  
+  .bg-dark-card {
+    background-color: var(--dark-card);
+  }
+  
+  .text-light-text {
+    color: var(--light-text);
+  }
+  
+  .text-dark-text {
+    color: var(--dark-text);
+  }
+  
+  .border-light-border {
+    border-color: var(--light-border);
+  }
+  
+  .border-dark-border {
+    border-color: var(--dark-border);
+  }
+  
+  .hover\:bg-light-hover:hover {
+    background-color: var(--light-hover);
+  }
+  
+  .dark .hover\:bg-dark-hover:hover {
+    background-color: var(--dark-hover);
+  }
+}

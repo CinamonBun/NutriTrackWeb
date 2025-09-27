@@ -14,7 +14,6 @@
     --color-purple-300: oklch(82.7% 0.119 306.383);
     --color-pink-300: oklch(82.3% 0.12 346.018);
     --color-gray-50: oklch(98.5% 0.002 247.839);
-    --color-gray-100: oklch(96.7% 0.003 264.542);
     --color-gray-200: oklch(92.8% 0.006 264.531);
     --color-gray-300: oklch(87.2% 0.01 258.338);
     --color-gray-400: oklch(70.7% 0.022 261.325);
@@ -512,9 +511,6 @@
     border-style: var(--tw-border-style);
     border-width: 1px;
   }
-  .border-\[\#cccccc\] {
-    border-color: #cccccc;
-  }
   .border-gray-200 {
     border-color: var(--color-gray-200);
   }
@@ -758,13 +754,6 @@
       }
     }
   }
-  .hover\:bg-gray-100 {
-    &:hover {
-      @media (hover: hover) {
-        background-color: var(--color-gray-100);
-      }
-    }
-  }
   .hover\:bg-gray-700 {
     &:hover {
       @media (hover: hover) {
@@ -948,6 +937,133 @@
     @media (width >= 64rem) {
       padding-inline: calc(var(--spacing) * 8);
     }
+  }
+  .dark\:bg-gray-800 {
+    @media (prefers-color-scheme: dark) {
+      background-color: var(--color-gray-800);
+    }
+  }
+  .dark\:text-gray-200 {
+    @media (prefers-color-scheme: dark) {
+      color: var(--color-gray-200);
+    }
+  }
+  .dark\:text-gray-300 {
+    @media (prefers-color-scheme: dark) {
+      color: var(--color-gray-300);
+    }
+  }
+  .dark\:text-gray-400 {
+    @media (prefers-color-scheme: dark) {
+      color: var(--color-gray-400);
+    }
+  }
+  .dark\:hover\:bg-gray-600 {
+    @media (prefers-color-scheme: dark) {
+      &:hover {
+        @media (hover: hover) {
+          background-color: var(--color-gray-600);
+        }
+      }
+    }
+  }
+  .dark\:hover\:text-white {
+    @media (prefers-color-scheme: dark) {
+      &:hover {
+        @media (hover: hover) {
+          color: var(--color-white);
+        }
+      }
+    }
+  }
+}
+@layer base {
+  :root {
+    --light-bg: #f5f5f5;
+    --dark-bg: #1c1c1c;
+    --light-text: #1f2937;
+    --dark-text: #f5f5f5;
+    --light-card: #ffffff;
+    --dark-card: #2a2a2a;
+    --light-border: #cccccc;
+    --dark-border: #404040;
+    --light-hover: #f9fafb;
+    --dark-hover: #374151;
+    --light-active: #ffffff;
+    --dark-active: #374151;
+    --light-inactive: #f5f5f5;
+    --dark-inactive: #9ca3af;
+  }
+  body {
+    background-color: var(--light-bg);
+    color: var(--light-text);
+  }
+  .dark body {
+    background-color: var(--dark-bg);
+    color: var(--dark-text);
+  }
+}
+@layer components {
+  .btn-inactive {
+    color: var(--light-inactive);
+  }
+  .dark .btn-inactive {
+    color: var(--dark-inactive);
+  }
+  .btn-active {
+    background-color: var(--light-active);
+    color: var(--light-text);
+  }
+  .dark .btn-active {
+    background-color: var(--dark-active);
+    color: var(--dark-text);
+  }
+  .card {
+    background-color: var(--light-card);
+    border-color: var(--light-border);
+  }
+  .dark .card {
+    background-color: var(--dark-card);
+    border-color: var(--dark-border);
+  }
+  .hover-card {
+    transition: background-color 0.2s;
+  }
+  .hover-card:hover {
+    background-color: var(--light-hover);
+  }
+  .dark .hover-card:hover {
+    background-color: var(--dark-hover);
+  }
+  .bg-light-bg {
+    background-color: var(--light-bg);
+  }
+  .bg-dark-bg {
+    background-color: var(--dark-bg);
+  }
+  .bg-light-card {
+    background-color: var(--light-card);
+  }
+  .bg-dark-card {
+    background-color: var(--dark-card);
+  }
+  .text-light-text {
+    color: var(--light-text);
+  }
+  .text-dark-text {
+    color: var(--dark-text);
+  }
+  .border-light-border {
+    border-color: var(--light-border);
+  }
+  .border-dark-border {
+    border-color: var(--dark-border);
+  }
+  .hover\:bg-light-hover:hover {
+    background-color: var(--light-hover);
+  }
+  .dark .hover\:bg-dark-hover:hover {
+    background-color: var(--dark-hover);
   }
 }
 @property --tw-rotate-x {
