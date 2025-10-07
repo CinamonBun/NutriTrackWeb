@@ -1,25 +1,19 @@
 @import "tailwindcss";
 
 @layer base {
-  :root {
-    --light-bg: #f5f5f5;
+  /* Hanya definisikan CSS variables untuk dark theme */
+  .dark {
     --dark-bg: #1c1c1c;
-    --light-text: #1f2937;
     --dark-text: #f5f5f5;
-    --light-card: #ffffff;
     --dark-card: #2a2a2a;
-    --light-border: #cccccc;
     --dark-border: #404040;
-    --light-hover: #ff0000;
     --dark-hover: #374151;
-    --light-active: #ffffff;
     --dark-active: #34373b;
-    --light-inactive: #9ca3af;
     --dark-inactive: #6b7280;
   }
 
+  /* Light theme akan menggunakan default Tailwind colors */
   body {
-    background-color: var(--light-bg);
     transition: background-color 0.3s, color 0.3s;
   }
 
@@ -33,7 +27,7 @@
 
   /* Button styles untuk theme switcher */
   .btn-inactive {
-    color: var(--light-inactive);
+    color: #9ca3af; /* gray-400 */
   }
 
   .dark .btn-inactive {
@@ -41,8 +35,8 @@
   }
 
   .btn-active {
-    background-color: var(--light-active);
-    color: var(--light-text);
+    background-color: #ffffff; /* white */
+    color: #1f2937; /* gray-800 */
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   }
 
@@ -54,8 +48,8 @@
 
   /* Card styles */
   .card {
-    background-color: var(--light-card);
-    border: 1px solid var(--light-border);
+    background-color: #ffffff; /* white */
+    border: 1px solid #e5e7eb; /* gray-200 */
     padding: 1.5rem;
     border-radius: 0.75rem;
     box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
@@ -73,7 +67,7 @@
   }
 
   .hover-card:hover {
-    background-color: var(--light-hover);
+    background-color: #f3f4f6; /* gray-100 */
   }
 
   .dark .hover-card:hover {
