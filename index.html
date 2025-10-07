@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriTrack - Landing Page</title>
+    <link href="./src/output.css" rel="stylesheet">
+    <style>
+        body {
+            /* font-family: 'Inter', sans-serif; */
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            /* font-family: "Geist", sans-serif; */
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="bg-gray-50">
+
+    <!-- Header -->
+    <header id="sticky-header" class="fixed z-50 w-full transition-all duration-300 ease-in-out py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav class="flex mx-auto justify-between items-center px-4">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Logo</h1>
+                </div>
+                <ul class="hidden md:flex items-center space-x-8">
+                    <li><a href="#"
+                            class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition duration-200 transform hover:scale-105">Home</a>
+                    </li>
+                    <li><a href="#"
+                            class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition duration-200 transform hover:scale-105">About
+                            Us</a></li>
+                    <li><a href="#"
+                            class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition duration-200 transform hover:scale-105">Features</a>
+                    </li>
+                    <li><a href="#"
+                            class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition duration-200 transform hover:scale-105">Riviews</a>
+                    </li>
+                    <li><a href="#"
+                            class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition duration-200 transform hover:scale-105">Download</a>
+                    </li>
+                </ul>
+                <div class="hidden md:flex items-center space-x-3">
+                    <a href="signin.html"
+                        class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white whitespace-nowrap transition duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none w-full">
+                        Sign In
+                    </a>
+                    <a href="signup.html"
+                        class="inline-flex justify-center gap-2 bg-gray-900 text-white hover:bg-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600 px-4 py-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 w-full">
+                        Sign Up
+                    </a>
+                </div>
+                <div class="md:hidden">
+                    <button class="text-gray-600 dark:text-gray-200">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main>
+        <!-- Hero Section -->
+        <section class="py-16 md:py-32 h-[750px] relative overflow-hidden shadow-sm bg-gray-50 dark:bg-dark-bg">
+            <div class="absolute inset-0 opacity-60"></div>
+            <div class="container mx-auto px-6 relative z-10">
+                <!-- Konten Hero -->
+            </div>
+        </section>
+
+        <!-- Why NutriTrack Section -->
+        <section class="relative text-center py-16 sm:py-32 overflow-hidden bg-gray-50 dark:bg-dark-bg">
+            <div aria-hidden="true" class="absolute inset-0 z-0">
+                <div
+                    class="absolute bottom-0 left-0 inset-y-1/4 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob">
+                </div>
+                <div
+                    class="absolute top-0 right-0 w-96 h-96 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob animation-delay-2000">
+                </div>
+            </div>
+
+            <div class="relative z-10">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-6 md:mb-0">
+                        <h2 class="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900 dark:text-dark-text">
+                            Why NutriTrack ?
+                        </h2>
+                        <p class="mt-3 text-lg text-gray-600 dark:text-gray-300 max-w-xl mx-auto">
+                            Get expert nutritional guidance and personalized meal plans specifically for your journey.
+                        </p>
+                    </div>
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div
+                            class="mt-12 max-w-6xl mx-auto h-[550px] bg-white dark:bg-dark-card rounded-lg shadow-md border border-gray-200 dark:border-dark-border">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- See NutriTrack in Action Section -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-dark-bg">
+            <section class="py-16 sm:py-24">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex flex-col md:flex-row items-center justify-between mb-12 sm:mb-16">
+                        <div class="text-center md:text-left mb-6 md:mb-0">
+                            <h2
+                                class="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900 dark:text-dark-text">
+                                See NutriTrack in Action</h2>
+                            <p class="mt-3 text-lg text-gray-600 dark:text-gray-300 max-w-xl">
+                                Dive into our core functionalities tailored for your goals.
+                            </p>
+                        </div>
+                        <a href="#"
+                            class="bg-gray-900 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600 transition-colors duration-200">
+                            See more features
+                        </a>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div
+                            class="h-[500px] bg-white dark:bg-dark-card rounded-lg shadow-md border border-gray-200 dark:border-dark-border">
+                        </div>
+                        <div
+                            class="h-[500px] bg-white dark:bg-dark-card rounded-lg shadow-md border border-gray-200 dark:border-dark-border">
+                        </div>
+                        <div
+                            class="h-[500px] bg-white dark:bg-dark-card rounded-lg shadow-md border border-gray-200 dark:border-dark-border">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Riview Section -->
+            <section class="py-16 sm:py-24">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-6 md:mb-0">
+                        <h2 class="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900 dark:text-dark-text">
+                            Riview</h2>
+                        <p class="mt-3 text-lg text-gray-600 dark:text-gray-300 max-w-xl mx-auto">
+                            What are they saying about us?
+                        </p>
+                    </div>
+                    <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+                        <div class="space-y-4 sm:space-y-6">
+                            <div
+                                class="h-40 bg-white dark:bg-dark-card rounded-lg border border-gray-200 dark:border-dark-border">
+                            </div>
+                            <div
+                                class="h-56 bg-white dark:bg-dark-card rounded-lg border border-gray-200 dark:border-dark-border">
+                            </div>
+                            <div
+                                class="h-40 bg-white dark:bg-dark-card rounded-lg border border-gray-200 dark:border-dark-border">
+                            </div>
+                        </div>
+                        <div class="space-y-4 sm:space-y-6">
+                            <div
+                                class="h-56 bg-white dark:bg-dark-card rounded-lg border border-gray-200 dark:border-dark-border">
+                            </div>
+                            <div
+                                class="h-40 bg-white dark:bg-dark-card rounded-lg border border-gray-200 dark:border-dark-border">
+                            </div>
+                            <div
+                                class="h-56 bg-white dark:bg-dark-card rounded-lg border border-gray-200 dark:border-dark-border">
+                            </div>
+                        </div>
+                        <div class="space-y-4 sm:space-y-6">
+                            <div
+                                class="h-40 bg-white dark:bg-dark-card rounded-lg border border-gray-200 dark:border-dark-border">
+                            </div>
+                            <div
+                                class="h-56 bg-white dark:bg-dark-card rounded-lg border border-gray-200 dark:border-dark-border">
+                            </div>
+                            <div
+                                class="h-40 bg-white dark:bg-dark-card rounded-lg border border-gray-200 dark:border-dark-border">
+                            </div>
+                        </div>
+                        <div class="space-y-4 sm:space-y-6">
+                            <div
+                                class="h-56 bg-white dark:bg-dark-card rounded-lg border border-gray-200 dark:border-dark-border">
+                            </div>
+                            <div
+                                class="h-40 bg-white dark:bg-dark-card rounded-lg border border-gray-200 dark:border-dark-border">
+                            </div>
+                            <div
+                                class="h-56 bg-white dark:bg-dark-card rounded-lg border border-gray-200 dark:border-dark-border">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 dark:bg-dark-bg my-24 sm:py-24">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-8 items-start">
+                <div class="space-y-4">
+                    <a href="mailto:hi@nutritrack.com"
+                        class="text-lg hover:underline block text-gray-900 dark:text-dark-text">hi@nutritrack.com</a>
+                    <div class="flex space-x-4 text-gray-900 dark:text-dark-text">
+                        <a href="#" class="hover:text-gray-600 dark:hover:text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                            </svg>
+                        </a>
+                        <a href="#" class="hover:text-gray-600 dark:hover:text-dark-text">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z" />
+                            </svg>
+                        </a>
+                        <a href="#" class="hover:text-gray-600 dark:hover:text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-medium text-gray-900 dark:text-dark-text">Product</h4>
+                    <ul class="mt-4 space-y-4 text-sm">
+                        <li><a href="#"
+                                class="text-gray-600 hover:text-gray-900 dark:text-dark-text dark:hover:text-white">Home</a>
+                        </li>
+                        <li><a href="#"
+                                class="text-gray-600 hover:text-gray-900 dark:text-dark-text dark:hover:text-white">Features</a>
+                        </li>
+                        <li><a href="#"
+                                class="text-gray-600 hover:text-gray-900 dark:text-dark-text dark:hover:text-white">Download</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-medium text-gray-900 dark:text-dark-text">Company</h4>
+                    <ul class="mt-4 space-y-4 text-sm">
+                        <li><a href="#"
+                                class="text-gray-600 hover:text-gray-900 dark:text-dark-text dark:hover:text-white">4Ever
+                                Young</a></li>
+                        <li><a href="#"
+                                class="text-gray-600 hover:text-gray-900 dark:text-dark-text dark:hover:text-white">Community</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-medium text-gray-900 dark:text-dark-text">What Our Users Say</h4>
+                    <ul class="mt-4 space-y-4 text-sm">
+                        <li><a href="#"
+                                class="text-gray-600 hover:text-gray-900 dark:text-dark-text dark:hover:text-white">Riviews</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="relative inline-block text-left w-full">
+                        <div>
+                            <button id="dropdownButton" type="button"
+                                class="inline-flex justify-start w-full rounded-md border border-gray-200 dark:border-dark-border shadow-sm px-4 py-2 bg-white dark:bg-dark-card text-sm font-medium text-gray-900 dark:text-dark-text hover:bg-gray-50 dark:hover:bg-dark-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                                aria-expanded="true" aria-haspopup="true">
+                                Language
+                                <svg class="-mr-1 ml-auto h-5 w-5" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd"
+                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div id="dropdownMenu"
+                            class="hidden origin-top-right absolute right-0 mt-2 w-auto rounded-md shadow-lg bg-white dark:bg-dark-card ring-1 ring-black ring-opacity-5 focus:outline-none fade-in"
+                            role="menu" aria-orientation="vertical" aria-labelledby="dropdownButton">
+                            <div class="py-1" role="none">
+                                <a href="#"
+                                    class="text-gray-900 dark:text-dark-text block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-dark-hover"
+                                    role="menuitem">English</a>
+                                <a href="#"
+                                    class="text-gray-900 dark:text-dark-text block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-dark-hover"
+                                    role="menuitem">Bahasa Indonesia</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex space-x-2">
+                        <div id="theme-switcher"
+                            class="flex p-1 rounded-full border border-gray-200 dark:border-dark-border shadow-sm bg-white dark:bg-dark-card">
+                            <button id="system-btn"
+                                class="flex items-center justify-center p-2 rounded-full transition-colors duration-200">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0V12a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 12V5.25" />
+                                </svg>
+                            </button>
+
+                            <button id="light-btn"
+                                class="flex items-center justify-center p-2 rounded-full transition-colors duration-200">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+                                </svg>
+                            </button>
+
+                            <button id="dark-btn"
+                                class="flex items-center justify-center p-2 rounded-full transition-colors duration-200">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-20 pt-20 text-gray-500 dark:text-gray-400 text-md">
+                <p>© 2025 Made By 4Ever Young</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // === Dropdown Menu Logic ===
+        const dropdownButton = document.getElementById('dropdownButton');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+
+        dropdownButton.addEventListener('click', () => {
+            const expanded = dropdownButton.getAttribute('aria-expanded') === 'true' || false;
+            dropdownButton.setAttribute('aria-expanded', !expanded);
+            dropdownMenu.classList.toggle('hidden');
+        });
+
+        window.addEventListener('click', (event) => {
+            if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                dropdownMenu.classList.add('hidden');
+                dropdownButton.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // === Theme Switcher Logic ===
+        const body = document.body;
+        const systemBtn = document.getElementById('system-btn');
+        const lightBtn = document.getElementById('light-btn');
+        const darkBtn = document.getElementById('dark-btn');
+        const buttons = [systemBtn, lightBtn, darkBtn];
+
+        const getActiveTheme = () => {
+            if (localStorage.theme === 'dark') return 'dark';
+            if (localStorage.theme === 'light') return 'light';
+            return 'system';
+        };
+
+        const applyTheme = (theme) => {
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            } else if (theme === 'light') {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+                localStorage.removeItem('theme');
+            }
+            updateButtonStyles(theme);
+        };
+
+        const updateButtonStyles = (activeTheme) => {
+            buttons.forEach(btn => {
+                btn.classList.remove('btn-active', 'btn-inactive');
+                if (btn.id.includes(activeTheme)) {
+                    btn.classList.add('btn-active');
+                } else {
+                    btn.classList.add('btn-inactive');
+                }
+            });
+        };
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+            if (!('theme' in localStorage)) {
+                applyTheme('system');
+            }
+        });
+
+        systemBtn.addEventListener('click', () => applyTheme('system'));
+        lightBtn.addEventListener('click', () => applyTheme('light'));
+        darkBtn.addEventListener('click', () => applyTheme('dark'));
+
+        // Initialize theme on page load
+        const initialTheme = getActiveTheme();
+        applyTheme(initialTheme);
+
+        // === Sticky Header Logic ===
+        const header = document.getElementById('sticky-header');
+        const scrollThreshold = 50;
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > scrollThreshold) {
+                header.classList.add('bg-gray-50', 'dark:bg-dark-bg', 'shadow-lg', 'backdrop-blur-sm', 'bg-opacity-80', 'py-4');
+                header.classList.remove('py-6');
+            } else {
+                header.classList.remove('bg-gray-50', 'dark:bg-dark-bg', 'shadow-lg', 'backdrop-blur-sm', 'bg-opacity-80', 'py-4');
+                header.classList.add('py-6');
+            }
+        });
+    </script>
+
+</body>
+
+</html>
