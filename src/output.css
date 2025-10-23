@@ -223,6 +223,9 @@
   .inset-y-0 {
     inset-block: calc(var(--spacing) * 0);
   }
+  .inset-y-1 {
+    inset-block: calc(var(--spacing) * 1);
+  }
   .inset-y-1\/4 {
     inset-block: calc(1/4 * 100%);
   }
@@ -328,6 +331,9 @@
   .inline-flex {
     display: inline-flex;
   }
+  .table {
+    display: table;
+  }
   .size-6 {
     width: calc(var(--spacing) * 6);
     height: calc(var(--spacing) * 6);
@@ -398,11 +404,17 @@
   .max-w-xl {
     max-width: var(--container-xl);
   }
+  .border-collapse {
+    border-collapse: collapse;
+  }
   .origin-top-right {
     transform-origin: top right;
   }
   .transform {
     transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
+  }
+  .resize {
+    resize: both;
   }
   .grid-cols-1 {
     grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -643,6 +655,9 @@
   .text-white {
     color: var(--color-white);
   }
+  .underline {
+    text-decoration-line: underline;
+  }
   .opacity-40 {
     opacity: 40%;
   }
@@ -678,6 +693,10 @@
   .ring-black {
     --tw-ring-color: var(--color-black);
   }
+  .outline {
+    outline-style: var(--tw-outline-style);
+    outline-width: 1px;
+  }
   .blur-3xl {
     --tw-blur: blur(var(--blur-3xl));
     filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
@@ -687,6 +706,10 @@
   }
   .backdrop-blur-sm {
     --tw-backdrop-blur: blur(var(--blur-sm));
+    -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
+    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
+  }
+  .backdrop-filter {
     -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
     backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
   }
@@ -731,6 +754,13 @@
         --tw-scale-y: 105%;
         --tw-scale-z: 105%;
         scale: var(--tw-scale-x) var(--tw-scale-y);
+      }
+    }
+  }
+  .hover\:border-\[\#0F9E99\] {
+    &:hover {
+      @media (hover: hover) {
+        border-color: #0F9E99;
       }
     }
   }
@@ -923,6 +953,20 @@
       background-color: #0a0a0a;
     }
   }
+  .dark\:dark\:bg-\[\#0F9E99\] {
+    @media (prefers-color-scheme: dark) {
+      @media (prefers-color-scheme: dark) {
+        background-color: #0F9E99;
+      }
+    }
+  }
+  .dark\:dark\:bg-\[\#07bab4\] {
+    @media (prefers-color-scheme: dark) {
+      @media (prefers-color-scheme: dark) {
+        background-color: #07bab4;
+      }
+    }
+  }
   .dark\:dark\:bg-\[\#34373b\] {
     @media (prefers-color-scheme: dark) {
       @media (prefers-color-scheme: dark) {
@@ -950,11 +994,83 @@
       opacity: 80%;
     }
   }
+  .dark\:hover\:border-\[\#0F9E99\] {
+    @media (prefers-color-scheme: dark) {
+      &:hover {
+        @media (hover: hover) {
+          border-color: #0F9E99;
+        }
+      }
+    }
+  }
+  .dark\:hover\:bg-\[\#1CF6EF\] {
+    @media (prefers-color-scheme: dark) {
+      &:hover {
+        @media (hover: hover) {
+          background-color: #1CF6EF;
+        }
+      }
+    }
+  }
+  .dark\:hover\:bg-\[\#6BF9F5\] {
+    @media (prefers-color-scheme: dark) {
+      &:hover {
+        @media (hover: hover) {
+          background-color: #6BF9F5;
+        }
+      }
+    }
+  }
+  .dark\:hover\:bg-\[\#13C3BD\] {
+    @media (prefers-color-scheme: dark) {
+      &:hover {
+        @media (hover: hover) {
+          background-color: #13C3BD;
+        }
+      }
+    }
+  }
+  .dark\:hover\:bg-\[\#43F8F2\] {
+    @media (prefers-color-scheme: dark) {
+      &:hover {
+        @media (hover: hover) {
+          background-color: #43F8F2;
+        }
+      }
+    }
+  }
+  .dark\:hover\:bg-\[\#92FBF7\] {
+    @media (prefers-color-scheme: dark) {
+      &:hover {
+        @media (hover: hover) {
+          background-color: #92FBF7;
+        }
+      }
+    }
+  }
   .dark\:hover\:bg-\[\#525252\] {
     @media (prefers-color-scheme: dark) {
       &:hover {
         @media (hover: hover) {
           background-color: #525252;
+        }
+      }
+    }
+  }
+  .dark\:hover\:bg-\[\#A6FCF9\] {
+    @media (prefers-color-scheme: dark) {
+      &:hover {
+        @media (hover: hover) {
+          background-color: #A6FCF9;
+        }
+      }
+    }
+  }
+  .dark\:hover\:bg-\[\#CDFDFC\] {
+    @media (prefers-color-scheme: dark) {
+      &:hover {
+        @media (hover: hover) {
+          background-color: #CDFDFC;
         }
       }
     }
@@ -981,7 +1097,7 @@
     --dark-border: #404040;
     --light-hover: #ff0000;
     --dark-hover: #374151;
-    --light-active: #ffffff;
+    --light-active: #e7e6e6;
     --dark-active: #34373b;
     --light-inactive: #9ca3af;
     --dark-inactive: #6b7280;
@@ -1016,8 +1132,6 @@
     background-color: var(--light-card);
     border: 1px solid var(--light-border);
     padding: 1.5rem;
-    border-radius: 0.75rem;
-    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
     transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
   }
   .dark .card {
@@ -1141,6 +1255,11 @@
   syntax: "*";
   inherits: false;
   initial-value: 0 0 #0000;
+}
+@property --tw-outline-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
 }
 @property --tw-blur {
   syntax: "*";
@@ -1281,6 +1400,7 @@
       --tw-ring-offset-width: 0px;
       --tw-ring-offset-color: #fff;
       --tw-ring-offset-shadow: 0 0 #0000;
+      --tw-outline-style: solid;
       --tw-blur: initial;
       --tw-brightness: initial;
       --tw-contrast: initial;
