@@ -28,6 +28,50 @@
                 transform: translateY(0);
             }
         }
+
+        .marquee-track {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            will-change: transform;
+            animation: marquee-up 25s linear infinite;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        .marquee-track.reverse {
+            animation-name: marquee-down;
+        }
+
+        @keyframes marquee-up {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-50%);
+            }
+        }
+
+        @keyframes marquee-down {
+            0% {
+                transform: translateY(-50%);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        .marquee-col:hover .marquee-track {
+            animation-play-state: paused;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .marquee-track {
+                animation: none !important;
+            }
+        }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -87,7 +131,7 @@
     <!-- Main -->
     <main>
         <!-- Hero Section -->
-        <section class="py-16 md:py-32 min-h-screen relative overflow-hidden shadow-sm bg-light-bg dark:bg-dark-bg">
+        <section class="py-16 md:py-32 min-h-screen relative overflow-hidden shadow-sm">
             <div class="absolute inset-0 opacity-60"></div>
             <div class="container mx-auto px-6 relative z-10">
                 <!-- Konten Hero -->
@@ -95,7 +139,7 @@
         </section>
 
         <!-- Why NutriTrack Section -->
-        <section class="relative text-center py-16 sm:py-32 overflow-hidden bg-light-bg dark:bg-dark-bg">
+        <section class="relative text-center py-16 sm:py-32 overflow-hidden">
             <!-- <div aria-hidden="true" class="absolute inset-0 z-0">
                 <div
                     class="absolute bottom-0 left-0 inset-y-1/4 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob">
@@ -125,7 +169,7 @@
         </section>
 
         <!-- See NutriTrack in Action Section -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-light-bg dark:bg-dark-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <section class="py-16 sm:py-24">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex flex-col md:flex-row items-center justify-between mb-12 sm:mb-16">
@@ -159,56 +203,461 @@
             <!-- Riview Section -->
             <section class="py-16 sm:py-24">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="text-center mb-6 md:mb-0">
-                        <h2 class="text-4xl sm:text-5xl font-bold tracking-tight">
-                            Riview</h2>
+                    <div class="text-center mb-6">
+                        <h2 class="text-4xl sm:text-5xl font-bold tracking-tight">Reviews</h2>
                         <p class="mt-3 text-lg max-w-xl mx-auto dark:opacity-80">
                             What are they saying about us?
                         </p>
                     </div>
-                    <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-                        <div class="space-y-4 sm:space-y-6">
-                            <div
-                                class="h-40 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
-                            </div>
-                            <div
-                                class="h-56 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
-                            </div>
-                            <div
-                                class="h-40 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
-                            </div>
+                    <div class="relative mt-12 max-w-6xl mx-auto overflow-hidden rounded-lg h-[550px]">
+                        <div class="absolute inset-x-0 top-0 h-16 pointer-events-none fade-top z-10">
                         </div>
-                        <div class="space-y-4 sm:space-y-6">
-                            <div
-                                class="h-56 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
-                            </div>
-                            <div
-                                class="h-40 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
-                            </div>
-                            <div
-                                class="h-56 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
-                            </div>
+                        <div class="absolute inset-x-0 bottom-0 h-16 pointer-events-none fade-bottom z-10">
                         </div>
-                        <div class="space-y-4 sm:space-y-6">
-                            <div
-                                class="h-40 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 h-full">
+
+                            <!-- 1 -->
+                            <div class="marquee-col h-full overflow-y-hidden">
+                                <div class="marquee-track reverse px-2 py-4">
+                                    <div
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        <div class="flex items-center gap-3 mb-2">
+                                            <img src="https://placehold.co/40x40/34373b/ffffff?text=A"
+                                                class="w-10 h-10 rounded-full" />
+                                            <div>
+                                                <div class="font-medium">Sarah K.</div>
+                                                <div class="text-xs">@sarahk</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm">NutriTrack changed my life!
+                                            So easy to track meals.</p>
+                                    </div>
+                                    <div
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        <div class="flex items-center gap-3 mb-2">
+                                            <img src="https://placehold.co/40x40/f87171/ffffff?text=B"
+                                                class="w-10 h-10 rounded-full" />
+                                            <div>
+                                                <div class="font-medium">Mike T.</div>
+                                                <div class="text-xs">@miket</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm">Best nutrition app I've
+                                            ever used. Highly recommend!</p>
+                                    </div>
+                                    <div
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        <div class="flex items-center gap-3 mb-2">
+                                            <img src="https://placehold.co/40x40/34d399/ffffff?text=C"
+                                                class="w-10 h-10 rounded-full" />
+                                            <div>
+                                                <div class="font-medium">Lina R.</div>
+                                                <div class="text-xs">@linar</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm">Love the personalized meal
+                                            plans. So accurate!</p>
+                                    </div>
+                                    <div
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        <div class="flex items-center gap-3 mb-2">
+                                            <img src="https://placehold.co/40x40/a78bfa/ffffff?text=D"
+                                                class="w-10 h-10 rounded-full" />
+                                            <div>
+                                                <div class="font-medium">James L.</div>
+                                                <div class="text-xs">@jamesl</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm">Perfect for my fitness
+                                            journey. Thank you!</p>
+                                    </div>
+                                    <!-- Duplikat -->
+                                    <div
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        <div class="flex items-center gap-3 mb-2">
+                                            <img src="https://placehold.co/40x40/34373b/ffffff?text=A"
+                                                class="w-10 h-10 rounded-full" />
+                                            <div>
+                                                <div class="font-medium">Sarah K.</div>
+                                                <div class="text-xs">@sarahk</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm">NutriTrack changed my life!
+                                            So easy to track meals.</p>
+                                    </div>
+                                    <div
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        <div class="flex items-center gap-3 mb-2">
+                                            <img src="https://placehold.co/40x40/f87171/ffffff?text=B"
+                                                class="w-10 h-10 rounded-full" />
+                                            <div>
+                                                <div class="font-medium">Mike T.</div>
+                                                <div class="text-xs">@miket</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm">Best nutrition app I've
+                                            ever used. Highly recommend!</p>
+                                    </div>
+                                    <div
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        <div class="flex items-center gap-3 mb-2">
+                                            <img src="https://placehold.co/40x40/34d399/ffffff?text=C"
+                                                class="w-10 h-10 rounded-full" />
+                                            <div>
+                                                <div class="font-medium">Lina R.</div>
+                                                <div class="text-xs">@linar</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm">Love the personalized meal
+                                            plans. So accurate!</p>
+                                    </div>
+                                    <div
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        <div class="flex items-center gap-3 mb-2">
+                                            <img src="https://placehold.co/40x40/a78bfa/ffffff?text=D"
+                                                class="w-10 h-10 rounded-full" />
+                                            <div>
+                                                <div class="font-medium">James L.</div>
+                                                <div class="text-xs">@jamesl</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm">Perfect for my fitness
+                                            journey. Thank you!</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div
-                                class="h-56 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+
+                            <!-- 2 -->
+                            <div class="marquee-col h-full overflow-y-hidden">
+                                <div class="marquee-track px-2 py-4">
+                                    <div
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        <div class="flex items-center gap-3 mb-2">
+                                            <img src="https://placehold.co/40x40/60a5fa/ffffff?text=E"
+                                                class="w-10 h-10 rounded-full" />
+                                            <div>
+                                                <div class="font-medium">Emma W.</div>
+                                                <div class="text-xs">@emmaw</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm">So intuitive and beautiful
+                                            UI. Love it!</p>
+                                    </div>
+                                    <div
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        <div class="flex items-center gap-3 mb-2">
+                                            <img src="https://placehold.co/40x40/fbbf24/ffffff?text=F"
+                                                class="w-10 h-10 rounded-full" />
+                                            <div>
+                                                <div class="font-medium">David H.</div>
+                                                <div class="text-xs">@davidh</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm">Helped me lose 10kg in 3
+                                            months. Amazing!</p>
+                                    </div>
+                                    <div
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        <div class="flex items-center gap-3 mb-2">
+                                            <img src="https://placehold.co/40x40/ec4899/ffffff?text=G"
+                                                class="w-10 h-10 rounded-full" />
+                                            <div>
+                                                <div class="font-medium">Anna P.</div>
+                                                <div class="text-xs">@annap</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm">The calorie tracker is spot
+                                            on. Great job!</p>
+                                    </div>
+                                    <div
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        <div class="flex items-center gap-3 mb-2">
+                                            <img src="https://placehold.co/40x40/8b5cf6/ffffff?text=H"
+                                                class="w-10 h-10 rounded-full" />
+                                            <div>
+                                                <div class="font-medium">Tom B.</div>
+                                                <div class="text-xs">@tomb</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm">Worth every penny. Best
+                                            health app ever.</p>
+                                    </div>
+                                    <!-- Duplikat -->
+                                    <div
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        <div class="flex items-center gap-3 mb-2">
+                                            <img src="https://placehold.co/40x40/60a5fa/ffffff?text=E"
+                                                class="w-10 h-10 rounded-full" />
+                                            <div>
+                                                <div class="font-medium">Emma W.</div>
+                                                <div class="text-xs">@emmaw</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm">So intuitive and beautiful
+                                            UI. Love it!</p>
+                                    </div>
+                                    <div
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        <div class="flex items-center gap-3 mb-2">
+                                            <img src="https://placehold.co/40x40/fbbf24/ffffff?text=F"
+                                                class="w-10 h-10 rounded-full" />
+                                            <div>
+                                                <div class="font-medium">David H.</div>
+                                                <div class="text-xs">@davidh</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm">Helped me lose 10kg in 3
+                                            months. Amazing!</p>
+                                    </div>
+                                    <div
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        <div class="flex items-center gap-3 mb-2">
+                                            <img src="https://placehold.co/40x40/ec4899/ffffff?text=G"
+                                                class="w-10 h-10 rounded-full" />
+                                            <div>
+                                                <div class="font-medium">Anna P.</div>
+                                                <div class="text-xs">@annap</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm">The calorie tracker is spot
+                                            on. Great job!</p>
+                                    </div>
+                                    <div
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        <div class="flex items-center gap-3 mb-2">
+                                            <img src="https://placehold.co/40x40/8b5cf6/ffffff?text=H"
+                                                class="w-10 h-10 rounded-full" />
+                                            <div>
+                                                <div class="font-medium">Tom B.</div>
+                                                <div class="text-xs">@tomb</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm">Worth every penny. Best
+                                            health app ever.</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div
-                                class="h-40 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+
+                            <!-- 3 -->
+                            <div class="marquee-col h-full overflow-y-hidden hidden md:block">
+                                <div class="marquee-track reverse px-2 py-4">
+                                    <div
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        <div class="flex items-center gap-3 mb-2">
+                                            <img src="https://placehold.co/40x40/10b981/ffffff?text=I"
+                                                class="w-10 h-10 rounded-full" />
+                                            <div>
+                                                <div class="font-medium">Chris M.</div>
+                                                <div class="text-xs">@chrism</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm">Game changer for my diet.
+                                            Thank you!</p>
+                                    </div>
+                                    <div
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        <div class="flex items-center gap-3 mb-2">
+                                            <img src="https://placehold.co/40x40/f43f5e/ffffff?text=J"
+                                                class="w-10 h-10 rounded-full" />
+                                            <div>
+                                                <div class="font-medium">Nina S.</div>
+                                                <div class="text-xs">@ninas</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm">So easy to use. I track
+                                            everything now.</p>
+                                    </div>
+                                    <div
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        <div class="flex items-center gap-3 mb-2">
+                                            <img src="https://placehold.co/40x40/10b981/ffffff?text=I"
+                                                class="w-10 h-10 rounded-full" />
+                                            <div>
+                                                <div class="font-medium">Chris M.</div>
+                                                <div class="text-xs">@chrism</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm">Game changer for my diet.
+                                            Thank you!</p>
+                                    </div>
+                                    <div
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        <div class="flex items-center gap-3 mb-2">
+                                            <img src="https://placehold.co/40x40/f43f5e/ffffff?text=J"
+                                                class="w-10 h-10 rounded-full" />
+                                            <div>
+                                                <div class="font-medium">Nina S.</div>
+                                                <div class="text-xs">@ninas</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm">So easy to use. I track
+                                            everything now.</p>
+                                    </div>
+                                    <!-- Duplikat -->
+                                    <div
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        <div class="flex items-center gap-3 mb-2">
+                                            <img src="https://placehold.co/40x40/34373b/ffffff?text=A"
+                                                class="w-10 h-10 rounded-full" />
+                                            <div>
+                                                <div class="font-medium">Sarah K.</div>
+                                                <div class="text-xs">@sarahk</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm">NutriTrack changed my life!
+                                            So easy to track meals.</p>
+                                    </div>
+                                    <div
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        <div class="flex items-center gap-3 mb-2">
+                                            <img src="https://placehold.co/40x40/f87171/ffffff?text=B"
+                                                class="w-10 h-10 rounded-full" />
+                                            <div>
+                                                <div class="font-medium">Mike T.</div>
+                                                <div class="text-xs">@miket</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm">Best nutrition app I've
+                                            ever used. Highly recommend!</p>
+                                    </div>
+                                    <div
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        <div class="flex items-center gap-3 mb-2">
+                                            <img src="https://placehold.co/40x40/34d399/ffffff?text=C"
+                                                class="w-10 h-10 rounded-full" />
+                                            <div>
+                                                <div class="font-medium">Lina R.</div>
+                                                <div class="text-xs">@linar</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm">Love the personalized meal
+                                            plans. So accurate!</p>
+                                    </div>
+                                    <div
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        <div class="flex items-center gap-3 mb-2">
+                                            <img src="https://placehold.co/40x40/a78bfa/ffffff?text=D"
+                                                class="w-10 h-10 rounded-full" />
+                                            <div>
+                                                <div class="font-medium">James L.</div>
+                                                <div class="text-xs">@jamesl</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm">Perfect for my fitness
+                                            journey. Thank you!</p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="space-y-4 sm:space-y-6">
-                            <div
-                                class="h-56 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
-                            </div>
-                            <div
-                                class="h-40 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
-                            </div>
-                            <div
-                                class="h-56 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+
+                            <!-- 4 -->
+                            <div class="marquee-col h-full overflow-y-hidden hidden md:block">
+                                <div class="marquee-track px-2 py-4">
+                                    <div
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        <div class="flex items-center gap-3 mb-2">
+                                            <img src="https://placehold.co/40x40/0ea5e9/ffffff?text=K"
+                                                class="w-10 h-10 rounded-full" />
+                                            <div>
+                                                <div class="font-medium">Ali R.</div>
+                                                <div class="text-xs">@alir</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm">Perfect for busy people
+                                            like me!</p>
+                                    </div>
+                                    <div
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        <div class="flex items-center gap-3 mb-2">
+                                            <img src="https://placehold.co/40x40/84cc16/ffffff?text=L"
+                                                class="w-10 h-10 rounded-full" />
+                                            <div>
+                                                <div class="font-medium">Maya T.</div>
+                                                <div class="text-xs">@mayat</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm">Love the clean design and
+                                            accuracy.</p>
+                                    </div>
+                                    <div
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        <div class="flex items-center gap-3 mb-2">
+                                            <img src="https://placehold.co/40x40/0ea5e9/ffffff?text=K"
+                                                class="w-10 h-10 rounded-full" />
+                                            <div>
+                                                <div class="font-medium">Ali R.</div>
+                                                <div class="text-xs">@alir</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm">Perfect for busy people
+                                            like me!</p>
+                                    </div>
+                                    <div
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        <div class="flex items-center gap-3 mb-2">
+                                            <img src="https://placehold.co/40x40/84cc16/ffffff?text=L"
+                                                class="w-10 h-10 rounded-full" />
+                                            <div>
+                                                <div class="font-medium">Maya T.</div>
+                                                <div class="text-xs">@mayat</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm">Love the clean design and
+                                            accuracy.</p>
+                                    </div>
+                                    <!-- Duplikat -->
+                                    <div
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        <div class="flex items-center gap-3 mb-2">
+                                            <img src="https://placehold.co/40x40/60a5fa/ffffff?text=E"
+                                                class="w-10 h-10 rounded-full" />
+                                            <div>
+                                                <div class="font-medium">Emma W.</div>
+                                                <div class="text-xs">@emmaw</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm">So intuitive and beautiful
+                                            UI. Love it!</p>
+                                    </div>
+                                    <div
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        <div class="flex items-center gap-3 mb-2">
+                                            <img src="https://placehold.co/40x40/fbbf24/ffffff?text=F"
+                                                class="w-10 h-10 rounded-full" />
+                                            <div>
+                                                <div class="font-medium">David H.</div>
+                                                <div class="text-xs">@davidh</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm">Helped me lose 10kg in 3
+                                            months. Amazing!</p>
+                                    </div>
+                                    <div
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        <div class="flex items-center gap-3 mb-2">
+                                            <img src="https://placehold.co/40x40/ec4899/ffffff?text=G"
+                                                class="w-10 h-10 rounded-full" />
+                                            <div>
+                                                <div class="font-medium">Anna P.</div>
+                                                <div class="text-xs">@annap</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm">The calorie tracker is spot
+                                            on. Great job!</p>
+                                    </div>
+                                    <div
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        <div class="flex items-center gap-3 mb-2">
+                                            <img src="https://placehold.co/40x40/8b5cf6/ffffff?text=H"
+                                                class="w-10 h-10 rounded-full" />
+                                            <div>
+                                                <div class="font-medium">Tom B.</div>
+                                                <div class="text-xs">@tomb</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm">Worth every penny. Best
+                                            health app ever.</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -218,7 +667,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-light-bg dark:bg-dark-bg my-24 sm:py-24">
+    <footer class="my-24 sm:py-24">
         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-5 gap-8 items-start">
                 <div class="space-y-4">

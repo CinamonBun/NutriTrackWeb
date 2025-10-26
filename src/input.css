@@ -10,7 +10,7 @@
     --dark-card: #2a2a2a;
     --light-border: #cccccc;
     --dark-border: #404040;
-    --light-hover: #ff0000;
+    --light-hover: #f9fafb;
     --dark-hover: #374151;
     --light-active: #e7e6e6;
     --dark-active: #34373b;
@@ -20,6 +20,7 @@
 
   body {
     background-color: var(--light-bg);
+    color: var(--light-text);
     transition: background-color 0.3s, color 0.3s;
   }
 
@@ -31,7 +32,6 @@
 
 @layer components {
 
-  /* Button styles untuk theme switcher */
   .btn-inactive {
     color: var(--light-inactive);
   }
@@ -76,5 +76,21 @@
 
   .dark .hover-card:hover {
     background-color: var(--dark-hover);
+  }
+
+  .fade-top {
+    background: linear-gradient(to bottom, var(--light-bg), transparent);
+  }
+
+  .dark .fade-top {
+    background: linear-gradient(to bottom, var(--dark-bg), transparent);
+  }
+
+  .fade-bottom {
+    background: linear-gradient(to top, var(--light-bg), transparent);
+  }
+
+  .dark .fade-bottom {
+    background: linear-gradient(to top, var(--dark-bg), transparent);
   }
 }
