@@ -1,3 +1,69 @@
+<?php
+session_start();
+if (isset($_SESSION['username'])) {
+    header("Location: dashboard.php");
+    exit;
+}
+
+include 'config.php';
+if (isset($_POST['signup'])) {
+    $fullname = trim($_POST['fullname']);
+    $email = trim($_POST['email']);
+    $username = trim($_POST['username']);
+    $password = trim($_POST['password']);
+    $confirm_password = trim($_POST['confirm_password']);
+    $phone = isset($_POST['phone']) ? trim($_POST['phone']) : '';
+    if ($password !== $confirm_password) {
+        echo "Password and confirm password do not match";
+        exit;
+    }
+    if (strlen($password) < 8) {
+        echo "Password must be at least 8 characters long";
+        exit;
+    }
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo "Invalid email address";
+        exit;
+    }
+    if (strlen($username) < 4) {
+        echo "Username must be at least 4 characters long";
+        exit;
+    }
+    if (strlen($fullname) < 3) {
+        echo "Full name must be at least 3 characters long";
+        exit;
+    }
+    // Check if username already exists
+    if ($check = mysqli_prepare($conn, "SELECT 1 FROM user WHERE username = ? LIMIT 1")) {
+        mysqli_stmt_bind_param($check, "s", $username);
+        mysqli_stmt_execute($check);
+        mysqli_stmt_store_result($check);
+        if (mysqli_stmt_num_rows($check) > 0) {
+            $signup_error = "Username already taken";
+        }
+        mysqli_stmt_close($check);
+    }
+
+    if (empty($signup_error)) {
+        // NOTE: Replace with password_hash for security
+        if ($stmt = mysqli_prepare($conn, "INSERT INTO user (fullname, email, username, password, phone) VALUES (?, ?, ?, ?, ?)")) {
+            mysqli_stmt_bind_param($stmt, "sssss", $fullname, $email, $username, $password, $phone);
+            if (mysqli_stmt_execute($stmt)) {
+                $_SESSION['username'] = $username;
+                header("Location: dashboard.php");
+                exit;
+            } else {
+                $signup_error = "Failed to create account";
+            }
+            mysqli_stmt_close($stmt);
+        } else {
+            $signup_error = "Failed to prepare statement";
+        }
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,7 +118,7 @@
 
         <!-- Sign Up Form -->
         <div class="bg-white rounded-xl shadow-xl border border-gray-200 p-8">
-            <form class="space-y-6" action="#" method="POST">
+            <form class="space-y-6" action="signup.php" method="POST">
 
                 <!-- Full Name -->
                 <div>
@@ -140,7 +206,7 @@
                                     d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                         </div>
-                        <input id="confirm-password" name="confirm-password" type="password" required
+                        <input id="confirm-password" name="confirm_password" type="password" required
                             class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
                             placeholder="Confirm your password">
                     </div>
@@ -196,7 +262,7 @@
 
                 <!-- Submit Button -->
                 <div>
-                    <button type="submit"
+                    <button type="submit" name="signup"
                         class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-[#07bab4] hover:bg-[#08D2CB] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200 transform hover:scale-105">
                         <span class="absolute left-0 inset-y-0 flex items-center pl-3">
                             <svg class="h-5 w-5 text-white group-hover:text-gray-200" fill="currentColor"
@@ -210,11 +276,17 @@
                     </button>
                 </div>
 
+                <?php if (!empty($signup_error)) { ?>
+                <div class="text-center text-red-600 text-sm">
+                    <?php echo htmlspecialchars($signup_error); ?>
+                </div>
+                <?php } ?>
+
                 <!-- Login Link -->
                 <div class="text-center">
                     <span class="text-sm text-gray-600">
                         Already have an account?
-                        <a href="signin.html"
+                        <a href="signin.php"
                             class="font-medium text-gray-600 hover:text-gray-950 transition duration-200">
                             Sign in here
                         </a>
@@ -226,7 +298,7 @@
         <!-- Footer -->
         <div class="text-center">
             <p class="text-sm text-gray-600">
-                © 2024 Your App. All rights reserved.
+                © 2025 NutriTrack. All rights reserved.
             </p>
         </div>
     </div>

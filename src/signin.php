@@ -1,3 +1,37 @@
+<?php
+session_start();
+
+include 'config.php';
+
+if (isset($_POST['login'])) {
+    $username = trim($_POST['username']);
+    $password = trim($_POST['password']);
+
+    if ($stmt = mysqli_prepare($conn, "SELECT username, password FROM user WHERE username = ? LIMIT 1")) {
+        mysqli_stmt_bind_param($stmt, "s", $username);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_store_result($stmt);
+
+        if (mysqli_stmt_num_rows($stmt) === 1) {
+            mysqli_stmt_bind_result($stmt, $dbUsername, $dbPassword);
+            mysqli_stmt_fetch($stmt);
+
+            // NOTE: Replace with password_verify if you store hashed passwords
+            if ($password === $dbPassword) {
+                $_SESSION['username'] = $dbUsername;
+                header("Location: dashboard.php");
+                exit;
+            }
+        }
+
+        mysqli_stmt_close($stmt);
+    }
+
+    $error = "Username or password is incorrect";
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,7 +87,7 @@
 
         <!-- Login Form -->
         <div class="bg-white rounded-xl shadow-xl border border-gray-200 p-8">
-            <form class="space-y-4" action="#" method="POST">
+            <form class="space-y-4" action="signin.php" method="POST">
                 <div>
                     <label for="username" class="block text-sm font-medium text-gray-700 mb-2">
                         Username
@@ -106,7 +140,7 @@
                 </div>
 
                 <div>
-                    <button type="submit"
+                    <button type="submit" name="login"
                         class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-[#07bab4] hover:bg-[#08D2CB] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200 transform hover:scale-105">
                         <span class="absolute left-0 inset-y-0 flex items-center pl-3">
                             <svg class="h-5 w-5 text-white group-hover:text-gray-200" fill="currentColor"
@@ -120,8 +154,14 @@
                     </button>
                 </div>
 
+                <?php if (!empty($error)) { ?>
+                <div class="text-center text-red-600 text-sm">
+                    <?php echo htmlspecialchars($error); ?>
+                </div>
+                <?php } ?>
+
                 <div>
-                    <a href="index.html"
+                    <a href="index.php"
                         class="group relative w-full flex justify-center py-3 px-4 border border-gray-300 text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200">
                         Kembali ke Beranda
                     </a>
@@ -130,7 +170,7 @@
                 <div class="text-center">
                     <span class="text-sm text-gray-600">
                         Don't have an account?
-                        <a href="signup.html"
+                        <a href="signup.php"
                             class="font-medium text-gray-600 hover:text-gray-950 transition duration-200">
                             Sign up here
                         </a>

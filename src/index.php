@@ -106,11 +106,11 @@
                     </li>
                 </ul>
                 <div class="hidden md:flex items-center space-x-3">
-                    <a href="signin.html"
+                    <a href="signin.php"
                         class="dark:text-dark-text whitespace-nowrap transition duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none w-full">
                         Sign In
                     </a>
-                    <a href="signup.html"
+                    <a href="signup.php"
                         class="inline-flex justify-center gap-2 text-white dark:hover:bg-[#08D2CB] dark:dark:bg-[#07bab4] px-4 py-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 w-full">
                         Sign Up
                     </a>
