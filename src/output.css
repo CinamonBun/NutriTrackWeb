@@ -228,6 +228,9 @@
   .inset-y-0 {
     inset-block: calc(var(--spacing) * 0);
   }
+  .inset-y-1 {
+    inset-block: calc(var(--spacing) * 1);
+  }
   .inset-y-1\/4 {
     inset-block: calc(1/4 * 100%);
   }
@@ -333,6 +336,9 @@
   .inline-flex {
     display: inline-flex;
   }
+  .table {
+    display: table;
+  }
   .size-6 {
     width: calc(var(--spacing) * 6);
     height: calc(var(--spacing) * 6);
@@ -409,11 +415,17 @@
   .max-w-xl {
     max-width: var(--container-xl);
   }
+  .border-collapse {
+    border-collapse: collapse;
+  }
   .origin-top-right {
     transform-origin: top right;
   }
   .transform {
     transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
+  }
+  .resize {
+    resize: both;
   }
   .grid-cols-1 {
     grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -537,6 +549,12 @@
   .bg-\[\#0F9E99\] {
     background-color: #0F9E99;
   }
+  .bg-\[\#1CF6EF\] {
+    background-color: #1CF6EF;
+  }
+  .bg-\[\#07bab4\] {
+    background-color: #07bab4;
+  }
   .bg-pink-300 {
     background-color: var(--color-pink-300);
   }
@@ -649,6 +667,9 @@
   .whitespace-nowrap {
     white-space: nowrap;
   }
+  .text-\[\#07bab4\] {
+    color: #07bab4;
+  }
   .text-blue-600 {
     color: var(--color-blue-600);
   }
@@ -669,6 +690,9 @@
   }
   .text-white {
     color: var(--color-white);
+  }
+  .underline {
+    text-decoration-line: underline;
   }
   .opacity-40 {
     opacity: 40%;
@@ -705,6 +729,10 @@
   .ring-black {
     --tw-ring-color: var(--color-black);
   }
+  .outline {
+    outline-style: var(--tw-outline-style);
+    outline-width: 1px;
+  }
   .blur-3xl {
     --tw-blur: blur(var(--blur-3xl));
     filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
@@ -714,6 +742,10 @@
   }
   .backdrop-blur-sm {
     --tw-backdrop-blur: blur(var(--blur-sm));
+    -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
+    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
+  }
+  .backdrop-filter {
     -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
     backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
   }
@@ -768,6 +800,20 @@
       }
     }
   }
+  .hover\:bg-\[\#1CF6EF\] {
+    &:hover {
+      @media (hover: hover) {
+        background-color: #1CF6EF;
+      }
+    }
+  }
+  .hover\:bg-\[\#08D2CB\] {
+    &:hover {
+      @media (hover: hover) {
+        background-color: #08D2CB;
+      }
+    }
+  }
   .hover\:bg-\[\#13C3BD\] {
     &:hover {
       @media (hover: hover) {
@@ -779,6 +825,13 @@
     &:hover {
       @media (hover: hover) {
         background-color: var(--color-gray-50);
+      }
+    }
+  }
+  .hover\:text-\[\#07bab4\] {
+    &:hover {
+      @media (hover: hover) {
+        color: #07bab4;
       }
     }
   }
@@ -810,6 +863,11 @@
   .focus\:ring-\[\#000000\] {
     &:focus {
       --tw-ring-color: #000000;
+    }
+  }
+  .focus\:ring-\[\#07bab4\] {
+    &:focus {
+      --tw-ring-color: #07bab4;
     }
   }
   .focus\:ring-blue-500 {
@@ -996,6 +1054,15 @@
       &:hover {
         @media (hover: hover) {
           background-color: #1CF6EF;
+        }
+      }
+    }
+  }
+  .dark\:hover\:bg-\[\#08D2CB\] {
+    @media (prefers-color-scheme: dark) {
+      &:hover {
+        @media (hover: hover) {
+          background-color: #08D2CB;
         }
       }
     }
@@ -1203,6 +1270,11 @@
   inherits: false;
   initial-value: 0 0 #0000;
 }
+@property --tw-outline-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
 @property --tw-blur {
   syntax: "*";
   inherits: false;
@@ -1342,6 +1414,7 @@
       --tw-ring-offset-width: 0px;
       --tw-ring-offset-color: #fff;
       --tw-ring-offset-shadow: 0 0 #0000;
+      --tw-outline-style: solid;
       --tw-blur: initial;
       --tw-brightness: initial;
       --tw-contrast: initial;
