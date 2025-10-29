@@ -65,7 +65,7 @@ if (isset($_POST['login'])) {
         rel="stylesheet">
 </head>
 
-<body class="min-h-screen custom-bg flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+<body class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-8">
 
         <!-- Header -->
@@ -77,19 +77,19 @@ if (isset($_POST['login'])) {
                     </path>
                 </svg>
             </div>
-            <h2 class="mt-6 text-3xl font-extrabold text-gray-800">
+            <h2 class="mt-6 text-3xl font-extrabold">
                 Sign in to your account
             </h2>
-            <p class="mt-2 text-sm text-gray-600">
+            <p class="mt-2 text-sm opacity-60">
                 Welcome back! Please enter your details.
             </p>
         </div>
 
         <!-- Login Form -->
-        <div class="bg-white rounded-xl shadow-xl border border-gray-200 p-8">
+        <div class="card rounded-xl shadow-xl p-8">
             <form class="space-y-4" action="signin.php" method="POST">
                 <div>
-                    <label for="username" class="block text-sm font-medium text-gray-700 mb-2">
+                    <label for="username" class="block text-sm font-medium mb-2">
                         Username
                     </label>
                     <div class="relative">
@@ -100,13 +100,13 @@ if (isset($_POST['login'])) {
                             </svg>
                         </div>
                         <input id="username" name="username" type="text" required
-                            class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
                             placeholder="Enter your username">
                     </div>
                 </div>
 
                 <div>
-                    <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+                    <label for="password" class="block text-sm font-medium mb-2">
                         Password
                     </label>
                     <div class="relative">
@@ -118,7 +118,7 @@ if (isset($_POST['login'])) {
                             </svg>
                         </div>
                         <input id="password" name="password" type="password" required
-                            class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
                             placeholder="Enter your password">
                     </div>
                 </div>
@@ -127,13 +127,13 @@ if (isset($_POST['login'])) {
                     <div class="flex items-center">
                         <input id="remember-me" name="remember-me" type="checkbox"
                             class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                        <label for="remember-me" class="ml-2 block text-sm text-gray-700">
+                        <label for="remember-me" class="ml-2 block text-sm">
                             Remember me
                         </label>
                     </div>
 
                     <div class="text-sm">
-                        <a href="#" class="font-medium text-gray-600 hover:text-gray-950 transition duration-200">
+                        <a href="#" class="font-medium transition duration-200">
                             Forgot your password?
                         </a>
                     </div>
@@ -155,9 +155,9 @@ if (isset($_POST['login'])) {
                 </div>
 
                 <?php if (!empty($error)) { ?>
-                <div class="text-center text-red-600 text-sm">
-                    <?php echo htmlspecialchars($error); ?>
-                </div>
+                    <div class="text-center text-red-600 text-sm">
+                        <?php echo htmlspecialchars($error); ?>
+                    </div>
                 <?php } ?>
 
                 <div>
@@ -168,10 +168,9 @@ if (isset($_POST['login'])) {
                 </div>
 
                 <div class="text-center">
-                    <span class="text-sm text-gray-600">
+                    <span class="text-sm">
                         Don't have an account?
-                        <a href="signup.php"
-                            class="font-medium text-gray-600 hover:text-gray-950 transition duration-200">
+                        <a href="signup.php" class="font-medium transition duration-200">
                             Sign up here
                         </a>
                     </span>
@@ -181,33 +180,42 @@ if (isset($_POST['login'])) {
 
         <!-- Footer -->
         <div class="text-center">
-            <p class="text-sm text-gray-600">
+            <p class="text-sm text-gray-400">
                 © 2025 NutriTrack. All rights reserved.
             </p>
         </div>
     </div>
 
     <div class="flex space-x-2">
-	        <div id="theme-switcher" class="fixed bottom-10 left-8 z-50 flex flex-col p-1 rounded-full card shadow-sm">
-				<button id="system-btn" class="flex items-center justify-center p-2 rounded-full transition-colors duration-200">
-					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-						<path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0V12a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 12V5.25" />
-					</svg>
-				</button>
+        <div id="theme-switcher" class="fixed bottom-6 left-6 z-50 flex flex-col p-1 rounded-full card shadow-sm">
+            <button id="system-btn"
+                class="flex items-center justify-center p-2 rounded-full transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0V12a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 12V5.25" />
+                </svg>
+            </button>
 
-				<button id="light-btn" class="flex items-center justify-center p-2 rounded-full transition-colors duration-200">
-					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-						<path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
-					</svg>
-				</button>
+            <button id="light-btn"
+                class="flex items-center justify-center p-2 rounded-full transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+                </svg>
+            </button>
 
-				<button id="dark-btn" class="flex items-center justify-center p-2 rounded-full transition-colors duration-200">
-					<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-					</svg>
-				</button>
-			</div>
-		</div>
+            <button id="dark-btn"
+                class="flex items-center justify-center p-2 rounded-full transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+            </button>
+        </div>
+    </div>
     </div>
 
     <script>

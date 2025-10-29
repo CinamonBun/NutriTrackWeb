@@ -97,7 +97,7 @@ if (isset($_POST['signup'])) {
         rel="stylesheet">
 </head>
 
-<body class="min-h-screen custom-bg flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+<body class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-8">
 
         <!-- Header -->
@@ -108,21 +108,21 @@ if (isset($_POST['signup'])) {
                         d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
                 </svg>
             </div>
-            <h2 class="mt-6 text-3xl font-extrabold text-gray-800">
+            <h2 class="mt-6 text-3xl font-extrabold">
                 Create your account
             </h2>
-            <p class="mt-2 text-sm text-gray-600">
+            <p class="mt-2 text-sm opacity-60">
                 Join us today! Fill in your details to get started.
             </p>
         </div>
 
         <!-- Sign Up Form -->
-        <div class="bg-white rounded-xl shadow-xl border border-gray-200 p-8">
+        <div class="card rounded-xl shadow-xl p-8">
             <form class="space-y-6" action="signup.php" method="POST">
 
                 <!-- Full Name -->
                 <div>
-                    <label for="fullname" class="block text-sm font-medium text-gray-700 mb-2">
+                    <label for="fullname" class="block text-sm font-medium mb-2">
                         Full Name
                     </label>
                     <div class="relative">
@@ -133,14 +133,14 @@ if (isset($_POST['signup'])) {
                             </svg>
                         </div>
                         <input id="fullname" name="fullname" type="text" required
-                            class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
                             placeholder="Enter your full name">
                     </div>
                 </div>
 
                 <!-- Email -->
                 <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                    <label for="email" class="block text-sm font-medium mb-2">
                         Email Address
                     </label>
                     <div class="relative">
@@ -152,14 +152,14 @@ if (isset($_POST['signup'])) {
                             </svg>
                         </div>
                         <input id="email" name="email" type="email" required
-                            class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
                             placeholder="Enter your email address">
                     </div>
                 </div>
 
                 <!-- Username -->
                 <div>
-                    <label for="username" class="block text-sm font-medium text-gray-700 mb-2">
+                    <label for="username" class="block text-sm font-medium mb-2">
                         Username
                     </label>
                     <div class="relative">
@@ -170,14 +170,14 @@ if (isset($_POST['signup'])) {
                             </svg>
                         </div>
                         <input id="username" name="username" type="text" required
-                            class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
                             placeholder="Choose a username">
                     </div>
                 </div>
 
                 <!-- Password -->
                 <div>
-                    <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+                    <label for="password" class="block text-sm font-medium mb-2">
                         Password
                     </label>
                     <div class="relative">
@@ -189,14 +189,14 @@ if (isset($_POST['signup'])) {
                             </svg>
                         </div>
                         <input id="password" name="password" type="password" required
-                            class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
                             placeholder="Create a password">
                     </div>
                 </div>
 
                 <!-- Confirm Password -->
                 <div>
-                    <label for="confirm-password" class="block text-sm font-medium text-gray-700 mb-2">
+                    <label for="confirm-password" class="block text-sm font-medium mb-2">
                         Confirm Password
                     </label>
                     <div class="relative">
@@ -207,14 +207,14 @@ if (isset($_POST['signup'])) {
                             </svg>
                         </div>
                         <input id="confirm-password" name="confirm_password" type="password" required
-                            class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
                             placeholder="Confirm your password">
                     </div>
                 </div>
 
                 <!-- Phone Number -->
                 <div>
-                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
+                    <label for="phone" class="block text-sm font-medium mb-2">
                         Phone Number (Optional)
                     </label>
                     <div class="relative">
@@ -226,7 +226,7 @@ if (isset($_POST['signup'])) {
                             </svg>
                         </div>
                         <input id="phone" name="phone" type="tel"
-                            class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
                             placeholder="Enter your phone number">
                     </div>
                 </div>
@@ -238,13 +238,13 @@ if (isset($_POST['signup'])) {
                             class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
                     </div>
                     <div class="ml-3 text-sm">
-                        <label for="terms" class="text-gray-700">
+                        <label for="terms" class="">
                             I agree to the
-                            <a href="#" class="font-medium text-gray-600 hover:text-gray-950 transition duration-200">
+                            <a href="#" class="font-medium transition duration-200">
                                 Terms and Conditions
                             </a>
                             and
-                            <a href="#" class="font-medium text-gray-600 hover:text-gray-950 transition duration-200">
+                            <a href="#" class="font-medium transition duration-200">
                                 Privacy Policy
                             </a>
                         </label>
@@ -255,7 +255,7 @@ if (isset($_POST['signup'])) {
                 <div class="flex items-center">
                     <input id="newsletter" name="newsletter" type="checkbox"
                         class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
-                    <label for="newsletter" class="ml-2 block text-sm text-gray-700">
+                    <label for="newsletter" class="ml-2 block text-sm">
                         Subscribe to our newsletter for updates and offers
                     </label>
                 </div>
@@ -277,17 +277,16 @@ if (isset($_POST['signup'])) {
                 </div>
 
                 <?php if (!empty($signup_error)) { ?>
-                <div class="text-center text-red-600 text-sm">
-                    <?php echo htmlspecialchars($signup_error); ?>
-                </div>
+                    <div class="text-center text-red-600 text-sm">
+                        <?php echo htmlspecialchars($signup_error); ?>
+                    </div>
                 <?php } ?>
 
                 <!-- Login Link -->
                 <div class="text-center">
-                    <span class="text-sm text-gray-600">
+                    <span class="text-sm">
                         Already have an account?
-                        <a href="signin.php"
-                            class="font-medium text-gray-600 hover:text-gray-950 transition duration-200">
+                        <a href="signin.php" class="font-medium transition duration-200">
                             Sign in here
                         </a>
                     </span>
@@ -297,14 +296,45 @@ if (isset($_POST['signup'])) {
 
         <!-- Footer -->
         <div class="text-center">
-            <p class="text-sm text-gray-600">
+            <p class="text-sm text-gray-400">
                 © 2025 NutriTrack. All rights reserved.
             </p>
         </div>
     </div>
 
-    <!-- Password Strength Indicator Script -->
+    <div class="flex space-x-2">
+        <div id="theme-switcher" class="fixed bottom-6 left-6 z-50 flex flex-col p-1 rounded-full card shadow-sm">
+            <button id="system-btn"
+                class="flex items-center justify-center p-2 rounded-full transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0V12a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 12V5.25" />
+                </svg>
+            </button>
+
+            <button id="light-btn"
+                class="flex items-center justify-center p-2 rounded-full transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+                </svg>
+            </button>
+
+            <button id="dark-btn"
+                class="flex items-center justify-center p-2 rounded-full transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
     <script>
+        // Password confirmation validation
         document.addEventListener('DOMContentLoaded', function () {
             const password = document.getElementById('password');
             const confirmPassword = document.getElementById('confirm-password');
@@ -326,6 +356,62 @@ if (isset($_POST['signup'])) {
                 }
             });
         });
+
+        // === Theme Switcher Logic ===
+        const body = document.body;
+        const systemBtn = document.getElementById('system-btn');
+        const lightBtn = document.getElementById('light-btn');
+        const darkBtn = document.getElementById('dark-btn');
+        const buttons = [systemBtn, lightBtn, darkBtn];
+
+        const getActiveTheme = () => {
+            if (localStorage.theme === 'dark') return 'dark';
+            if (localStorage.theme === 'light') return 'light';
+            return 'system';
+        };
+
+        const applyTheme = (theme) => {
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            } else if (theme === 'light') {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+                localStorage.removeItem('theme');
+            }
+            updateButtonStyles(theme);
+        };
+
+        const updateButtonStyles = (activeTheme) => {
+            buttons.forEach(btn => {
+                btn.classList.remove('btn-active', 'btn-inactive');
+                if (btn.id.includes(activeTheme)) {
+                    btn.classList.add('btn-active');
+                } else {
+                    btn.classList.add('btn-inactive');
+                }
+            });
+        };
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+            if (!('theme' in localStorage)) {
+                applyTheme('system');
+            }
+        });
+
+        systemBtn.addEventListener('click', () => applyTheme('system'));
+        lightBtn.addEventListener('click', () => applyTheme('light'));
+        darkBtn.addEventListener('click', () => applyTheme('dark'));
+
+        // Initialize theme on page load
+        const initialTheme = getActiveTheme();
+        applyTheme(initialTheme);
     </script>
 </body>
 
