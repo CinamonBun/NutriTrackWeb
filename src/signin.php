@@ -50,10 +50,6 @@ if (isset($_POST['login'])) {
         .custom-bg {
             background-color: #f5f5f5;
         }
-
-        /* .accent-gradient {
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-        } */
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -94,7 +90,7 @@ if (isset($_POST['login'])) {
                     </label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="h-5 w-5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                             </svg>
@@ -111,7 +107,7 @@ if (isset($_POST['login'])) {
                     </label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="h-5 w-5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
                                 </path>
@@ -133,7 +129,7 @@ if (isset($_POST['login'])) {
                     </div>
 
                     <div class="text-sm">
-                        <a href="#" class="font-medium transition duration-200">
+                        <a href="#" class="font-medium">
                             Forgot your password?
                         </a>
                     </div>
@@ -162,7 +158,7 @@ if (isset($_POST['login'])) {
 
                 <div>
                     <a href="index.php"
-                        class="group relative w-full flex justify-center py-3 px-4 border border-gray-300 text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200">
+                        class="group relative w-full flex justify-center py-3 px-4 card text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200">
                         Kembali ke Beranda
                     </a>
                 </div>
@@ -170,7 +166,7 @@ if (isset($_POST['login'])) {
                 <div class="text-center">
                     <span class="text-sm">
                         Don't have an account?
-                        <a href="signup.php" class="font-medium transition duration-200">
+                        <a href="signup.php" class="font-medium">
                             Sign up here
                         </a>
                     </span>
