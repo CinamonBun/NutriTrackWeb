@@ -186,6 +186,87 @@ if (isset($_POST['login'])) {
             </p>
         </div>
     </div>
+
+    <div class="flex space-x-2">
+	        <div id="theme-switcher" class="fixed bottom-10 left-8 z-50 flex flex-col p-1 rounded-full card shadow-sm">
+				<button id="system-btn" class="flex items-center justify-center p-2 rounded-full transition-colors duration-200">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0V12a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 12V5.25" />
+					</svg>
+				</button>
+
+				<button id="light-btn" class="flex items-center justify-center p-2 rounded-full transition-colors duration-200">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+					</svg>
+				</button>
+
+				<button id="dark-btn" class="flex items-center justify-center p-2 rounded-full transition-colors duration-200">
+					<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+					</svg>
+				</button>
+			</div>
+		</div>
+    </div>
+
+    <script>
+        // === Theme Switcher Logic ===
+        const body = document.body;
+        const systemBtn = document.getElementById('system-btn');
+        const lightBtn = document.getElementById('light-btn');
+        const darkBtn = document.getElementById('dark-btn');
+        const buttons = [systemBtn, lightBtn, darkBtn];
+
+        const getActiveTheme = () => {
+            if (localStorage.theme === 'dark') return 'dark';
+            if (localStorage.theme === 'light') return 'light';
+            return 'system';
+        };
+
+        const applyTheme = (theme) => {
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            } else if (theme === 'light') {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+                localStorage.removeItem('theme');
+            }
+            updateButtonStyles(theme);
+        };
+
+        const updateButtonStyles = (activeTheme) => {
+            buttons.forEach(btn => {
+                btn.classList.remove('btn-active', 'btn-inactive');
+                if (btn.id.includes(activeTheme)) {
+                    btn.classList.add('btn-active');
+                } else {
+                    btn.classList.add('btn-inactive');
+                }
+            });
+        };
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+            if (!('theme' in localStorage)) {
+                applyTheme('system');
+            }
+        });
+
+        systemBtn.addEventListener('click', () => applyTheme('system'));
+        lightBtn.addEventListener('click', () => applyTheme('light'));
+        darkBtn.addEventListener('click', () => applyTheme('dark'));
+
+        // Initialize theme on page load
+        const initialTheme = getActiveTheme();
+        applyTheme(initialTheme);
+    </script>
 </body>
 
 </html>
