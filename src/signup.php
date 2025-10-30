@@ -13,51 +13,51 @@ if (isset($_POST['signup'])) {
     $password = trim($_POST['password']);
     $confirm_password = trim($_POST['confirm_password']);
     $phone = isset($_POST['phone']) ? trim($_POST['phone']) : '';
-    if ($password !== $confirm_password) {
-        echo "Password and confirm password do not match";
-        exit;
-    }
-    if (strlen($password) < 6) {
-        echo "Password must be at least 6 characters long";
-        exit;
-    }
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        echo "Invalid email address";
-        exit;
-    }
-    if (strlen($username) < 4) {
-        echo "Username must be at least 4 characters long";
-        exit;
-    }
-    if (strlen($fullname) < 3) {
-        echo "Full name must be at least 3 characters long";
-        exit;
-    }
-    // Check if username already exists
-    if ($check = mysqli_prepare($conn, "SELECT 1 FROM user WHERE username = ? LIMIT 1")) {
-        mysqli_stmt_bind_param($check, "s", $username);
-        mysqli_stmt_execute($check);
-        mysqli_stmt_store_result($check);
-        if (mysqli_stmt_num_rows($check) > 0) {
-            $signup_error = "Username already taken";
-        }
-        mysqli_stmt_close($check);
-    }
 
-    if (empty($signup_error)) {
-        // NOTE: Replace with password_hash for security
-        if ($stmt = mysqli_prepare($conn, "INSERT INTO user (fullname, email, username, password, phone) VALUES (?, ?, ?, ?, ?)")) {
-            mysqli_stmt_bind_param($stmt, "sssss", $fullname, $email, $username, $password, $phone);
-            if (mysqli_stmt_execute($stmt)) {
-                $_SESSION['username'] = $username;
-                header("Location: signin.php");
-                exit;
-            } else {
-                $signup_error = "Failed to create account";
-            }
-            mysqli_stmt_close($stmt);
+    // Validation
+    if ($password !== $confirm_password) {
+        $signup_error = "Password and confirm password do not match";
+    } elseif (strlen($password) < 6) {
+        $signup_error = "Password must be at least 6 characters long";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $signup_error = "Invalid email address";
+    } elseif (strlen($username) < 4) {
+        $signup_error = "Username must be at least 4 characters long";
+    } elseif (strlen($fullname) < 3) {
+        $signup_error = "Full name must be at least 3 characters long";
+    } else {
+        // Check if username already exists
+        $existingUser = getUserByUsername($username);
+
+        if ($existingUser !== null) {
+            $signup_error = "Username already taken";
         } else {
-            $signup_error = "Failed to prepare statement";
+            // Check if email already exists
+            $response = supabaseRequest('GET', '/rest/v1/user?email=eq.' . urlencode($email) . '&select=email');
+
+            if ($response['status'] == 200 && !empty($response['data'])) {
+                $signup_error = "Email already registered";
+            } else {
+                // Create new user
+                // NOTE: In production, use password_hash($password, PASSWORD_DEFAULT) instead of plain text
+                $userData = [
+                    'fullname' => $fullname,
+                    'email' => $email,
+                    'username' => $username,
+                    'password' => $password, 
+                    'phone' => $phone
+                ];
+
+                $result = createUser($userData);
+
+                if ($result['status'] == 201) {
+                    $_SESSION['signup_success'] = "Account created successfully! Please sign in.";
+                    header("Location: signin.php");
+                    exit;
+                } else {
+                    $signup_error = "Failed to create account. Please try again.";
+                }
+            }
         }
     }
 }
@@ -230,8 +230,7 @@ if (isset($_POST['signup'])) {
                 <!-- Terms and Conditions -->
                 <div class="flex items-start">
                     <div class="flex items-center h-5">
-                        <input id="terms" name="terms" type="checkbox" required
-                            class="h-4 w-4 rounded">
+                        <input id="terms" name="terms" type="checkbox" required class="h-4 w-4 rounded">
                     </div>
                     <div class="ml-3 text-sm">
                         <label for="terms" class="">
@@ -249,8 +248,7 @@ if (isset($_POST['signup'])) {
 
                 <!-- Newsletter Subscription -->
                 <div class="flex items-center">
-                    <input id="newsletter" name="newsletter" type="checkbox"
-                        class="h-4 w-4 rounded">
+                    <input id="newsletter" name="newsletter" type="checkbox" class="h-4 w-4 rounded">
                     <label for="newsletter" class="ml-2 block text-sm">
                         Subscribe to our newsletter for updates and offers
                     </label>
@@ -331,12 +329,12 @@ if (isset($_POST['signup'])) {
 
     <script>
         // Password confirmation validation
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const password = document.getElementById('password');
             const confirmPassword = document.getElementById('confirm-password');
 
             // Password confirmation validation
-            confirmPassword.addEventListener('input', function() {
+            confirmPassword.addEventListener('input', function () {
                 if (password.value !== confirmPassword.value) {
                     confirmPassword.setCustomValidity('Passwords do not match');
                 } else {
@@ -344,7 +342,7 @@ if (isset($_POST['signup'])) {
                 }
             });
 
-            password.addEventListener('input', function() {
+            password.addEventListener('input', function () {
                 if (confirmPassword.value && password.value !== confirmPassword.value) {
                     confirmPassword.setCustomValidity('Passwords do not match');
                 } else {

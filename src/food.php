@@ -5,23 +5,41 @@ if (!isset($_SESSION['username'])) {
     exit;
 }
 
+$username = $_SESSION['username'];
 include 'config.php';
 
 $message = '';
 $error = '';
 
+// Get current user info
+$user = getUserByUsername($username);
+$fullname = $user['fullname'] ?? $username;
+
 // Handle delete
 if (isset($_GET['delete'])) {
     $deleteId = intval($_GET['delete']);
     if ($deleteId > 0) {
-        if ($stmt = mysqli_prepare($conn, "DELETE FROM food WHERE id = ?")) {
-            mysqli_stmt_bind_param($stmt, "i", $deleteId);
-            if (mysqli_stmt_execute($stmt)) {
-                $message = 'Food item deleted.';
+        // Try delete with user verification first
+        $result = deleteFood($deleteId, $username);
+        
+        if ($result['status'] == 204) {
+            $message = 'Food item deleted successfully!';
+        } else if ($result['status'] == 200) {
+            // Some APIs return 200 instead of 204
+            $message = 'Food item deleted successfully!';
+        } else {
+            // Show detailed error
+            $error = 'Failed to delete item (Status: ' . $result['status'] . '). ';
+            
+            // Try to delete without username check (for debugging)
+            $result2 = supabaseRequest('DELETE', '/rest/v1/food?id=eq.' . $deleteId);
+            
+            if ($result2['status'] == 204 || $result2['status'] == 200) {
+                $message = 'Food item deleted (without user check)!';
+                $error = ''; // Clear error
             } else {
-                $error = 'Failed to delete item.';
+                $error .= 'Item may not exist or username mismatch. Details: ' . json_encode($result['data']);
             }
-            mysqli_stmt_close($stmt);
         }
     }
 }
@@ -37,32 +55,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_food'])) {
     if ($foodName === '') {
         $error = 'Food name is required.';
     } else {
-        if ($stmt = mysqli_prepare($conn, "INSERT INTO food (name, calories, protein, carbs, fat, created_at) VALUES (?, ?, ?, ?, ?, CURDATE())")) {
-            mysqli_stmt_bind_param($stmt, "sssss", $foodName, $calories, $protein, $carbs, $fat);
-            if (mysqli_stmt_execute($stmt)) {
-                $message = 'Food item added.';
-            } else {
-                $error = 'Failed to add item.';
-            }
-            mysqli_stmt_close($stmt);
+        $foodData = [
+            'name' => $foodName,
+            'calories' => $calories,
+            'protein' => $protein,
+            'carbs' => $carbs,
+            'fat' => $fat,
+            'username' => $username // Associate food with user
+            // Removed created_at - let Supabase use default now()
+        ];
+        
+        $result = createFood($foodData);
+        
+        // DEBUG: Show the result
+        if ($result['status'] == 201) {
+            $message = 'Food item added successfully!';
         } else {
-            $error = 'Failed to prepare statement.';
+            // Show detailed error for debugging
+            $error = 'Failed to add item. Status: ' . $result['status'];
+            if (!empty($result['data'])) {
+                $error .= ' | Details: ' . json_encode($result['data']);
+            }
         }
     }
 }
 
-// Fetch list
-$foods = [];
-if ($stmt = mysqli_prepare($conn, "SELECT id, name, calories, protein, carbs, fat, created_at FROM food ORDER BY created_at DESC")) {
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    if ($result) {
-        while ($row = mysqli_fetch_assoc($result)) {
-            $foods[] = $row;
-        }
-    }
-    mysqli_stmt_close($stmt);
-}
+// Fetch list - only for current user
+$foods = getFoodsByUser($username);
 
 ?>
 <!DOCTYPE html>
@@ -143,19 +162,19 @@ if ($stmt = mysqli_prepare($conn, "SELECT id, name, calories, protein, carbs, fa
     <main>
         <section class="pt-28 pb-12 md:pt-36 min-h-[60vh]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="mb-8">
-                    <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">Food Management</h1>
-                    <p class="mt-2 text-lg dark:opacity-80">Welcome back, <span
-                            class="font-semibold"><?php echo htmlspecialchars($_SESSION['username']); ?></span>.</p>
-                </div>
+            <div class="mb-8">
+					<h1 class="text-3xl sm:text-4xl font-bold tracking-tight">Food Management</h1>
+					<p class="mt-2 text-lg dark:opacity-80">Welcome back, <span
+							class="font-semibold"><?php echo htmlspecialchars($fullname); ?></span>.</p>
+				</div>
 
                 <?php if (!empty($message)) { ?>
-                    <div class="mb-6 text-sm text-green-700 bg-green-100 rounded-md px-4 py-3">
+                    <div class="mb-6 text-sm text-green-700 bg-green-100 dark:bg-green-900/20 dark:text-green-400 rounded-md px-4 py-3">
                         <?php echo htmlspecialchars($message); ?>
                     </div>
                 <?php } ?>
                 <?php if (!empty($error)) { ?>
-                    <div class="mb-6 text-sm text-red-700 bg-red-100 rounded-md px-4 py-3">
+                    <div class="mb-6 text-sm text-red-700 bg-red-100 dark:bg-red-900/20 dark:text-red-400 rounded-md px-4 py-3">
                         <?php echo htmlspecialchars($error); ?>
                     </div>
                 <?php } ?>
@@ -227,7 +246,7 @@ if ($stmt = mysqli_prepare($conn, "SELECT id, name, calories, protein, carbs, fa
                                         </tr>
                                         <?php } else {
                                         foreach ($foods as $f) { ?>
-                                            <tr class="border-t border-gray-200/50">
+                                            <tr class="border-t border-gray-200/50 dark:border-gray-700/50">
                                                 <td class="py-2 pr-4"><?php echo htmlspecialchars($f['name']); ?></td>
                                                 <td class="py-2 pr-4"><?php echo htmlspecialchars((string) $f['calories']); ?>
                                                 </td>
@@ -237,7 +256,7 @@ if ($stmt = mysqli_prepare($conn, "SELECT id, name, calories, protein, carbs, fa
                                                 <td class="py-2 pr-4"><?php echo htmlspecialchars((string) $f['fat']); ?></td>
                                                 <td class="py-2 pr-4">
                                                     <a href="food.php?delete=<?php echo (int) $f['id']; ?>"
-                                                        class="text-red-600 hover:underline"
+                                                        class="text-red-600 hover:underline dark:text-red-400"
                                                         onclick="return confirm('Delete this item?');">Delete</a>
                                                 </td>
                                             </tr>

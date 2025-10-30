@@ -7,28 +7,22 @@ if (isset($_POST['login'])) {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
-    if ($stmt = mysqli_prepare($conn, "SELECT username, password FROM user WHERE username = ? LIMIT 1")) {
-        mysqli_stmt_bind_param($stmt, "s", $username);
-        mysqli_stmt_execute($stmt);
-        mysqli_stmt_store_result($stmt);
+    // Get user from Supabase
+    $user = getUserByUsername($username);
 
-        if (mysqli_stmt_num_rows($stmt) === 1) {
-            mysqli_stmt_bind_result($stmt, $dbUsername, $dbPassword);
-            mysqli_stmt_fetch($stmt);
-
-            // NOTE: Replace with password_verify if you store hashed passwords
-            if ($password === $dbPassword) {
-                $_SESSION['username'] = $dbUsername;
-                header("Location: dashboard.php");
-                exit;
-            }
+    if ($user !== null) {
+        // NOTE: Replace with password_verify if you store hashed passwords
+        // For hashed: if (password_verify($password, $user['password']))
+        if ($password === $user['password']) {
+            $_SESSION['username'] = $user['username'];
+            header("Location: dashboard.php");
+            exit;
         }
-
-        mysqli_stmt_close($stmt);
     }
 
     $error = "Username or password is incorrect";
 }
+
 
 ?>
 

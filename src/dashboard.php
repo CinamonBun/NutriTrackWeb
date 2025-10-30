@@ -8,13 +8,8 @@ if (!isset($_SESSION['username'])) {
 $username = $_SESSION['username'];
 include 'config.php';
 
-if ($stmt = mysqli_prepare($conn, "SELECT fullname FROM user WHERE username = ? LIMIT 1")) {
-	mysqli_stmt_bind_param($stmt, "s", $username);
-	mysqli_stmt_execute($stmt);
-	mysqli_stmt_bind_result($stmt, $fullname);
-	mysqli_stmt_fetch($stmt);
-	mysqli_stmt_close($stmt);
-}
+$user = getUserByUsername($username);
+$fullname = $user['fullname'] ?? $username
 ?>
 
 <!DOCTYPE html>
@@ -98,10 +93,9 @@ if ($stmt = mysqli_prepare($conn, "SELECT fullname FROM user WHERE username = ? 
 				<div class="mb-8">
 					<h1 class="text-3xl sm:text-4xl font-bold tracking-tight">Dashboard</h1>
 					<p class="mt-2 text-lg dark:opacity-80">Welcome back, <span
-							class="font-semibold"><?php echo htmlspecialchars($_SESSION['username']); ?></span>.</p>
+							class="font-semibold"><?php echo htmlspecialchars($fullname); ?></span>.</p>
 				</div>
 
-				<!-- Example dashboard cards -->
 				<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 					<div class="p-6 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
 						<div class="text-sm opacity-80">Calories Today</div>

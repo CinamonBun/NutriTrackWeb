@@ -1,9 +1,47 @@
 <?php
 // config.php - Supabase Configuration
+// This file loads credentials from .env file (not uploaded to GitHub)
+
+// Simple .env file loader
+function loadEnv($path) {
+    if (!file_exists($path)) {
+        die('Error: .env file not found. Please copy .env.example to .env and fill in your credentials.');
+    }
+    
+    $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($lines as $line) {
+        // Skip comments
+        if (strpos(trim($line), '#') === 0) {
+            continue;
+        }
+        
+        // Parse KEY=VALUE
+        if (strpos($line, '=') !== false) {
+            list($key, $value) = explode('=', $line, 2);
+            $key = trim($key);
+            $value = trim($value);
+            
+            // Remove quotes if present
+            $value = trim($value, '"\'');
+            
+            // Set environment variable
+            putenv("$key=$value");
+            $_ENV[$key] = $value;
+        }
+    }
+}
+
+// Load .env file
+loadEnv(__DIR__ . '/.env');
 
 // Supabase API Configuration
-define('SUPABASE_URL', 'https://vgogsteqgdebqwzfviqs.supabase.co');
-define('SUPABASE_KEY', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZnb2dzdGVxZ2RlYnF3emZ2aXFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA1Mjc1MTEsImV4cCI6MjA3NjEwMzUxMX0.UkNhMsnYW0DhpJTlvZkycr-I0GttDg9cP54kPIGiMXQ');
+define('SUPABASE_URL', getenv('SUPABASE_URL'));
+define('SUPABASE_KEY', getenv('SUPABASE_KEY'));
+
+// Validate configuration
+if (empty(SUPABASE_URL) || empty(SUPABASE_KEY)) {
+    die('Error: Supabase credentials not configured. Please check your .env file.');
+}
 
 /**
  * Make API request to Supabase
@@ -55,6 +93,8 @@ function supabaseRequest($method, $endpoint, $data = null) {
         'data' => $result
     ];
 }
+
+// ==================== USER FUNCTIONS ====================
 
 /**
  * Get user by username
