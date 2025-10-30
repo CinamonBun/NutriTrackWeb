@@ -1,4 +1,9 @@
 # Environment variables
 node_modules/
 .env
+
+# Config files with credentials
+config.php
 src/config.php
+**/config.php
+!config-secure.php
