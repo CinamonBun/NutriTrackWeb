@@ -1,6 +1,9 @@
 # Environment variables
 node_modules/
 .env
+src/.env
+*.env
+!.env.example
 
 # Config files with credentials
 config.php
