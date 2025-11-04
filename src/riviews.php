@@ -33,14 +33,14 @@
                     <h1 class="text-2xl font-bold">Logo</h1>
                 </div>
                 <ul class="hidden md:flex items-center space-x-8">
-                    <li><a href="index.html" class="transition duration-200 transform hover:scale-105">Home</a>
+                    <li><a href="index.php" class="transition duration-200 transform text-hover-light">Home</a>
                     </li>
-                    <li><a href="about.html" class="transition duration-200 transform hover:scale-105">About
+                    <li><a href="about.php" class="transition duration-200 transform hover:scale-105">About
                             Us</a></li>
-                    <li><a href="features.html"
+                    <li><a href="features.php"
                             class="text-gray-600 hover:text-gray-950 dark:text-gray-300 dark:hover:text-white transition duration-200 transform hover:scale-105">Features</a>
                     </li>
-                    <li><a href="riviews.html" class="transition duration-200 transform hover:scale-105">Riviews</a>
+                    <li><a href="riviews.php" class="transition duration-200 transform hover:scale-105">Riviews</a>
                     </li>
                     <li><a href="#" class="transition duration-200 transform hover:scale-105">Download</a>
                     </li>

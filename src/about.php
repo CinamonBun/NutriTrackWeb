@@ -33,14 +33,14 @@
                     <h1 class="text-2xl font-bold">Logo</h1>
                 </div>
                 <ul class="hidden md:flex items-center space-x-8">
-                    <li><a href="index.html" class="transition duration-200 transform hover:scale-105">Home</a>
+                    <li><a href="index.php" class="transition duration-200 transform text-hover-light">Home</a>
                     </li>
-                    <li><a href="about.html" class="transition duration-200 transform hover:scale-105">About
+                    <li><a href="about.php" class="transition duration-200 transform hover:scale-105">About
                             Us</a></li>
-                    <li><a href="features.html"
+                    <li><a href="features.php"
                             class="text-gray-600 hover:text-gray-950 dark:text-gray-300 dark:hover:text-white transition duration-200 transform hover:scale-105">Features</a>
                     </li>
-                    <li><a href="riviews.html" class="transition duration-200 transform hover:scale-105">Riviews</a>
+                    <li><a href="riviews.php" class="transition duration-200 transform hover:scale-105">Riviews</a>
                     </li>
                     <li><a href="#" class="transition duration-200 transform hover:scale-105">Download</a>
                     </li>
@@ -75,6 +75,36 @@
             <div class="absolute inset-0 opacity-60"></div>
             <div class="container mx-auto px-6 relative z-10">
                 <!-- Konten Hero -->
+            </div>
+        </section>
+
+        <!-- Why NutriTrack Section -->
+        <section class="relative text-center py-16 sm:py-32 overflow-hidden">
+            <!-- <div aria-hidden="true" class="absolute inset-0 z-0">
+                <div
+                    class="absolute bottom-0 left-0 inset-y-1/4 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob">
+                </div>
+                <div
+                    class="absolute top-0 right-0 w-96 h-96 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob animation-delay-2000">
+                </div>
+            </div> -->
+
+            <div class="relative z-10">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-6 md:mb-0">
+                        <h2 class="text-4xl sm:text-5xl font-bold tracking-tight">
+                            About Us
+                        </h2>
+                        <p class="mt-3 text-lg dark:opacity-80 max-w-xl mx-auto">
+                            We are a team of nutritionists and software engineers who are passionate about helping people achieve their health goals.
+                        </p>
+                    </div>
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div
+                            class="mt-12 max-w-6xl mx-auto h-[550px] rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
