@@ -46,18 +46,18 @@
                     </li>
                 </ul>
                 <div class="hidden md:flex items-center space-x-3">
-                    <a href="signin.html"
+                    <a href="signin.php"
                         class="dark:text-dark-text whitespace-nowrap transition duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none w-full">
                         Sign In
                     </a>
-                    <a href="signup.html"
+                    <a href="signup.php"
                         class="inline-flex justify-center gap-2 text-white dark:bg-[#0a0a0a] dark:hover:bg-[#525252] dark:dark:bg-[#34373b] px-4 py-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 w-full">
                         Sign Up
                     </a>
                 </div>
                 <div class="md:hidden">
-                    <button class="text-gray-800 dark:text-gray-200">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    <button id="menu-toggle-btn" class="p-2 rounded-lg transition">
+                        <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M4 6h16M4 12h16m-7 6h7"></path>
@@ -70,39 +70,54 @@
 
     <!-- Main -->
     <main>
-        <!-- About Section -->
-        <section class="py-16 md:py-32 h-[750px] relative overflow-hidden bg-light-bg dark:bg-dark-bg">
+        <!-- Hero / Intro -->
+        <section class="min-h-screen relative overflow-hidden flex items-center shadow-sm">
             <div class="absolute inset-0 opacity-60"></div>
-            <div class="container mx-auto px-6 relative z-10">
-                <!-- Konten Hero -->
+            <div class="max-w-7xl mx-auto px-6 relative z-10">
+                <div class="max-w-3xl">
+                    <h1 class="text-4xl md:text-5xl font-bold tracking-tight">About Us</h1>
+                    <p class="mt-4 text-lg opacity-80">We are a team of nutritionists and software engineers who are passionate about helping people achieve their health goals.
+                    </p>
+                    <div class="mt-8 flex gap-3">
+                        <a href="#difference" class="px-5 py-3 rounded-md text-sm font-medium text-white dark:hover:bg-[#08D2CB] dark:dark:bg-[#07bab4]">The NutriTrack Difference</a>
+                        <a href="#philosophy" class="px-5 py-3 rounded-md text-sm font-medium card">Our Philosophy</a>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- Why NutriTrack Section -->
-        <section class="relative text-center py-16 sm:py-32 overflow-hidden">
-            <!-- <div aria-hidden="true" class="absolute inset-0 z-0">
-                <div
-                    class="absolute bottom-0 left-0 inset-y-1/4 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob">
+        <!-- About Us Section -->
+        <section class="py-24 sm:py-32 bg-light-bg dark:bg-dark-bg">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="text-center mb-26">
+                    <h2 class="text-4xl sm:text-5xl font-bold tracking-tight">
+                        The NutriTrack Difference
+                    </h2>
+                    <p class="mt-6 max-w-3xl mx-auto text-xl opacity-80 leading-relaxed">
+                        We are a team of nutritionists and software engineers who are passionate about helping people achieve their health goals.
+                    </p>
                 </div>
-                <div
-                    class="absolute top-0 right-0 w-96 h-96 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob animation-delay-2000">
-                </div>
-            </div> -->
 
-            <div class="relative z-10">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="text-center mb-6 md:mb-0">
-                        <h2 class="text-4xl sm:text-5xl font-bold tracking-tight">
-                            About Us
-                        </h2>
-                        <p class="mt-3 text-lg dark:opacity-80 max-w-xl mx-auto">
-                            We are a team of nutritionists and software engineers who are passionate about helping people achieve their health goals.
+                <!-- Philosophy & Approach -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-15 max-w-5xl mx-auto">
+                    <!-- Our Philosophy -->
+                    <div class="text-center md:text-left">
+                        <h3 class="text-2xl font-semibold mb-6">
+                            Our Philosophy
+                        </h3>
+                        <p class="opacity-80 leading-relaxed text-lg">
+                            Simplicity is the ultimate sophistication. We believe in solving complex health challenges with clear, human-centered solutions—never adding what isn't needed.
                         </p>
                     </div>
-                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div
-                            class="mt-12 max-w-6xl mx-auto h-[550px] rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
-                        </div>
+
+                    <!-- Our Approach -->
+                    <div class="text-center md:text-left">
+                        <h3 class="text-2xl font-semibold mb-6">
+                            Our Approach
+                        </h3>
+                        <p class="opacity-80 leading-relaxed text-lg">
+                            Every journey begins with deep listening. We partner closely with our users to understand their needs, then translate them into intuitive, effective, and sustainable outcomes.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -110,13 +125,13 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-light-bg dark:bg-dark-bg my-24 sm:py-24">
+    <footer class="my-24 sm:py-24">
         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-5 gap-8 items-start">
                 <div class="space-y-4">
                     <a href="mailto:hi@nutritrack.com"
-                        class="text-lg hover:underline block text-light-text dark:text-dark-text">hi@nutritrack.com</a>
-                    <div class="flex space-x-4 text-light-text dark:text-dark-text">
+                        class="text-lg hover:underline block">hi@nutritrack.com</a>
+                    <div class="flex space-x-4">
                         <a href="#" class="">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-6">
@@ -143,31 +158,31 @@
                 </div>
 
                 <div>
-                    <h4 class="font-medium text-light-text dark:text-dark-text">Product</h4>
+                    <h4 class="font-medium">Product</h4>
                     <ul class="mt-4 space-y-4 text-sm">
-                        <li><a href="#" class="text-light-text dark:text-dark-text opacity-80">Home</a>
+                        <li><a href="#" class="opacity-80">Home</a>
                         </li>
-                        <li><a href="#" class="text-light-text dark:text-dark-text opacity-80">Features</a>
+                        <li><a href="#" class="opacity-80">Features</a>
                         </li>
-                        <li><a href="#" class="text-light-text dark:text-dark-text opacity-80">Download</a>
+                        <li><a href="#" class="opacity-80">Download</a>
                         </li>
                     </ul>
                 </div>
 
                 <div>
-                    <h4 class="font-medium text-light-text dark:text-dark-text">Company</h4>
+                    <h4 class="font-medium">Company</h4>
                     <ul class="mt-4 space-y-4 text-sm">
-                        <li><a href="#" class="text-light-text dark:text-dark-text opacity-80">4Ever
+                        <li><a href="#" class="opacity-80">4Ever
                                 Young</a></li>
-                        <li><a href="#" class="text-light-text dark:text-dark-text opacity-80">Community</a>
+                        <li><a href="#" class="opacity-80">Community</a>
                         </li>
                     </ul>
                 </div>
 
                 <div>
-                    <h4 class="font-medium text-light-text dark:text-dark-text">What Our Users Say</h4>
+                    <h4 class="font-medium">What Our Users Say</h4>
                     <ul class="mt-4 space-y-4 text-sm">
-                        <li><a href="#" class="text-light-text dark:text-dark-text opacity-80">Riviews</a>
+                        <li><a href="#" class="opacity-80">Riviews</a>
                         </li>
                     </ul>
                 </div>
@@ -176,7 +191,7 @@
                     <div class="relative inline-block text-left w-full">
                         <div>
                             <button id="dropdownButton" type="button"
-                                class="inline-flex justify-start w-full rounded-md border border-light-border dark:border-dark-border shadow-sm px-4 py-2 bg-light-card dark:bg-dark-card text-sm font-medium text-light-text dark:text-dark-text hover:bg-light-hover dark:hover:bg-dark-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#000000]"
+                                class="inline-flex justify-start w-full rounded-md card shadow-sm px-4 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#000000]"
                                 aria-expanded="true" aria-haspopup="true">
                                 Language
                                 <svg class="-mr-1 ml-auto h-5 w-5" xmlns="http://www.w3.org/2000/svg"
@@ -189,22 +204,17 @@
                         </div>
 
                         <div id="dropdownMenu"
-                            class="hidden origin-top-right absolute right-0 mt-2 w-auto rounded-md shadow-lg bg-light-card dark:bg-dark-card ring-1 ring-black ring-opacity-5 focus:outline-none fade-in"
+                            class="hidden origin-top-right absolute right-0 mt-2 w-auto rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none fade-in"
                             role="menu" aria-orientation="vertical" aria-labelledby="dropdownButton">
                             <div class="py-1" role="none">
-                                <a href="#"
-                                    class="text-light-text dark:text-dark-text block px-4 py-2 text-sm hover:bg-light-hover dark:hover:bg-dark-hover"
-                                    role="menuitem">English</a>
-                                <a href="#"
-                                    class="text-light-text dark:text-dark-text block px-4 py-2 text-sm hover:bg-light-hover dark:hover:bg-dark-hover"
-                                    role="menuitem">Bahasa Indonesia</a>
+                                <a href="#" class="block px-4 py-2 text-sm" role="menuitem">English</a>
+                                <a href="#" class="block px-4 py-2 text-sm" role="menuitem">Bahasa Indonesia</a>
                             </div>
                         </div>
                     </div>
 
                     <div class="flex space-x-2">
-                        <div id="theme-switcher"
-                            class="flex p-1 rounded-full border border-light-border dark:border-dark-border shadow-sm bg-light-card dark:bg-dark-card">
+                        <div id="theme-switcher" class="flex p-1 rounded-full card shadow-sm">
                             <button id="system-btn"
                                 class="flex items-center justify-center p-2 rounded-full transition-colors duration-200">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

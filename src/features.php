@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NutriTrack - About</title>
+    <title>NutriTrack - Features</title>
     <link href="./output.css" rel="stylesheet">
     <style>
         body {
@@ -44,14 +44,13 @@
                     </li>
                     <li><a href="#" class="transition duration-200 transform hover:scale-105">Download</a>
                     </li>
-                </ul>>
                 </ul>
                 <div class="hidden md:flex items-center space-x-3">
-                    <a href="signin.html"
+                    <a href="signin.php"
                         class="dark:text-dark-text whitespace-nowrap transition duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none w-full">
                         Sign In
                     </a>
-                    <a href="signup.html"
+                    <a href="signup.php"
                         class="inline-flex justify-center gap-2 text-white dark:bg-[#0a0a0a] dark:hover:bg-[#525252] dark:dark:bg-[#34373b] px-4 py-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 w-full">
                         Sign Up
                     </a>
@@ -71,23 +70,117 @@
 
     <!-- Main -->
     <main>
-        <!-- About Section -->
-        <section class="py-16 md:py-32 h-[750px] relative overflow-hidden bg-light-bg dark:bg-dark-bg">
+        <!-- Hero / Intro -->
+        <section class="min-h-screen relative overflow-hidden flex items-center shadow-sm">
             <div class="absolute inset-0 opacity-60"></div>
-            <div class="container mx-auto px-6 relative z-10">
-                <!-- Konten Hero -->
+            <div class="max-w-7xl mx-auto px-6 relative z-10">
+                <div class="max-w-3xl">
+                    <h1 class="text-4xl md:text-5xl font-bold tracking-tight">Powerful Features</h1>
+                    <p class="mt-4 text-lg opacity-80">Everything you need to track, understand, and improve your diet.
+                    </p>
+                    <div class="mt-8 flex gap-3">
+                        <a href="#features" class="px-5 py-3 rounded-md text-sm font-medium text-white dark:hover:bg-[#08D2CB] dark:dark:bg-[#07bab4]">Explore Features</a>
+                        <a href="#how" class="px-5 py-3 rounded-md text-sm font-medium card">How It Works</a>
+                    </div>
+                </div>
             </div>
         </section>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Features Section -->
+            <section id="features" class="py-16 sm:py-24">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl sm:text-4xl font-bold">
+                            Features
+                        </h2>
+                        <p class="mt-4 max-w-2xl mx-auto text-lg opacity-80">
+                            Explore the core capabilities of NutriTrack.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="card p-6 h-[280px] rounded-xl shadow-sm card hover:border-[#0F9E99]">
+                            <h3 class="text-xl font-semibold mb-2">Tracking</h3>
+                            <p class="opacity-80">Log meals, water, and activity with ease.</p>
+                        </div>
+                        <div class="card p-6 h-[280px] rounded-xl shadow-sm card hover:border-[#0F9E99]">
+                            <h3 class="text-xl font-semibold mb-2">Analytics</h3>
+                            <p class="opacity-80">Understand trends and reach your goals.</p>
+                        </div>
+                        <div class="card p-6 h-[280px] rounded-xl shadow-sm card hover:border-[#0F9E99]">
+                            <h3 class="text-xl font-semibold mb-2">Personalization</h3>
+                            <p class="opacity-80">Get insights tailored to your needs.</p>
+                        </div>
+                        <div class="card p-6 h-[280px] rounded-xl shadow-sm card hover:border-[#0F9E99]">
+                            <h3 class="text-xl font-semibold mb-2">Recipes</h3>
+                            <p class="opacity-80">Discover healthy meals to try.</p>
+                        </div>
+                        <div class="card p-6 h-[280px] rounded-xl shadow-sm card hover:border-[#0F9E99]">
+                            <h3 class="text-xl font-semibold mb-2">Reminders</h3>
+                            <p class="opacity-80">Stay on track with smart nudges.</p>
+                        </div>
+                        <div class="card p-6 h-[280px] rounded-xl shadow-sm card hover:border-[#0F9E99]">
+                            <h3 class="text-xl font-semibold mb-2">Sync</h3>
+                            <p class="opacity-80">Integrate with wearables and apps.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- How It Works -->
+            <section id="how" class="py-16 sm:py-24">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <h3 class="text-2xl sm:text-3xl font-bold">How It Works</h3>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="card p-6 h-[530px] rounded-xl shadow-sm hover:border-[#0F9E99]">
+                            <div class="text-sm font-semibold text-gray-500 dark:text-gray-400">Step 1</div>
+                            <h4 class="mt-1 font-semibold">Log Your Meals</h4>
+                            <p class="mt-2 opacity-80">Log your meals, water, and activity with ease.</p>
+                        </div>
+                        <div class="card p-6 h-[530px] rounded-xl shadow-sm hover:border-[#0F9E99]">
+                            <div class="text-sm font-semibold text-gray-500 dark:text-gray-400">Step 2</div>
+                            <h4 class="mt-1 font-semibold">See Insights</h4>
+                            <p class="mt-2 opacity-80">Get insights and reach your goals.</p>
+                        </div>
+                        <div class="card p-6 h-[530px] rounded-xl shadow-sm hover:border-[#0F9E99]">
+                            <div class="text-sm font-semibold text-gray-500 dark:text-gray-400">Step 3</div>
+                            <h4 class="mt-1 font-semibold">Reach Goals</h4>
+                            <p class="mt-2 opacity-80">Follow simple recommendations for consistency.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FAQ -->
+            <section class="py-16 sm:py-24">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h3 class="text-2xl sm:text-3xl font-bold text-center">FAQs</h3>
+                    <div class="mt-8 space-y-4">
+                        <div class="card p-5 rounded-xl shadow-sm hover:border-[#0F9E99]">
+                            <h4 class="font-semibold">Is NutriTrack free?</h4>
+                            <p class="mt-2 opacity-80">There is a free version with core features. The pro version adds advanced insights.</p>
+                        </div>
+                        <div class="card p-5 rounded-xl shadow-sm hover:border-[#0F9E99]">
+                            <h4 class="font-semibold">Is my data safe?</h4>
+                            <p class="mt-2 opacity-80">We prioritize privacy and do not sell your data.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-light-bg dark:bg-dark-bg my-24 sm:py-24">
+    <footer class="sm:py-24">
         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-5 gap-8 items-start">
                 <div class="space-y-4">
                     <a href="mailto:hi@nutritrack.com"
-                        class="text-lg hover:underline block text-light-text dark:text-dark-text">hi@nutritrack.com</a>
-                    <div class="flex space-x-4 text-light-text dark:text-dark-text">
+                        class="text-lg hover:underline block">hi@nutritrack.com</a>
+                    <div class="flex space-x-4">
                         <a href="#" class="">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-6">
@@ -114,23 +207,23 @@
                 </div>
 
                 <div>
-                    <h4 class="font-medium text-light-text dark:text-dark-text">Product</h4>
+                    <h4 class="font-medium">Product</h4>
                     <ul class="mt-4 space-y-4 text-sm">
-                        <li><a href="#" class="text-light-text dark:text-dark-text opacity-80">Home</a>
+                        <li><a href="#" class=" opacity-80">Home</a>
                         </li>
-                        <li><a href="#" class="text-light-text dark:text-dark-text opacity-80">Features</a>
+                        <li><a href="#" class=" opacity-80">Features</a>
                         </li>
-                        <li><a href="#" class="text-light-text dark:text-dark-text opacity-80">Download</a>
+                        <li><a href="#" class=" opacity-80">Download</a>
                         </li>
                     </ul>
                 </div>
 
                 <div>
-                    <h4 class="font-medium text-light-text dark:text-dark-text">Company</h4>
+                    <h4 class="font-medium">Company</h4>
                     <ul class="mt-4 space-y-4 text-sm">
-                        <li><a href="#" class="text-light-text dark:text-dark-text opacity-80">4Ever
+                        <li><a href="#" class=" opacity-80">4Ever
                                 Young</a></li>
-                        <li><a href="#" class="text-light-text dark:text-dark-text opacity-80">Community</a>
+                        <li><a href="#" class=" opacity-80">Community</a>
                         </li>
                     </ul>
                 </div>
@@ -147,7 +240,7 @@
                     <div class="relative inline-block text-left w-full">
                         <div>
                             <button id="dropdownButton" type="button"
-                                class="inline-flex justify-start w-full rounded-md border border-light-border dark:border-dark-border shadow-sm px-4 py-2 bg-light-card dark:bg-dark-card text-sm font-medium text-light-text dark:text-dark-text hover:bg-light-hover dark:hover:bg-dark-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#000000]"
+                                class="inline-flex justify-start w-full rounded-md card shadow-sm px-4 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#000000]"
                                 aria-expanded="true" aria-haspopup="true">
                                 Language
                                 <svg class="-mr-1 ml-auto h-5 w-5" xmlns="http://www.w3.org/2000/svg"
@@ -160,22 +253,17 @@
                         </div>
 
                         <div id="dropdownMenu"
-                            class="hidden origin-top-right absolute right-0 mt-2 w-auto rounded-md shadow-lg bg-light-card dark:bg-dark-card ring-1 ring-black ring-opacity-5 focus:outline-none fade-in"
+                            class="hidden origin-top-right absolute right-0 mt-2 w-auto rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none fade-in"
                             role="menu" aria-orientation="vertical" aria-labelledby="dropdownButton">
                             <div class="py-1" role="none">
-                                <a href="#"
-                                    class="text-light-text dark:text-dark-text block px-4 py-2 text-sm hover:bg-light-hover dark:hover:bg-dark-hover"
-                                    role="menuitem">English</a>
-                                <a href="#"
-                                    class="text-light-text dark:text-dark-text block px-4 py-2 text-sm hover:bg-light-hover dark:hover:bg-dark-hover"
-                                    role="menuitem">Bahasa Indonesia</a>
+                                <a href="#" class="block px-4 py-2 text-sm" role="menuitem">English</a>
+                                <a href="#" class="block px-4 py-2 text-sm" role="menuitem">Bahasa Indonesia</a>
                             </div>
                         </div>
                     </div>
 
                     <div class="flex space-x-2">
-                        <div id="theme-switcher"
-                            class="flex p-1 rounded-full border border-light-border dark:border-dark-border shadow-sm bg-light-card dark:bg-dark-card">
+                        <div id="theme-switcher" class="flex p-1 rounded-full card shadow-sm">
                             <button id="system-btn"
                                 class="flex items-center justify-center p-2 rounded-full transition-colors duration-200">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

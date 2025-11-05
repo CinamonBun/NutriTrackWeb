@@ -161,7 +161,7 @@
                     </div>
                     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div
-                            class="mt-12 max-w-6xl mx-auto h-[550px] rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                            class="mt-12 max-w-6xl mx-auto h-[550px] rounded-lg shadow-md card hover:border-[#0F9E99]">
                         </div>
                     </div>
                 </div>
@@ -186,15 +186,15 @@
                         </a>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div
-                            class="h-[500px] rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                            class="h-[500px] rounded-lg shadow-md card hover:border-[#0F9E99]">
                         </div>
                         <div
-                            class="h-[500px] rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                            class="h-[500px] rounded-lg shadow-md card hover:border-[#0F9E99]">
                         </div>
                         <div
-                            class="h-[500px] rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                            class="h-[500px] rounded-lg shadow-md card hover:border-[#0F9E99]">
                         </div>
                     </div>
                 </div>
@@ -214,13 +214,13 @@
                         </div>
                         <div class="absolute inset-x-0 bottom-0 h-16 pointer-events-none fade-bottom z-10">
                         </div>
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 h-full">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 h-full">
 
                             <!-- 1 -->
                             <div class="marquee-col h-full overflow-y-hidden">
                                 <div class="marquee-track reverse px-2 py-4">
                                     <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/34373b/ffffff?text=A"
                                                 class="w-10 h-10 rounded-full" />
@@ -233,7 +233,7 @@
                                             So easy to track meals.</p>
                                     </div>
                                     <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/f87171/ffffff?text=B"
                                                 class="w-10 h-10 rounded-full" />
@@ -246,7 +246,7 @@
                                             ever used. Highly recommend!</p>
                                     </div>
                                     <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/34d399/ffffff?text=C"
                                                 class="w-10 h-10 rounded-full" />
@@ -259,7 +259,7 @@
                                             plans. So accurate!</p>
                                     </div>
                                     <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/a78bfa/ffffff?text=D"
                                                 class="w-10 h-10 rounded-full" />
@@ -273,7 +273,7 @@
                                     </div>
                                     <!-- Duplikat -->
                                     <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/34373b/ffffff?text=A"
                                                 class="w-10 h-10 rounded-full" />
@@ -286,7 +286,7 @@
                                             So easy to track meals.</p>
                                     </div>
                                     <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/f87171/ffffff?text=B"
                                                 class="w-10 h-10 rounded-full" />
@@ -299,7 +299,7 @@
                                             ever used. Highly recommend!</p>
                                     </div>
                                     <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/34d399/ffffff?text=C"
                                                 class="w-10 h-10 rounded-full" />
@@ -312,7 +312,7 @@
                                             plans. So accurate!</p>
                                     </div>
                                     <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/a78bfa/ffffff?text=D"
                                                 class="w-10 h-10 rounded-full" />
@@ -331,7 +331,7 @@
                             <div class="marquee-col h-full overflow-y-hidden">
                                 <div class="marquee-track px-2 py-4">
                                     <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/60a5fa/ffffff?text=E"
                                                 class="w-10 h-10 rounded-full" />
@@ -344,7 +344,7 @@
                                             UI. Love it!</p>
                                     </div>
                                     <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/fbbf24/ffffff?text=F"
                                                 class="w-10 h-10 rounded-full" />
@@ -357,7 +357,7 @@
                                             months. Amazing!</p>
                                     </div>
                                     <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/ec4899/ffffff?text=G"
                                                 class="w-10 h-10 rounded-full" />
@@ -370,7 +370,7 @@
                                             on. Great job!</p>
                                     </div>
                                     <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/8b5cf6/ffffff?text=H"
                                                 class="w-10 h-10 rounded-full" />
@@ -384,7 +384,7 @@
                                     </div>
                                     <!-- Duplikat -->
                                     <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/60a5fa/ffffff?text=E"
                                                 class="w-10 h-10 rounded-full" />
@@ -397,7 +397,7 @@
                                             UI. Love it!</p>
                                     </div>
                                     <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/fbbf24/ffffff?text=F"
                                                 class="w-10 h-10 rounded-full" />
@@ -410,7 +410,7 @@
                                             months. Amazing!</p>
                                     </div>
                                     <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/ec4899/ffffff?text=G"
                                                 class="w-10 h-10 rounded-full" />
@@ -423,7 +423,7 @@
                                             on. Great job!</p>
                                     </div>
                                     <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/8b5cf6/ffffff?text=H"
                                                 class="w-10 h-10 rounded-full" />
@@ -442,7 +442,7 @@
                             <div class="marquee-col h-full overflow-y-hidden hidden md:block">
                                 <div class="marquee-track reverse px-2 py-4">
                                     <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/10b981/ffffff?text=I"
                                                 class="w-10 h-10 rounded-full" />
@@ -455,7 +455,7 @@
                                             Thank you!</p>
                                     </div>
                                     <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/f43f5e/ffffff?text=J"
                                                 class="w-10 h-10 rounded-full" />
@@ -468,7 +468,7 @@
                                             everything now.</p>
                                     </div>
                                     <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/10b981/ffffff?text=I"
                                                 class="w-10 h-10 rounded-full" />
@@ -481,7 +481,7 @@
                                             Thank you!</p>
                                     </div>
                                     <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/f43f5e/ffffff?text=J"
                                                 class="w-10 h-10 rounded-full" />
@@ -495,7 +495,7 @@
                                     </div>
                                     <!-- Duplikat -->
                                     <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/34373b/ffffff?text=A"
                                                 class="w-10 h-10 rounded-full" />
@@ -508,7 +508,7 @@
                                             So easy to track meals.</p>
                                     </div>
                                     <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/f87171/ffffff?text=B"
                                                 class="w-10 h-10 rounded-full" />
@@ -521,7 +521,7 @@
                                             ever used. Highly recommend!</p>
                                     </div>
                                     <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/34d399/ffffff?text=C"
                                                 class="w-10 h-10 rounded-full" />
@@ -534,7 +534,7 @@
                                             plans. So accurate!</p>
                                     </div>
                                     <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/a78bfa/ffffff?text=D"
                                                 class="w-10 h-10 rounded-full" />
@@ -553,7 +553,7 @@
                             <div class="marquee-col h-full overflow-y-hidden hidden md:block">
                                 <div class="marquee-track px-2 py-4">
                                     <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/0ea5e9/ffffff?text=K"
                                                 class="w-10 h-10 rounded-full" />
@@ -566,7 +566,7 @@
                                             like me!</p>
                                     </div>
                                     <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/84cc16/ffffff?text=L"
                                                 class="w-10 h-10 rounded-full" />
@@ -579,7 +579,7 @@
                                             accuracy.</p>
                                     </div>
                                     <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/0ea5e9/ffffff?text=K"
                                                 class="w-10 h-10 rounded-full" />
@@ -592,7 +592,7 @@
                                             like me!</p>
                                     </div>
                                     <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/84cc16/ffffff?text=L"
                                                 class="w-10 h-10 rounded-full" />
@@ -606,7 +606,7 @@
                                     </div>
                                     <!-- Duplikat -->
                                     <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/60a5fa/ffffff?text=E"
                                                 class="w-10 h-10 rounded-full" />
@@ -619,7 +619,7 @@
                                             UI. Love it!</p>
                                     </div>
                                     <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/fbbf24/ffffff?text=F"
                                                 class="w-10 h-10 rounded-full" />
@@ -632,7 +632,7 @@
                                             months. Amazing!</p>
                                     </div>
                                     <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/ec4899/ffffff?text=G"
                                                 class="w-10 h-10 rounded-full" />
@@ -645,7 +645,7 @@
                                             on. Great job!</p>
                                     </div>
                                     <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
+                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/8b5cf6/ffffff?text=H"
                                                 class="w-10 h-10 rounded-full" />
@@ -672,8 +672,8 @@
             <div class="grid grid-cols-2 md:grid-cols-5 gap-8 items-start">
                 <div class="space-y-4">
                     <a href="mailto:hi@nutritrack.com"
-                        class="text-lg hover:underline block text-light-text dark:text-dark-text">hi@nutritrack.com</a>
-                    <div class="flex space-x-4 text-light-text dark:text-dark-text">
+                        class="text-lg hover:underline block">hi@nutritrack.com</a>
+                    <div class="flex space-x-4">
                         <a href="#" class="">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-6">
@@ -700,31 +700,31 @@
                 </div>
 
                 <div>
-                    <h4 class="font-medium text-light-text dark:text-dark-text">Product</h4>
+                    <h4 class="font-medium">Product</h4>
                     <ul class="mt-4 space-y-4 text-sm">
-                        <li><a href="#" class="text-light-text dark:text-dark-text opacity-80">Home</a>
+                        <li><a href="#" class="opacity-80">Home</a>
                         </li>
-                        <li><a href="#" class="text-light-text dark:text-dark-text opacity-80">Features</a>
+                        <li><a href="#" class="opacity-80">Features</a>
                         </li>
-                        <li><a href="#" class="text-light-text dark:text-dark-text opacity-80">Download</a>
+                        <li><a href="#" class="opacity-80">Download</a>
                         </li>
                     </ul>
                 </div>
 
                 <div>
-                    <h4 class="font-medium text-light-text dark:text-dark-text">Company</h4>
+                    <h4 class="font-medium">Company</h4>
                     <ul class="mt-4 space-y-4 text-sm">
-                        <li><a href="#" class="text-light-text dark:text-dark-text opacity-80">4Ever
+                        <li><a href="#" class="opacity-80">4Ever
                                 Young</a></li>
-                        <li><a href="#" class="text-light-text dark:text-dark-text opacity-80">Community</a>
+                        <li><a href="#" class="opacity-80">Community</a>
                         </li>
                     </ul>
                 </div>
 
                 <div>
-                    <h4 class="font-medium text-light-text dark:text-dark-text">What Our Users Say</h4>
+                    <h4 class="font-medium">What Our Users Say</h4>
                     <ul class="mt-4 space-y-4 text-sm">
-                        <li><a href="#" class="text-light-text dark:text-dark-text opacity-80">Riviews</a>
+                        <li><a href="#" class="opacity-80">Riviews</a>
                         </li>
                     </ul>
                 </div>

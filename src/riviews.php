@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NutriTrack - About</title>
+    <title>NutriTrack - Riviews</title>
     <link href="./output.css" rel="stylesheet">
     <style>
         body {
@@ -46,11 +46,11 @@
                     </li>
                 </ul>
                 <div class="hidden md:flex items-center space-x-3">
-                    <a href="signin.html"
+                    <a href="signin.php"
                         class="dark:text-dark-text whitespace-nowrap transition duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none w-full">
                         Sign In
                     </a>
-                    <a href="signup.html"
+                    <a href="signup.php"
                         class="inline-flex justify-center gap-2 text-white dark:bg-[#0a0a0a] dark:hover:bg-[#525252] dark:dark:bg-[#34373b] px-4 py-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 w-full">
                         Sign Up
                     </a>
@@ -70,23 +70,142 @@
 
     <!-- Main -->
     <main>
-        <!-- About Section -->
-        <section class="py-16 md:py-32 h-[750px] relative overflow-hidden bg-light-bg dark:bg-dark-bg">
+        <!-- Hero / Intro -->
+        <section class="min-h-screen relative overflow-hidden flex items-center shadow-sm">
             <div class="absolute inset-0 opacity-60"></div>
-            <div class="container mx-auto px-6 relative z-10">
-                <!-- Konten Hero -->
+            <div class="max-w-7xl mx-auto px-6 relative z-10">
+                <div class="max-w-3xl">
+                    <h1 class="text-4xl md:text-5xl font-bold tracking-tight">User Riviews</h1>
+                    <p class="mt-4 text-lg opacity-80">Stories from users who have experienced the benefits of NutriTrack.</p>
+                    <div class="mt-8 flex gap-3">
+                        <a href="#summary" class="px-5 py-3 rounded-md text-sm font-medium text-white dark:hover:bg-[#08D2CB] dark:dark:bg-[#07bab4]">See Summary</a>
+                        <a href="#list" class="px-5 py-3 rounded-md text-sm font-medium card">Read Riviews</a>
+                    </div>
+                </div>
             </div>
         </section>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Riviews List -->
+            <section id="list" class="py-16 sm:py-24">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl sm:text-4xl font-bold">What Our Users Say</h2>
+                    </div>
+
+                    <!-- Reviews Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Review Card 1 -->
+                        <div class="p-8 rounded-md card transition-all duration-300 hover:border-[#0F9E99] flex flex-col">
+                            <p class="text-base leading-relaxed mb-8 flex-grow">
+                                NutriTrack has completely transformed my life! I lost 15 kg in 3 months with easy tracking and clear insights. This app really helped me understand my eating patterns and make better decisions for my health.
+                            </p>
+                            <div class="flex items-center gap-3 mt-auto">
+                                <div class="h-12 w-12 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex-shrink-0"></div>
+                                <div>
+                                    <div class="font-medium">Sari Dewanti</div>
+                                    <div class="text-sm opacity-80">Fitness Enthusiast, Jakarta</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Review Card 2 -->
+                        <div class="p-8 rounded-md card transition-all duration-300 hover:border-[#0F9E99] flex flex-col">
+                            <p class="text-base leading-relaxed mb-8 flex-grow">
+                                The best nutrition app I've ever used! The food tracking features are comprehensive, the nutrition database is accurate, and the interface is very user-friendly. It helps me reach my daily protein goals and manage calories effortlessly.
+                            </p>
+                            <div class="flex items-center gap-3 mt-auto">
+                                <div class="h-12 w-12 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex-shrink-0"></div>
+                                <div>
+                                    <div class="font-medium">Budi Santoso</div>
+                                    <div class="text-sm opacity-80">Personal Trainer, Bandung</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Review Card 3 -->
+                        <div class="p-8 rounded-md card transition-all duration-300 hover:border-[#0F9E99] flex flex-col">
+                            <p class="text-base leading-relaxed mb-8 flex-grow">
+                                As a nutritionist, I'm very impressed with the accuracy of nutrition data in NutriTrack. The macro and micronutrient analysis features are extremely helpful in providing recommendations to clients. The Indonesian food database is also very comprehensive!
+                            </p>
+                            <div class="flex items-center gap-3 mt-auto">
+                                <div class="h-12 w-12 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex-shrink-0"></div>
+                                <div>
+                                    <div class="font-medium">Dr. Maya Kartika</div>
+                                    <div class="text-sm opacity-80">Certified Nutritionist, Surabaya</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Review Card 4 -->
+                        <div class="p-8 rounded-md card transition-all duration-300 hover:border-[#0F9E99] flex flex-col">
+                            <p class="text-base leading-relaxed mb-8 flex-grow">
+                                NutriTrack helps me manage my diabetes much better. The carbohydrate and blood sugar tracking features are very helpful in maintaining a healthy diet. The daily graphs and reports are very informative for consultations with my doctor.
+                            </p>
+                            <div class="flex items-center gap-3 mt-auto">
+                                <div class="h-12 w-12 rounded-full bg-gradient-to-br from-gray-300 to-gray-500 flex-shrink-0"></div>
+                                <div>
+                                    <div class="font-medium">Ahmad Rizki</div>
+                                    <div class="text-sm opacity-80">Business Owner, Medan</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Review Card 5 -->
+                        <div class="p-8 rounded-md card transition-all duration-300 hover:border-[#0F9E99] flex flex-col">
+                            <div class="space-y-3 mb-8 flex-grow">
+                                <p class="text-base leading-relaxed">Such a practical app!</p>
+                                <p class="text-base leading-relaxed">Food tracking has become so much easier.</p>
+                                <p class="text-base leading-relaxed">The meal reminder feature is very helpful.</p>
+                                <p class="text-base leading-relaxed">Highly recommended!</p>
+                            </div>
+                            <div class="flex items-center gap-3 mt-auto">
+                                <div class="h-12 w-12 rounded-full bg-gradient-to-br from-red-400 to-red-600 flex-shrink-0"></div>
+                                <div>
+                                    <div class="font-medium">Rina Wijaya</div>
+                                    <div class="text-sm opacity-80">Content Creator, Yogyakarta</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Review Card 6 -->
+                        <div class="p-8 rounded-md card transition-all duration-300 hover:border-[#0F9E99] flex flex-col">
+                            <p class="text-base leading-relaxed mb-8 flex-grow">
+                                NutriTrack makes healthy living so much more enjoyable! The meal planning and healthy recipe features are very helpful in preparing nutritious meals. I can see my health progress over time and feel more motivated to maintain a good eating pattern.
+                            </p>
+                            <div class="flex items-center gap-3 mt-auto">
+                                <div class="h-12 w-12 rounded-full bg-gradient-to-br from-gray-400 to-gray-600 flex-shrink-0"></div>
+                                <div>
+                                    <div class="font-medium">Dedi Prasetyo</div>
+                                    <div class="text-sm opacity-80">Software Engineer, Bali</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </section>
+
+            <!-- Call to Action -->
+            <section class="py-16">
+                <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h3 class="text-2xl sm:text-3xl font-bold">Ready to start?</h3>
+                    <p class="mt-3 opacity-80">Download NutriTrack and start your healthy journey today.</p>
+                    <div class="mt-6 flex justify-center gap-3">
+                        <a href="#" class="px-5 py-3 rounded-md text-sm font-medium text-white dark:hover:bg-[#08D2CB] dark:dark:bg-[#07bab4]">Download App</a>
+                        <a href="features.php" class="px-5 py-3 rounded-md text-sm font-medium card">See Features</a>
+                    </div>
+                </div>
+            </section>
+        </div>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-light-bg dark:bg-dark-bg my-24 sm:py-24">
+    <footer class="sm:py-24">
         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-5 gap-8 items-start">
                 <div class="space-y-4">
                     <a href="mailto:hi@nutritrack.com"
-                        class="text-lg hover:underline block text-light-text dark:text-dark-text">hi@nutritrack.com</a>
-                    <div class="flex space-x-4 text-light-text dark:text-dark-text">
+                        class="text-lg hover:underline block">hi@nutritrack.com</a>
+                    <div class="flex space-x-4">
                         <a href="#" class="">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-6">
@@ -113,23 +232,23 @@
                 </div>
 
                 <div>
-                    <h4 class="font-medium text-light-text dark:text-dark-text">Product</h4>
+                    <h4 class="font-medium">Product</h4>
                     <ul class="mt-4 space-y-4 text-sm">
-                        <li><a href="#" class="text-light-text dark:text-dark-text opacity-80">Home</a>
+                        <li><a href="#" class=" opacity-80">Home</a>
                         </li>
-                        <li><a href="#" class="text-light-text dark:text-dark-text opacity-80">Features</a>
+                        <li><a href="#" class=" opacity-80">Features</a>
                         </li>
-                        <li><a href="#" class="text-light-text dark:text-dark-text opacity-80">Download</a>
+                        <li><a href="#" class=" opacity-80">Download</a>
                         </li>
                     </ul>
                 </div>
 
                 <div>
-                    <h4 class="font-medium text-light-text dark:text-dark-text">Company</h4>
+                    <h4 class="font-medium">Company</h4>
                     <ul class="mt-4 space-y-4 text-sm">
-                        <li><a href="#" class="text-light-text dark:text-dark-text opacity-80">4Ever
+                        <li><a href="#" class=" opacity-80">4Ever
                                 Young</a></li>
-                        <li><a href="#" class="text-light-text dark:text-dark-text opacity-80">Community</a>
+                        <li><a href="#" class=" opacity-80">Community</a>
                         </li>
                     </ul>
                 </div>
@@ -146,7 +265,7 @@
                     <div class="relative inline-block text-left w-full">
                         <div>
                             <button id="dropdownButton" type="button"
-                                class="inline-flex justify-start w-full rounded-md border border-light-border dark:border-dark-border shadow-sm px-4 py-2 bg-light-card dark:bg-dark-card text-sm font-medium text-light-text dark:text-dark-text hover:bg-light-hover dark:hover:bg-dark-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#000000]"
+                                class="inline-flex justify-start w-full rounded-md card shadow-sm px-4 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#000000]"
                                 aria-expanded="true" aria-haspopup="true">
                                 Language
                                 <svg class="-mr-1 ml-auto h-5 w-5" xmlns="http://www.w3.org/2000/svg"
@@ -159,22 +278,17 @@
                         </div>
 
                         <div id="dropdownMenu"
-                            class="hidden origin-top-right absolute right-0 mt-2 w-auto rounded-md shadow-lg bg-light-card dark:bg-dark-card ring-1 ring-black ring-opacity-5 focus:outline-none fade-in"
+                            class="hidden origin-top-right absolute right-0 mt-2 w-auto rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none fade-in"
                             role="menu" aria-orientation="vertical" aria-labelledby="dropdownButton">
                             <div class="py-1" role="none">
-                                <a href="#"
-                                    class="text-light-text dark:text-dark-text block px-4 py-2 text-sm hover:bg-light-hover dark:hover:bg-dark-hover"
-                                    role="menuitem">English</a>
-                                <a href="#"
-                                    class="text-light-text dark:text-dark-text block px-4 py-2 text-sm hover:bg-light-hover dark:hover:bg-dark-hover"
-                                    role="menuitem">Bahasa Indonesia</a>
+                                <a href="#" class="block px-4 py-2 text-sm" role="menuitem">English</a>
+                                <a href="#" class="block px-4 py-2 text-sm" role="menuitem">Bahasa Indonesia</a>
                             </div>
                         </div>
                     </div>
 
                     <div class="flex space-x-2">
-                        <div id="theme-switcher"
-                            class="flex p-1 rounded-full border border-light-border dark:border-dark-border shadow-sm bg-light-card dark:bg-dark-card">
+                        <div id="theme-switcher" class="flex p-1 rounded-full card shadow-sm">
                             <button id="system-btn"
                                 class="flex items-center justify-center p-2 rounded-full transition-colors duration-200">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
