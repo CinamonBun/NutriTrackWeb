@@ -87,7 +87,7 @@
         </section>
 
         <!-- About Us Section -->
-        <section class="py-24 sm:py-32 bg-light-bg dark:bg-dark-bg">
+        <section id="difference" class="py-24 sm:py-32 bg-light-bg dark:bg-dark-bg">
             <div class="max-w-7xl mx-auto px-6 lg:px-8">
                 <div class="text-center mb-26">
                     <h2 class="text-4xl sm:text-5xl font-bold tracking-tight">

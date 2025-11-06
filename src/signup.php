@@ -44,7 +44,7 @@ if (isset($_POST['signup'])) {
                     'fullname' => $fullname,
                     'email' => $email,
                     'username' => $username,
-                    'password' => $password, 
+                    'password' => $password,
                     'phone' => $phone
                 ];
 
@@ -329,12 +329,12 @@ if (isset($_POST['signup'])) {
 
     <script>
         // Password confirmation validation
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const password = document.getElementById('password');
             const confirmPassword = document.getElementById('confirm-password');
 
             // Password confirmation validation
-            confirmPassword.addEventListener('input', function () {
+            confirmPassword.addEventListener('input', function() {
                 if (password.value !== confirmPassword.value) {
                     confirmPassword.setCustomValidity('Passwords do not match');
                 } else {
@@ -342,7 +342,7 @@ if (isset($_POST['signup'])) {
                 }
             });
 
-            password.addEventListener('input', function () {
+            password.addEventListener('input', function() {
                 if (confirmPassword.value && password.value !== confirmPassword.value) {
                     confirmPassword.setCustomValidity('Passwords do not match');
                 } else {
