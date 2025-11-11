@@ -21,7 +21,7 @@ if (isset($_GET['delete'])) {
     if ($deleteId > 0) {
         // Try delete with user verification first
         $result = deleteFood($deleteId, $username);
-        
+
         if ($result['status'] == 204) {
             $message = 'Food item deleted successfully!';
         } else if ($result['status'] == 200) {
@@ -30,10 +30,10 @@ if (isset($_GET['delete'])) {
         } else {
             // Show detailed error
             $error = 'Failed to delete item (Status: ' . $result['status'] . '). ';
-            
+
             // Try to delete without username check (for debugging)
             $result2 = supabaseRequest('DELETE', '/rest/v1/food?id=eq.' . $deleteId);
-            
+
             if ($result2['status'] == 204 || $result2['status'] == 200) {
                 $message = 'Food item deleted (without user check)!';
                 $error = ''; // Clear error
@@ -64,9 +64,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_food'])) {
             'username' => $username // Associate food with user
             // Removed created_at - let Supabase use default now()
         ];
-        
+
         $result = createFood($foodData);
-        
+
         // DEBUG: Show the result
         if ($result['status'] == 201) {
             $message = 'Food item added successfully!';
@@ -129,21 +129,21 @@ $foods = getFoodsByUser($username);
     <!-- Header -->
     <header id="sticky-header" class="fixed z-50 w-full transition-all duration-300 ease-in-out py-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <nav class="flex mx-auto justify-between items-center px-4">
+            <nav class="flex justify-between items-center">
                 <div class="flex items-center">
                     <h1 class="text-2xl font-bold">Logo</h1>
                 </div>
                 <ul class="hidden md:flex items-center space-x-8">
                     <li><a href="dashboard.php" class="transition duration-200 transform text-hover-light">Dashboard</a>
                     </li>
-                    <li><a href="food.php" class="transition duration-200 transform hover:scale-105">Food</a></li>
+                    <li><a href="food.php" class="transition duration-200 transform hover:scale-80">Food</a></li>
                     <li><a href="user.php" class="transition duration-200 transform hover:scale-105">User</a></li>
                 </ul>
                 <div class="hidden md:flex items-center space-x-3">
                     <span class="dark:text-dark-text whitespace-nowrap">Hello,
                         <?php echo htmlspecialchars($_SESSION['username']); ?></span>
                     <a href="logout.php"
-                        class="inline-flex justify-center gap-2 text-white dark:hover:bg-[#08D2CB] dark:dark:bg-[#07bab4] px-4 py-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 w-full">Logout</a>
+                        class="inline-flex justify-center gap-2 text-white bg-[#3dccc7] hover:bg-[#68d8d6] px-4 py-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 w-full">Logout</a>
                 </div>
                 <div class="md:hidden">
                     <button class="text-gray-800 dark:text-gray-200">
@@ -162,11 +162,11 @@ $foods = getFoodsByUser($username);
     <main>
         <section class="pt-28 pb-12 md:pt-36 min-h-[60vh]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-8">
-					<h1 class="text-3xl sm:text-4xl font-bold tracking-tight">Food Management</h1>
-					<p class="mt-2 text-lg dark:opacity-80">Welcome back, <span
-							class="font-semibold"><?php echo htmlspecialchars($fullname); ?></span>.</p>
-				</div>
+                <div class="mb-8">
+                    <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">Food Management</h1>
+                    <p class="mt-2 text-lg dark:opacity-80">Welcome back, <span
+                            class="font-semibold"><?php echo htmlspecialchars($fullname); ?></span>.</p>
+                </div>
 
                 <?php if (!empty($message)) { ?>
                     <div class="mb-6 text-sm text-green-700 bg-green-100 dark:bg-green-900/20 dark:text-green-400 rounded-md px-4 py-3">
@@ -218,7 +218,7 @@ $foods = getFoodsByUser($username);
                             </div>
                             <div>
                                 <button type="submit"
-                                    class="inline-flex justify-center gap-2 text-white dark:hover:bg-[#08D2CB] dark:dark:bg-[#07bab4] px-4 py-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2">
+                                    class="inline-flex justify-center gap-2 text-white bg-[#3dccc7] hover:bg-[#68d8d6] px-4 py-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2">
                                     Add Food
                                 </button>
                             </div>

@@ -28,36 +28,32 @@
     <!-- Header -->
     <header id="sticky-header" class="fixed z-50 w-full transition-all duration-300 ease-in-out py-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <nav class="flex mx-auto justify-between items-center px-4">
+            <nav class="flex justify-between items-center">
                 <div class="flex items-center">
-                    <h1 class="text-2xl font-bold">Logo</h1>
+                    <h1 class="text-2xl font-bold">NutriTrack+</h1>
                 </div>
                 <ul class="hidden md:flex items-center space-x-8">
-                    <li><a href="index.php" class="transition duration-200 transform text-hover-light">Home</a>
-                    </li>
-                    <li><a href="about.php" class="transition duration-200 transform hover:scale-105">About
-                            Us</a></li>
+                    <li><a href="index.php" class="transition duration-200 transform">Home</a></li>
+                    <li><a href="about.php" class="transition duration-200 transform">About Us</a></li>
                     <li><a href="features.php"
-                            class="text-gray-600 hover:text-gray-950 dark:text-gray-300 dark:hover:text-white transition duration-200 transform hover:scale-105">Features</a>
+                            class="transition duration-200 transform">Features</a>
                     </li>
-                    <li><a href="riviews.php" class="transition duration-200 transform hover:scale-105">Riviews</a>
-                    </li>
-                    <li><a href="#" class="transition duration-200 transform hover:scale-105">Download</a>
-                    </li>
+                    <li><a href="riviews.php" class="transition duration-200 transform">Riviews</a></li>
+                    <li><a href="#" class="transition duration-200 transform">Download</a></li>
                 </ul>
                 <div class="hidden md:flex items-center space-x-3">
                     <a href="signin.php"
-                        class="dark:text-dark-text whitespace-nowrap transition duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none w-full">
+                        class="whitespace-nowrap transition duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none">
                         Sign In
                     </a>
                     <a href="signup.php"
-                        class="inline-flex justify-center gap-2 text-white dark:bg-[#0a0a0a] dark:hover:bg-[#525252] dark:dark:bg-[#34373b] px-4 py-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 w-full">
+                        class="inline-flex justify-center gap-2 text-white bg-[#3dccc7] hover:bg-[#68d8d6] px-4 py-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50">
                         Sign Up
                     </a>
                 </div>
                 <div class="md:hidden">
-                    <button class="text-gray-800 dark:text-gray-200">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    <button id="menu-toggle-btn" class="p-2 rounded-lg transition">
+                        <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M4 6h16M4 12h16m-7 6h7"></path>
@@ -79,7 +75,7 @@
                     <p class="mt-4 text-lg opacity-80">Everything you need to track, understand, and improve your diet.
                     </p>
                     <div class="mt-8 flex gap-3">
-                        <a href="#features" class="px-5 py-3 rounded-md text-sm font-medium text-white dark:hover:bg-[#08D2CB] dark:dark:bg-[#07bab4]">Explore Features</a>
+                        <a href="#features" class="px-5 py-3 rounded-md text-sm font-medium text-white bg-[#3dccc7] hover:bg-[#68d8d6]">Explore Features</a>
                         <a href="#how" class="px-5 py-3 rounded-md text-sm font-medium card">How It Works</a>
                     </div>
                 </div>

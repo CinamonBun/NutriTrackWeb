@@ -57,9 +57,9 @@ $fullname = $user['fullname'] ?? $username
 	<!-- Header -->
 	<header id="sticky-header" class="fixed z-50 w-full transition-all duration-300 ease-in-out py-6">
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-			<nav class="flex mx-auto justify-between items-center px-4">
+			<nav class="flex justify-between items-center">
 				<div class="flex items-center">
-					<h1 class="text-2xl font-bold">Logo</h1>
+					<h1 class="text-2xl font-bold">NutriTrack+</h1>
 				</div>
 				<ul class="hidden md:flex items-center space-x-8">
 					<li><a href="dashboard.php" class="transition duration-200 transform text-hover-light">Dashboard</a>
@@ -71,7 +71,7 @@ $fullname = $user['fullname'] ?? $username
 					<span class="dark:text-dark-text whitespace-nowrap">Hello,
 						<?php echo htmlspecialchars($_SESSION['username']); ?></span>
 					<a href="logout.php"
-						class="inline-flex justify-center gap-2 text-white dark:hover:bg-[#08D2CB] dark:dark:bg-[#07bab4] px-4 py-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 w-full">Logout</a>
+						class="inline-flex justify-center gap-2 text-white bg-[#3dccc7] hover:bg-[#68d8d6] px-4 py-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 w-full">Logout</a>
 				</div>
 				<div class="md:hidden">
 					<button class="text-gray-800 dark:text-gray-200">

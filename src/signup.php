@@ -98,7 +98,7 @@ if (isset($_POST['signup'])) {
 
         <!-- Header -->
         <div class="text-center">
-            <div class="mx-auto h-12 w-12 bg-[#07bab4] rounded-full flex items-center justify-center shadow-lg">
+            <div class="mx-auto h-12 w-12 bg-[#3dccc7] rounded-full flex items-center justify-center shadow-lg">
                 <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
@@ -257,7 +257,7 @@ if (isset($_POST['signup'])) {
                 <!-- Submit Button -->
                 <div>
                     <button type="submit" name="signup"
-                        class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-[#07bab4] hover:bg-[#08D2CB] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200 transform hover:scale-105">
+                        class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-[#3dccc7] hover:bg-[#68d8d6] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200 transform hover:scale-105">
                         <span class="absolute left-0 inset-y-0 flex items-center pl-3">
                             <svg class="h-5 w-5 text-white group-hover:text-gray-200" fill="currentColor"
                                 viewBox="0 0 20 20">
