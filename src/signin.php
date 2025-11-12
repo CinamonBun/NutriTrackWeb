@@ -90,7 +90,7 @@ if (isset($_POST['login'])) {
                             </svg>
                         </div>
                         <input id="username" name="username" type="text" required
-                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 transition duration-200"
                             placeholder="Enter your username">
                     </div>
                 </div>
@@ -108,7 +108,7 @@ if (isset($_POST['login'])) {
                             </svg>
                         </div>
                         <input id="password" name="password" type="password" required
-                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 transition duration-200"
                             placeholder="Enter your password">
                     </div>
                 </div>

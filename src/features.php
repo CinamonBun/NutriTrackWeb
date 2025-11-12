@@ -12,6 +12,66 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             /* font-family: "Geist", sans-serif; */
         }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mobile-menu-panel {
+            transform-origin: top right;
+        }
+
+        .mobile-menu-panel.animate-open {
+            animation: mobileMenuIn 0.25s ease forwards;
+        }
+
+        .mobile-menu-panel.animate-close {
+            animation: mobileMenuOut 0.2s ease forwards;
+        }
+
+        @keyframes mobileMenuIn {
+            from {
+                opacity: 0;
+                transform: translateY(-12px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes mobileMenuOut {
+            from {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateY(-8px) scale(0.95);
+            }
+        }
+
+        #menu-toggle-btn svg {
+            transition: transform 0.2s ease;
+        }
+
+        #menu-toggle-btn[aria-expanded="true"] svg {
+            transform: rotate(90deg);
+        }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,7 +88,7 @@
     <!-- Header -->
     <header id="sticky-header" class="fixed z-50 w-full transition-all duration-300 ease-in-out py-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <nav class="flex justify-between items-center">
+            <nav class="relative flex justify-between items-center">
                 <div class="flex items-center">
                     <h1 class="text-2xl font-bold">NutriTrack+</h1>
                 </div>
@@ -52,7 +112,8 @@
                     </a>
                 </div>
                 <div class="md:hidden">
-                    <button id="menu-toggle-btn" class="p-2 rounded-lg transition">
+                    <button id="menu-toggle-btn" type="button" aria-expanded="false" aria-controls="mobile-menu"
+                        aria-label="Toggle navigation" class="p-2 rounded-lg transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#3dccc7]">
                         <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -61,6 +122,25 @@
                     </button>
                 </div>
             </nav>
+            <div id="mobile-menu" class="md:hidden hidden mt-3">
+                <div class="mobile-menu-panel card shadow-lg rounded-xl p-6 space-y-4">
+                    <div class="flex flex-col space-y-3">
+                        <a href="index.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Home</a>
+                        <a href="about.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">About Us</a>
+                        <a href="features.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Features</a>
+                        <a href="riviews.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Riviews</a>
+                        <a href="#" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Download</a>
+                    </div>
+                    <div class="flex flex-col gap-3 py-3 border-t border-neutral-200 dark:border-neutral-700">
+                        <a href="signin.php"
+                            class="inline-flex justify-center items-center gap-2 text-sm font-medium rounded-md py-2 px-4 card transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#3dccc7]">Sign
+                            In</a>
+                        <a href="signup.php"
+                            class="inline-flex justify-center items-center gap-2 text-sm font-medium rounded-md py-2 px-4 text-white bg-[#3dccc7] hover:bg-[#68d8d6] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#3dccc7]">Sign
+                            Up</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -298,6 +378,90 @@
     </footer>
 
     <script>
+        // === Mobile Menu Logic ===
+        const menuToggleBtn = document.getElementById('menu-toggle-btn');
+        const menuIconPath = document.querySelector('#menu-icon path');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuPanel = mobileMenu ? mobileMenu.querySelector('.mobile-menu-panel') : null;
+
+        if (menuToggleBtn && menuIconPath && mobileMenu && mobileMenuPanel) {
+            const MOBILE_MENU_ICONS = {
+                open: 'M4 6h16M4 12h16m-7 6h7',
+                close: 'M6 18L18 6M6 6l12 12'
+            };
+
+            const setMenuIcon = (state) => {
+                menuIconPath.setAttribute('d', state === 'open' ? MOBILE_MENU_ICONS.close : MOBILE_MENU_ICONS.open);
+            };
+
+            const openMobileMenu = () => {
+                mobileMenu.classList.remove('hidden');
+                mobileMenuPanel.classList.remove('animate-close');
+                mobileMenuPanel.classList.remove('animate-open');
+                void mobileMenuPanel.offsetWidth;
+                mobileMenuPanel.classList.add('animate-open');
+                menuToggleBtn.setAttribute('aria-expanded', 'true');
+                setMenuIcon('open');
+                document.body.style.overflow = 'hidden';
+            };
+
+            const closeMobileMenu = ({
+                focusToggle = false
+            } = {}) => {
+                mobileMenuPanel.classList.remove('animate-open');
+                mobileMenuPanel.classList.add('animate-close');
+                menuToggleBtn.setAttribute('aria-expanded', 'false');
+                setMenuIcon('close');
+                document.body.style.overflow = '';
+                if (focusToggle) {
+                    menuToggleBtn.focus();
+                }
+            };
+
+            mobileMenuPanel.addEventListener('animationend', (event) => {
+                if (event.animationName === 'mobileMenuOut') {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuPanel.classList.remove('animate-close');
+                }
+            });
+
+            menuToggleBtn.addEventListener('click', () => {
+                const isExpanded = menuToggleBtn.getAttribute('aria-expanded') === 'true';
+                if (isExpanded) {
+                    closeMobileMenu();
+                } else {
+                    openMobileMenu();
+                }
+            });
+
+            mobileMenu.querySelectorAll('a').forEach((link) => {
+                link.addEventListener('click', () => closeMobileMenu());
+            });
+
+            document.addEventListener('click', (event) => {
+                const isClickInsideMenu = mobileMenu.contains(event.target) || menuToggleBtn.contains(event.target);
+                if (!isClickInsideMenu && menuToggleBtn.getAttribute('aria-expanded') === 'true') {
+                    closeMobileMenu();
+                }
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && menuToggleBtn.getAttribute('aria-expanded') === 'true') {
+                    closeMobileMenu({
+                        focusToggle: true
+                    });
+                }
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 768 && menuToggleBtn.getAttribute('aria-expanded') === 'true') {
+                    closeMobileMenu();
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuPanel.classList.remove('animate-close');
+                }
+            });
+        }
+
         // === Dropdown Menu Logic ===
         const dropdownButton = document.getElementById('dropdownButton');
         const dropdownMenu = document.getElementById('dropdownMenu');

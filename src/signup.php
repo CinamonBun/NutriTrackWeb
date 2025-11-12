@@ -129,7 +129,7 @@ if (isset($_POST['signup'])) {
                             </svg>
                         </div>
                         <input id="fullname" name="fullname" type="text" required
-                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 transition duration-200"
                             placeholder="Enter your full name">
                     </div>
                 </div>
@@ -148,7 +148,7 @@ if (isset($_POST['signup'])) {
                             </svg>
                         </div>
                         <input id="email" name="email" type="email" required
-                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 transition duration-200"
                             placeholder="Enter your email address">
                     </div>
                 </div>
@@ -166,7 +166,7 @@ if (isset($_POST['signup'])) {
                             </svg>
                         </div>
                         <input id="username" name="username" type="text" required
-                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 transition duration-200"
                             placeholder="Choose a username">
                     </div>
                 </div>
@@ -185,7 +185,7 @@ if (isset($_POST['signup'])) {
                             </svg>
                         </div>
                         <input id="password" name="password" type="password" required
-                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 transition duration-200"
                             placeholder="Create a password">
                     </div>
                 </div>
@@ -203,7 +203,7 @@ if (isset($_POST['signup'])) {
                             </svg>
                         </div>
                         <input id="confirm-password" name="confirm_password" type="password" required
-                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 transition duration-200"
                             placeholder="Confirm your password">
                     </div>
                 </div>
@@ -222,7 +222,7 @@ if (isset($_POST['signup'])) {
                             </svg>
                         </div>
                         <input id="phone" name="phone" type="tel"
-                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 transition duration-200"
                             placeholder="Enter your phone number">
                     </div>
                 </div>
