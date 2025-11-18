@@ -29,6 +29,60 @@
             }
         }
 
+        /* Hero Animations */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes pulse-custom {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(61, 204, 199, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(61, 204, 199, 0);
+            }
+        }
+
+        .animate-float-1 {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .animate-float-2 {
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        .animate-pulse-custom {
+            animation: pulse-custom 2s infinite;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #3dccc7, #4CAF50);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .phone-3d {
+            transform: perspective(1000px) rotateY(-15deg) rotateX(10deg);
+            transition: transform 0.5s ease;
+        }
+
+        .phone-3d:hover {
+            transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
+        }
+
+        /* Marquee Animations */
         .marquee-track {
             display: flex;
             flex-direction: column;
@@ -73,6 +127,7 @@
             }
         }
 
+        /* Mobile Menu */
         .mobile-menu-panel {
             transform-origin: top right;
         }
@@ -125,6 +180,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
         rel="stylesheet">
+    <script src="https://kit.fontawesome.com/45b50d7995.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -191,10 +247,92 @@
     <!-- Main -->
     <main>
         <!-- Hero Section -->
-        <section class="py-16 md:py-32 min-h-screen relative overflow-hidden shadow-sm">
-            <div class="absolute inset-0 opacity-60"></div>
-            <div class="container mx-auto px-6 relative z-10">
-                <!-- Konten Hero -->
+        <section class="relative min-h-screen flex items-center px-[5%] overflow-hidden">
+            <div class="absolute inset-0 pointer-events-none">
+                <div class="absolute top-[10%] right-[10%] w-[300px] h-[300px] bg-primary rounded-full opacity-70 blur-[80px] animate-float-1"></div>
+                <div class="absolute bottom-[20%] left-[10%] w-[200px] h-[200px] bg-secondary rounded-full opacity-70 blur-[80px] animate-float-2"></div>
+            </div>
+
+            <div class="relative z-10 w-full flex flex-col lg:flex-row items-center gap-12 lg:gap-8">
+                <div class="flex-1 max-w-[600px] text-center lg:text-left">
+
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+                        Mulai <span class="gradient-text">Gaya Hidup Sehat,</span> Pantau Apa Yang Kamu Makan!
+                    </h1>
+
+                    <p class="text-lg md:text-xl opacity-80 leading-relaxed mb-10">
+                        Setiap langkah kecil menuju hidup sehat itu penting. Dengan memantau asupan makananmu, kamu bisa lebih sadar akan nutrisi, kalori dan energi yang masuk ke tubuh
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#" class="inline-flex items-center justify-center gap-2 bg-primary text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:bg-primary-dark hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(61,204,199,0.3)]">
+                            <i class="fab fa-google-play"></i>
+                            <span>Google Play</span>
+                        </a>
+                        <a href="#" class="inline-flex items-center justify-center gap-2 border-2 border-primary text-primary px-6 py-3 rounded-full font-semibold bg-transparent transition-all duration-300 hover:bg-primary hover:text-white hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(61,204,199,0.3)]">
+                            <i class="fab fa-apple"></i>
+                            <span>App Store</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="flex-1 relative h-[600px] flex justify-center items-center">
+                    <div class="phone-3d relative w-[300px] h-[600px] bg-darker rounded-[40px] shadow-[0_25px_50px_rgba(0,0,0,0.5)] border border-white/10 overflow-hidden">
+                        <div class="absolute top-[15px] left-[15px] w-[270px] h-[570px] bg-gradient-to-br from-[#1a1a1a] to-[#2a2a2a] rounded-[30px] overflow-hidden flex flex-col">
+
+                            <div class="px-6 py-6 flex justify-between items-center">
+                                <div class="text-primary font-bold text-xl">NutriTrack+</div>
+                                <div class="text-white/60 text-sm">09:41</div>
+                            </div>
+
+                            <div class="flex-1 px-6 flex flex-col gap-4">
+                                <!-- Service Card 1 -->
+                                <div class="rounded-2xl p-4 flex items-center gap-4 card transition-all duration-300 hover:translate-x-1 cursor-pointer">
+                                    <div class="w-10 h-10 bg-primary/20 text-primary rounded-xl flex items-center justify-center text-xl">
+                                        <i class="fas fa-chart-line"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-medium text-sm mb-0.5">Pantau Nutrisi</h4>
+                                        <p class="opacity-80 text-xs">Lacak kalori & makro</p>
+                                    </div>
+                                </div>
+
+                                <!-- Service Card 2 -->
+                                <div class="bg-white/5 rounded-2xl p-4 flex items-center gap-4 border border-white/5 transition-all duration-300 hover:bg-white/10 hover:translate-x-1 cursor-pointer">
+                                    <div class="w-10 h-10 bg-accent/20 text-accent rounded-xl flex items-center justify-center text-xl">
+                                        <i class="fas fa-utensils"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-medium text-sm mb-0.5">Rencana Makan</h4>
+                                        <p class="text-white/60 text-xs">Diet personalisasi</p>
+                                    </div>
+                                </div>
+
+                                <!-- Service Card 3 -->
+                                <div class="bg-white/5 rounded-2xl p-4 flex items-center gap-4 border border-white/5 transition-all duration-300 hover:bg-white/10 hover:translate-x-1 cursor-pointer">
+                                    <div class="w-10 h-10 bg-secondary/20 text-secondary rounded-xl flex items-center justify-center text-xl">
+                                        <i class="fas fa-dumbbell"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-medium text-sm mb-0.5">Track Latihan</h4>
+                                        <p class="text-white/60 text-xs">Monitor aktivitas</p>
+                                    </div>
+                                </div>
+
+                                <!-- Service Card 4 -->
+                                <div class="bg-white/5 rounded-2xl p-4 flex items-center gap-4 border border-white/5 transition-all duration-300 hover:bg-white/10 hover:translate-x-1 cursor-pointer">
+                                    <div class="w-10 h-10 bg-[#FFC107]/20 text-[#FFC107] rounded-xl flex items-center justify-center text-xl">
+                                        <i class="fas fa-trophy"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-medium text-sm mb-0.5">Capai Target</h4>
+                                        <p class="text-white/60 text-xs">Progress & pencapaian</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
