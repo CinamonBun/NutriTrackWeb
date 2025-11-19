@@ -338,15 +338,6 @@
 
         <!-- Why NutriTrack Section -->
         <section class="relative text-center py-16 sm:py-32 overflow-hidden">
-            <!-- <div aria-hidden="true" class="absolute inset-0 z-0">
-                <div
-                    class="absolute bottom-0 left-0 inset-y-1/4 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob">
-                </div>
-                <div
-                    class="absolute top-0 right-0 w-96 h-96 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob animation-delay-2000">
-                </div>
-            </div> -->
-
             <div class="relative z-10">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="text-center mb-6 md:mb-0">
@@ -358,8 +349,91 @@
                         </p>
                     </div>
                     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div
-                            class="mt-12 max-w-6xl mx-auto h-[550px] rounded-lg shadow-md card hover:border-[#0F9E99]">
+                        <div class="mt-12 max-w-6xl mx-auto rounded-lg shadow-md card hover:border-[#0F9E99] overflow-hidden">
+                            <div class="grid md:grid-cols-2 gap-0">
+                                <!-- Left Content -->
+                                <div class="p-8 md:p-12 flex flex-col justify-center">
+                                    <div class="space-y-6">
+                                        <div class="flex items-start gap-4">
+                                            <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                                <i class="fas fa-brain text-primary text-xl"></i>
+                                            </div>
+                                            <div>
+                                                <h3 class="font-semibold text-lg mb-2">Smart AI Recommendations</h3>
+                                                <p class="opacity-80 text-sm">Dapatkan rekomendasi makanan cerdas berdasarkan kebutuhan nutrisi dan preferensi Anda dengan teknologi AI.</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="flex items-start gap-4">
+                                            <div class="w-12 h-12 bg-secondary/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                                <i class="fas fa-chart-pie text-secondary text-xl"></i>
+                                            </div>
+                                            <div>
+                                                <h3 class="font-semibold text-lg mb-2">Detailed Analytics</h3>
+                                                <p class="opacity-80 text-sm">Visualisasi lengkap dari asupan nutrisi harian, mingguan, dan bulanan dalam grafik yang mudah dipahami.</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="flex items-start gap-4">
+                                            <div class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                                <i class="fas fa-users text-accent text-xl"></i>
+                                            </div>
+                                            <div>
+                                                <h3 class="font-semibold text-lg mb-2">Community Support</h3>
+                                                <p class="opacity-80 text-sm">Bergabung dengan komunitas pengguna yang saling mendukung dalam perjalanan hidup sehat mereka.</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="flex items-start gap-4">
+                                            <div class="w-12 h-12 bg-[#FFC107]/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                                <i class="fas fa-shield-alt text-[#FFC107] text-xl"></i>
+                                            </div>
+                                            <div>
+                                                <h3 class="font-semibold text-lg mb-2">Data Security</h3>
+                                                <p class="opacity-80 text-sm">Data kesehatan Anda tersimpan aman dengan enkripsi tingkat tinggi dan privasi terjaga.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Right Visual -->
+                                <div class="bg-gradient-to-br from-primary/5 to-secondary/5 p-8 md:p-12 flex items-center justify-center">
+                                    <div class="relative w-full max-w-sm">
+                                        <div class="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-3xl"></div>
+                                        <div class="absolute bottom-0 left-0 w-32 h-32 bg-secondary/20 rounded-full blur-3xl"></div>
+                                        
+                                        <div class="relative card rounded-2xl p-6 shadow-xl">
+                                            <div class="text-center mb-6">
+                                                <div class="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-2xl mb-4">
+                                                    <i class="fas fa-star text-white text-2xl"></i>
+                                                </div>
+                                                <h4 class="font-bold text-2xl mb-2">10,000+</h4>
+                                                <p class="opacity-80">Happy Users</p>
+                                            </div>
+                                            
+                                            <div class="space-y-3">
+                                                <div class="flex items-center justify-between card p-3 rounded-xl">
+                                                    <span class="text-sm">User Rating</span>
+                                                    <div class="flex items-center gap-1">
+                                                        <i class="fas fa-star text-[#FFC107] text-xs"></i>
+                                                        <span class="font-semibold">4.8</span>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="flex items-center justify-between card p-3 rounded-xl">
+                                                    <span class="text-sm">Meals Tracked</span>
+                                                    <span class="font-semibold">500K+</span>
+                                                </div>
+                                                
+                                                <div class="flex items-center justify-between card p-3 rounded-xl">
+                                                    <span class="text-sm">Success Rate</span>
+                                                    <span class="font-semibold text-primary">92%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -385,14 +459,107 @@
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div
-                            class="h-[500px] rounded-lg shadow-md card hover:border-[#0F9E99]">
+                        <!-- Feature Card 1 -->
+                        <div class="rounded-lg shadow-md card hover:border-[#0F9E99] p-6 flex flex-col">
+                            <div class="mb-4">
+                                <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
+                                    <i class="fas fa-camera text-primary text-3xl"></i>
+                                </div>
+                                <h3 class="text-xl font-bold mb-2">Scan Makanan</h3>
+                                <p class="opacity-80 text-sm mb-4">Foto makananmu dan AI kami akan mengidentifikasi serta menghitung nutrisinya secara otomatis.</p>
+                            </div>
+                            <div class="mt-auto">
+                                <div class="card rounded-lg p-4 bg-gradient-to-br from-primary/5 to-transparent">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <div class="w-10 h-10 rounded-full bg-primary/20"></div>
+                                        <div class="flex-1">
+                                            <div class="h-3 bg-primary/20 rounded w-3/4 mb-2"></div>
+                                            <div class="h-2 bg-primary/10 rounded w-1/2"></div>
+                                        </div>
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <div class="flex-1 h-8 bg-primary/20 rounded"></div>
+                                        <div class="flex-1 h-8 bg-primary/20 rounded"></div>
+                                        <div class="flex-1 h-8 bg-primary/20 rounded"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div
-                            class="h-[500px] rounded-lg shadow-md card hover:border-[#0F9E99]">
+
+                        <!-- Feature Card 2 -->
+                        <div class="rounded-lg shadow-md card hover:border-[#0F9E99] p-6 flex flex-col">
+                            <div class="mb-4">
+                                <div class="w-16 h-16 bg-secondary/10 rounded-2xl flex items-center justify-center mb-4">
+                                    <i class="fas fa-chart-line text-secondary text-3xl"></i>
+                                </div>
+                                <h3 class="text-xl font-bold mb-2">Progress Tracking</h3>
+                                <p class="opacity-80 text-sm mb-4">Monitor perkembangan berat badan, kalori, dan nutrisi dengan grafik yang detail dan mudah dipahami.</p>
+                            </div>
+                            <div class="mt-auto">
+                                <div class="card rounded-lg p-4 bg-gradient-to-br from-secondary/5 to-transparent">
+                                    <div class="space-y-3">
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-xs opacity-80">Protein</span>
+                                            <span class="text-xs font-semibold">75%</span>
+                                        </div>
+                                        <div class="h-2 bg-secondary/10 rounded-full overflow-hidden">
+                                            <div class="h-full bg-secondary w-3/4 rounded-full"></div>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-xs opacity-80">Karbo</span>
+                                            <span class="text-xs font-semibold">60%</span>
+                                        </div>
+                                        <div class="h-2 bg-secondary/10 rounded-full overflow-hidden">
+                                            <div class="h-full bg-secondary w-3/5 rounded-full"></div>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-xs opacity-80">Lemak</span>
+                                            <span class="text-xs font-semibold">85%</span>
+                                        </div>
+                                        <div class="h-2 bg-secondary/10 rounded-full overflow-hidden">
+                                            <div class="h-full bg-secondary w-5/6 rounded-full"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div
-                            class="h-[500px] rounded-lg shadow-md card hover:border-[#0F9E99]">
+
+                        <!-- Feature Card 3 -->
+                        <div class="rounded-lg shadow-md card hover:border-[#0F9E99] p-6 flex flex-col">
+                            <div class="mb-4">
+                                <div class="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mb-4">
+                                    <i class="fas fa-book-open text-accent text-3xl"></i>
+                                </div>
+                                <h3 class="text-xl font-bold mb-2">Meal Planning</h3>
+                                <p class="opacity-80 text-sm mb-4">Rencanakan menu makanan mingguan dengan rekomendasi resep sehat yang disesuaikan dengan kebutuhanmu.</p>
+                            </div>
+                            <div class="mt-auto">
+                                <div class="card rounded-lg p-4 bg-gradient-to-br from-accent/5 to-transparent">
+                                    <div class="space-y-2">
+                                        <div class="flex items-center gap-3 p-2 bg-accent/10 rounded-lg">
+                                            <div class="w-8 h-8 bg-accent/20 rounded"></div>
+                                            <div class="flex-1">
+                                                <div class="h-2 bg-accent/30 rounded w-3/4 mb-1"></div>
+                                                <div class="h-2 bg-accent/20 rounded w-1/2"></div>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center gap-3 p-2 bg-accent/10 rounded-lg">
+                                            <div class="w-8 h-8 bg-accent/20 rounded"></div>
+                                            <div class="flex-1">
+                                                <div class="h-2 bg-accent/30 rounded w-3/4 mb-1"></div>
+                                                <div class="h-2 bg-accent/20 rounded w-1/2"></div>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center gap-3 p-2 bg-accent/10 rounded-lg">
+                                            <div class="w-8 h-8 bg-accent/20 rounded"></div>
+                                            <div class="flex-1">
+                                                <div class="h-2 bg-accent/30 rounded w-3/4 mb-1"></div>
+                                                <div class="h-2 bg-accent/20 rounded w-1/2"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
