@@ -108,8 +108,11 @@ $fullname = $user['fullname'] ?? $username
 				<ul class="hidden md:flex items-center space-x-8">
 					<li><a href="dashboard.php" class="transition duration-200 transform text-hover-light">Dashboard</a>
 					</li>
-					<li><a href="food.php" class="transition duration-200 transform hover:scale-105">Food</a></li>
 					<li><a href="user.php" class="transition duration-200 transform hover:scale-105">User</a></li>
+					<li><a href="food.php" class="transition duration-200 transform hover:scale-105">Food</a></li>
+					<li><a href="meal.php" class="transition duration-200 transform hover:scale-105">Meal</a></li>
+					<li><a href="staple.php" class="transition duration-200 transform hover:scale-105">Staple</a></li>
+					<li><a href="daily.php" class="transition duration-200 transform hover:scale-105">Daily</a></li>
 				</ul>
 				<div class="hidden md:flex items-center space-x-3">
 					<span class="dark:text-dark-text whitespace-nowrap">Hello,
@@ -133,8 +136,11 @@ $fullname = $user['fullname'] ?? $username
 				<div class="mobile-menu-panel card shadow-lg rounded-xl p-6 space-y-4">
 					<div class="flex flex-col space-y-3">
 						<a href="dashboard.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Dashboard</a>
-						<a href="food.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Food</a>
 						<a href="user.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">User</a>
+						<a href="food.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Food</a>
+						<a href="meal.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Meal</a>
+						<a href="staple.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Staple</a>
+						<a href="daily.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Daily</a>
 					</div>
 					<div class="flex flex-col gap-3 py-3 border-t border-neutral-200 dark:border-neutral-700">
 						<span class="text-sm opacity-70">Hello, <?php echo htmlspecialchars($_SESSION['username']); ?></span>

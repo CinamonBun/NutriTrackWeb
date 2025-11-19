@@ -80,40 +80,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_food'])) {
     }
 }
 
-// Handle edit
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_food'])) {
-    $foodId = isset($_POST['food_id']) ? intval($_POST['food_id']) : 0;
-    $foodName = trim($_POST['edit_name'] ?? '');
-    $calories = isset($_POST['edit_calories']) ? trim((string) $_POST['edit_calories']) : '0';
-    $protein = isset($_POST['edit_protein']) ? trim((string) $_POST['edit_protein']) : '0';
-    $carbs = isset($_POST['edit_carbs']) ? trim((string) $_POST['edit_carbs']) : '0';
-    $fat = isset($_POST['edit_fat']) ? trim((string) $_POST['edit_fat']) : '0';
-
-    if ($foodId <= 0) {
-        $error = 'Invalid food item selected for editing.';
-    } elseif ($foodName === '') {
-        $error = 'Food name is required.';
-    } else {
-        $foodData = [
-            'name' => $foodName,
-            'calories' => $calories,
-            'protein' => $protein,
-            'carbs' => $carbs,
-            'fat' => $fat
-        ];
-
-        $result = updateFood($foodId, $username, $foodData);
-        if ($result['status'] == 200) {
-            $message = 'Food item updated successfully!';
-        } else {
-            $error = 'Failed to update item. Status: ' . $result['status'];
-            if (!empty($result['data'])) {
-                $error .= ' | Details: ' . json_encode($result['data']);
-            }
-        }
-    }
-}
-
 // Fetch list - only for current user
 $foods = getFoodsByUser($username);
 
@@ -263,7 +229,7 @@ $foods = getFoodsByUser($username);
         <section class="pt-28 pb-12 md:pt-36 min-h-[60vh]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="mb-8">
-                    <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">Food Management</h1>
+                    <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">Daily Fix</h1>
                     <p class="mt-2 text-lg dark:opacity-80">Welcome back, <span
                             class="font-semibold"><?php echo htmlspecialchars($fullname); ?></span>.</p>
                 </div>
@@ -354,17 +320,7 @@ $foods = getFoodsByUser($username);
                                                 </td>
                                                 <td class="py-2 pr-4"><?php echo htmlspecialchars((string) $f['carbs']); ?></td>
                                                 <td class="py-2 pr-4"><?php echo htmlspecialchars((string) $f['fat']); ?></td>
-                                                <td class="py-2 pr-4 space-x-3">
-                                                    <button type="button"
-                                                        class="text-cyan-600 hover:underline dark:text-cyan-300 edit-food-btn"
-                                                        data-id="<?php echo (int) $f['id']; ?>"
-                                                        data-name="<?php echo htmlspecialchars($f['name']); ?>"
-                                                        data-calories="<?php echo htmlspecialchars((string) $f['calories']); ?>"
-                                                        data-protein="<?php echo htmlspecialchars((string) $f['protein']); ?>"
-                                                        data-carbs="<?php echo htmlspecialchars((string) $f['carbs']); ?>"
-                                                        data-fat="<?php echo htmlspecialchars((string) $f['fat']); ?>">
-                                                        Edit
-                                                    </button>
+                                                <td class="py-2 pr-4">
                                                     <a href="food.php?delete=<?php echo (int) $f['id']; ?>"
                                                         class="text-red-600 hover:underline dark:text-red-400"
                                                         onclick="return confirm('Delete this item?');">Delete</a>
@@ -380,56 +336,6 @@ $foods = getFoodsByUser($username);
             </div>
         </section>
     </main>
-
-    <!-- Edit Food Modal -->
-    <div id="edit-food-modal" class="fixed inset-0 z-50 hidden items-center justify-center px-4">
-        <div class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
-        <div class="relative w-full max-w-lg mx-auto card rounded-xl shadow-2xl p-6 fade-in">
-            <div class="flex items-center justify-between mb-4">
-                <h3 class="text-xl font-semibold">Edit Food</h3>
-                <button type="button" id="close-edit-modal" class="opacity-80">✕</button>
-            </div>
-            <form id="edit-food-form" class="space-y-4" method="POST" action="food.php">
-                <input type="hidden" name="edit_food" value="1">
-                <input type="hidden" name="food_id" id="edit-food-id">
-                <div>
-                    <label for="edit-name" class="block text-sm font-medium mb-2">Name</label>
-                    <input id="edit-name" name="edit_name" type="text" required
-                        class="block w-full px-3 py-2 card rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500">
-                </div>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div>
-                        <label for="edit-calories" class="block text-sm font-medium mb-2">Calories</label>
-                        <input id="edit-calories" name="edit_calories" type="number" step="0.01" min="0"
-                            class="block w-full px-3 py-2 card rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500">
-                    </div>
-                    <div>
-                        <label for="edit-protein" class="block text-sm font-medium mb-2">Protein (g)</label>
-                        <input id="edit-protein" name="edit_protein" type="number" step="0.01" min="0"
-                            class="block w-full px-3 py-2 card rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500">
-                    </div>
-                    <div>
-                        <label for="edit-carbs" class="block text-sm font-medium mb-2">Carbs (g)</label>
-                        <input id="edit-carbs" name="edit_carbs" type="number" step="0.01" min="0"
-                            class="block w-full px-3 py-2 card rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500">
-                    </div>
-                    <div>
-                        <label for="edit-fat" class="block text-sm font-medium mb-2">Fat (g)</label>
-                        <input id="edit-fat" name="edit_fat" type="number" step="0.01" min="0"
-                            class="block w-full px-3 py-2 card rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500">
-                    </div>
-                </div>
-                <div class="flex justify-end gap-3">
-                    <button type="button" id="cancel-edit-modal"
-                        class="px-4 py-2 rounded-md border border-gray-300 hover:bg-white/10">Cancel</button>
-                    <button type="submit"
-                        class="inline-flex justify-center gap-2 text-white bg-[#3dccc7] hover:bg-[#68d8d6] px-4 py-3 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2">
-                        Save Changes
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
 
     <div class="fixed bottom-6 right-6 z-50 flex flex-col items-center space-y-4">
         <div class="p-1 rounded-full card shadow-md transition-all duration-300">
@@ -644,68 +550,6 @@ $foods = getFoodsByUser($username);
             } else {
                 header.classList.remove('bg-light-bg', 'dark:bg-dark-bg', 'shadow-lg', 'backdrop-blur-sm', 'bg-opacity-80', 'py-4');
                 header.classList.add('py-6');
-            }
-        });
-
-        // === Edit Food Modal Logic ===
-        const editModal = document.getElementById('edit-food-modal');
-        const editButtons = document.querySelectorAll('.edit-food-btn');
-        const closeEditModalBtn = document.getElementById('close-edit-modal');
-        const cancelEditModalBtn = document.getElementById('cancel-edit-modal');
-        const editFoodIdInput = document.getElementById('edit-food-id');
-        const editNameInput = document.getElementById('edit-name');
-        const editCaloriesInput = document.getElementById('edit-calories');
-        const editProteinInput = document.getElementById('edit-protein');
-        const editCarbsInput = document.getElementById('edit-carbs');
-        const editFatInput = document.getElementById('edit-fat');
-
-        const setBodyScroll = (locked) => {
-            document.body.style.overflow = locked ? 'hidden' : '';
-        };
-
-        const openEditModal = () => {
-            if (!editModal) return;
-            editModal.classList.remove('hidden');
-            editModal.classList.add('flex');
-            setBodyScroll(true);
-        };
-
-        const closeEditModal = () => {
-            if (!editModal) return;
-            editModal.classList.add('hidden');
-            editModal.classList.remove('flex');
-            setBodyScroll(false);
-        };
-
-        editButtons.forEach((btn) => {
-            btn.addEventListener('click', () => {
-                const {
-                    id,
-                    name,
-                    calories,
-                    protein,
-                    carbs,
-                    fat
-                } = btn.dataset;
-                editFoodIdInput.value = id || '';
-                editNameInput.value = name || '';
-                editCaloriesInput.value = calories || 0;
-                editProteinInput.value = protein || 0;
-                editCarbsInput.value = carbs || 0;
-                editFatInput.value = fat || 0;
-                openEditModal();
-            });
-        });
-
-        closeEditModalBtn && closeEditModalBtn.addEventListener('click', closeEditModal);
-        cancelEditModalBtn && cancelEditModalBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            closeEditModal();
-        });
-
-        editModal && editModal.addEventListener('click', (event) => {
-            if (event.target === editModal) {
-                closeEditModal();
             }
         });
     </script>

@@ -104,6 +104,14 @@
   .dark .fade-bottom {
     background: linear-gradient(to top, var(--dark-bg), transparent);
   }
+
+  .dark .bg-gradient {
+    background-image: linear-gradient(to bottom right, #1a1a1a, #2a2a2a);
+  }
+
+  .bg-gradient {
+    background-image: linear-gradient(to bottom right, #ffffff, #ececec);
+  }
 }
 
 @layer utilities {

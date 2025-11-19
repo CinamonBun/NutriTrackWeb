@@ -278,16 +278,16 @@
 
                 <div class="flex-1 relative h-[600px] flex justify-center items-center">
                     <div class="phone-3d relative w-[300px] h-[600px] bg-darker rounded-[40px] shadow-[0_25px_50px_rgba(0,0,0,0.5)] border border-white/10 overflow-hidden">
-                        <div class="absolute top-[15px] left-[15px] w-[270px] h-[570px] bg-gradient-to-br from-[#1a1a1a] to-[#2a2a2a] rounded-[30px] overflow-hidden flex flex-col">
+                        <div class="absolute top-[15px] left-[15px] w-[270px] h-[570px] bg-gradient rounded-[30px] overflow-hidden flex flex-col">
 
                             <div class="px-6 py-6 flex justify-between items-center">
                                 <div class="text-primary font-bold text-xl">NutriTrack+</div>
-                                <div class="text-white/60 text-sm">09:41</div>
+                                <div class="opacity-90 text-sm">09:41</div>
                             </div>
 
                             <div class="flex-1 px-6 flex flex-col gap-4">
                                 <!-- Service Card 1 -->
-                                <div class="rounded-2xl p-4 flex items-center gap-4 card transition-all duration-300 hover:translate-x-1 cursor-pointer">
+                                <div class="rounded-2xl p-4 flex items-center gap-4 card transition-all duration-300 hover:bg-white/10 hover:translate-x-1 cursor-pointer">
                                     <div class="w-10 h-10 bg-primary/20 text-primary rounded-xl flex items-center justify-center text-xl">
                                         <i class="fas fa-chart-line"></i>
                                     </div>
@@ -298,35 +298,35 @@
                                 </div>
 
                                 <!-- Service Card 2 -->
-                                <div class="bg-white/5 rounded-2xl p-4 flex items-center gap-4 border border-white/5 transition-all duration-300 hover:bg-white/10 hover:translate-x-1 cursor-pointer">
+                                <div class="rounded-2xl p-4 flex items-center gap-4 card transition-all duration-300 hover:bg-white/10 hover:translate-x-1 cursor-pointer">
                                     <div class="w-10 h-10 bg-accent/20 text-accent rounded-xl flex items-center justify-center text-xl">
                                         <i class="fas fa-utensils"></i>
                                     </div>
                                     <div>
-                                        <h4 class="text-white font-medium text-sm mb-0.5">Rencana Makan</h4>
-                                        <p class="text-white/60 text-xs">Diet personalisasi</p>
+                                        <h4 class=" font-medium text-sm mb-0.5">Rencana Makan</h4>
+                                        <p class="opacity-80 text-xs">Diet personalisasi</p>
                                     </div>
                                 </div>
 
                                 <!-- Service Card 3 -->
-                                <div class="bg-white/5 rounded-2xl p-4 flex items-center gap-4 border border-white/5 transition-all duration-300 hover:bg-white/10 hover:translate-x-1 cursor-pointer">
+                                <div class="rounded-2xl p-4 flex items-center gap-4 card transition-all duration-300 hover:bg-white/10 hover:translate-x-1 cursor-pointer">
                                     <div class="w-10 h-10 bg-secondary/20 text-secondary rounded-xl flex items-center justify-center text-xl">
                                         <i class="fas fa-dumbbell"></i>
                                     </div>
                                     <div>
-                                        <h4 class="text-white font-medium text-sm mb-0.5">Track Latihan</h4>
-                                        <p class="text-white/60 text-xs">Monitor aktivitas</p>
+                                        <h4 class=" font-medium text-sm mb-0.5">Track Latihan</h4>
+                                        <p class="opacity-80 text-xs">Monitor aktivitas</p>
                                     </div>
                                 </div>
 
                                 <!-- Service Card 4 -->
-                                <div class="bg-white/5 rounded-2xl p-4 flex items-center gap-4 border border-white/5 transition-all duration-300 hover:bg-white/10 hover:translate-x-1 cursor-pointer">
+                                <div class="rounded-2xl p-4 flex items-center gap-4 card transition-all duration-300 hover:bg-white/10 hover:translate-x-1 cursor-pointer">
                                     <div class="w-10 h-10 bg-[#FFC107]/20 text-[#FFC107] rounded-xl flex items-center justify-center text-xl">
                                         <i class="fas fa-trophy"></i>
                                     </div>
                                     <div>
-                                        <h4 class="text-white font-medium text-sm mb-0.5">Capai Target</h4>
-                                        <p class="text-white/60 text-xs">Progress & pencapaian</p>
+                                        <h4 class=" font-medium text-sm mb-0.5">Capai Target</h4>
+                                        <p class="opacity-80 text-xs">Progress & pencapaian</p>
                                     </div>
                                 </div>
                             </div>
