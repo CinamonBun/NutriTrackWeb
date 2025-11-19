@@ -1,12 +1,77 @@
-# Environment variables
-node_modules/
+# Environment Variables
 .env
-src/.env
+.env.local
+.env.*.local
 *.env
 !.env.example
 
-# Config files with credentials
+# Configuration Files (yang berisi kredensial)
 config.php
 src/config.php
 **/config.php
-!config-secure.php
+config-secure.php
+src/config-secure.php
+
+# Tailwind CSS Output (Generated File)
+src/output.css
+output.css
+
+# Node Modules
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+# Composer (jika pakai PHP Composer)
+/vendor/
+composer.lock
+
+# IDE & Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Build & Compiled Files
+/dist/
+/build/
+*.min.css
+*.min.js
+
+# Logs
+*.log
+logs/
+*.sql
+
+# Temporary Files
+tmp/
+temp/
+*.tmp
+
+# Upload Directories (jika ada user uploads)
+uploads/
+public/uploads/
+src/uploads/
+
+# Cache
+cache/
+*.cache
+
+# Database
+*.sqlite
+*.db
+
+# Backup Files
+*.bak
+*.backup
+*~
+
+# OS Files
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# PHPStorm
+.phpunit.result.cache
