@@ -147,18 +147,71 @@
     <!-- Main -->
     <main>
         <!-- Hero / Intro -->
-        <section class="min-h-screen relative overflow-hidden flex items-center shadow-sm">
-            <div class="absolute inset-0 opacity-60"></div>
-            <div class="max-w-7xl mx-auto px-6 relative z-10">
-                <div class="max-w-3xl">
-                    <h1 class="text-4xl md:text-5xl font-bold tracking-tight">About Us</h1>
-                    <p class="mt-4 text-lg opacity-80">We are a team of nutritionists and software engineers who are passionate about helping people achieve their health goals.
+        <section class="relative w-full min-h-screen flex items-center overflow-hidden px-[5%] py-20">
+
+            <div class="absolute inset-0 
+                bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] 
+                bg-[size:24px_24px] 
+                [mask-image:linear-gradient(to_bottom,white_10%,transparent_90%)]">
+            </div>
+            <div class="absolute top-0 left-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+            <div class="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full card text-sm text-primary mb-6">
+                        <i class="fas fa-leaf"></i>
+                        <span>Our Philosophy</span>
+                    </div>
+
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                        Bridging <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#3dccc7] to-green-400">Technology</span> <br> with Biology.
+                    </h1>
+
+                    <p class="text-lg opacity-70 mb-8 leading-relaxed">
+                        Kami adalah tim nutrisionis dan engineer yang percaya bahwa kesehatan tidak harus rumit. Misi kami adalah mendemokratisasi akses ke gizi personal melalui kecerdasan buatan.
                     </p>
-                    <div class="mt-8 flex gap-3">
-                        <a href="#difference" class="px-5 py-3 rounded-md text-sm font-medium text-white bg-[#3dccc7] hover:bg-[#68d8d6]">The NutriTrack Difference</a>
-                        <a href="#philosophy" class="px-5 py-3 rounded-md text-sm font-medium card">Our Philosophy</a>
+
+                    <div class="flex items-center gap-8 border-t border-white/10 pt-8">
+                        <div>
+                            <h4 class="text-3xl font-bold">3+</h4>
+                            <p class="text-sm opacity-60">Years Journey</p>
+                        </div>
+                        <div class="w-px h-10 border-r border-white/10"></div>
+                        <div>
+                            <h4 class="text-3xl font-bold">50+</h4>
+                            <p class="text-sm opacity-60">Team Members</p>
+                        </div>
+                        <div class="w-px h-10 border-l border-white/10"></div>
+                        <div>
+                            <h4 class="text-3xl font-bold">1M+</h4>
+                            <p class="text-sm opacity-60">Meals Tracked</p>
+                        </div>
                     </div>
                 </div>
+
+                <div class="grid grid-cols-2 gap-4 relative">
+                    <div class="absolute -inset-4 bg-gradient-to-tr from-primary/20 to-transparent rounded-full blur-2xl -z-10"></div>
+
+                    <div class="space-y-4 mt-8">
+                        <div class="h-40 bg-gray-800 rounded-2xl overflow-hidden border border-white/10 shadow-lg transform hover:scale-105 transition duration-500">
+                            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition">
+                        </div>
+                        <div class="h-56 bg-gray-800 rounded-2xl overflow-hidden border border-white/10 shadow-lg transform hover:scale-105 transition duration-500">
+                            <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition">
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="h-56 bg-gray-800 rounded-2xl overflow-hidden border border-white/10 shadow-lg transform hover:scale-105 transition duration-500">
+                            <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition">
+                        </div>
+                        <div class="h-40 bg-gray-800 rounded-2xl overflow-hidden border border-white/10 shadow-lg transform hover:scale-105 transition duration-500">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition">
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 

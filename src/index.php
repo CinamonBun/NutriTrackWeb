@@ -127,6 +127,71 @@
             }
         }
 
+        /* Animation Keyframes */
+        @keyframes float-up-down {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes float-delayed {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .animate-float {
+            animation: float-up-down 6s ease-in-out infinite;
+        }
+
+        .animate-float-delayed {
+            animation: float-delayed 7s ease-in-out infinite 1s;
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #3dccc7, #4CAF50);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Grid Pattern Background */
+        .bg-grid-pattern {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+
+        /* Glassmorphism Card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .phone-container {
+            transform: perspective(1000px) rotateY(-12deg) rotateX(5deg);
+            transition: transform 0.5s ease-out;
+            transform-style: preserve-3d;
+        }
+
+        .phone-container:hover {
+            transform: perspective(1000px) rotateY(-5deg) rotateX(2deg);
+        }
+
         /* Mobile Menu */
         .mobile-menu-panel {
             transform-origin: top right;
@@ -247,89 +312,142 @@
     <!-- Main -->
     <main>
         <!-- Hero Section -->
-        <section class="relative min-h-screen flex items-center px-[5%] overflow-hidden">
-            <div class="absolute inset-0 pointer-events-none">
-                <div class="absolute top-[10%] right-[10%] w-[300px] h-[300px] bg-primary rounded-full opacity-70 blur-[80px] animate-float-1"></div>
-                <div class="absolute bottom-[20%] left-[10%] w-[200px] h-[200px] bg-secondary rounded-full opacity-70 blur-[80px] animate-float-2"></div>
-            </div>
+        <section class="relative min-h-screen flex flex-col lg:flex-row items-center lg:items-center justify-center lg:justify-between px-[5%] overflow-hidden pt-32 pb-20 lg:py-0">
 
-            <div class="relative z-10 w-full flex flex-col lg:flex-row items-center gap-12 lg:gap-8">
-                <div class="flex-1 max-w-[600px] text-center lg:text-left">
+            <div class="hidden md:block absolute top-0 right-0 md:w-[380px] md:h-[380px] lg:w-[600px] lg:h-[600px] bg-primary/10 rounded-full blur-[120px] pointer-events-none"></div>
+            <div class="hidden md:block absolute bottom-0 left-0 md:w-[320px] md:h-[320px] lg:w-[500px] lg:h-[500px] bg-secondary/5 rounded-full blur-[100px] pointer-events-none"></div>
 
-                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
-                        Mulai <span class="gradient-text">Gaya Hidup Sehat,</span> Pantau Apa Yang Kamu Makan!
+            <div class="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
+
+                <div class="flex-1 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full card text-sm text-primary mb-6 animate-pulse">
+                        <span class="w-2 h-2 rounded-full bg-primary"></span>
+                        New Feature: Chat Bot AI
+                    </div>
+
+                    <h1 class="text-4xl md:text-5xl lg:text-7xl font-extrabold leading-tight mb-6">
+                        Mulai <span class="gradient-text">Gaya Hidup</span> <br> Lebih Sehat.
                     </h1>
 
-                    <p class="text-lg md:text-xl opacity-80 leading-relaxed mb-10">
-                        Setiap langkah kecil menuju hidup sehat itu penting. Dengan memantau asupan makananmu, kamu bisa lebih sadar akan nutrisi, kalori dan energi yang masuk ke tubuh
+                    <p class="text-lg md:text-xl opacity-80 leading-relaxed mb-10 max-w-2xl mx-auto lg:mx-0">
+                        Pantau kalori, nutrisi, dan aktivitas harianmu dalam satu aplikasi cerdas. Data akurat untuk hasil yang nyata.
                     </p>
 
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-10">
                         <a href="#" class="inline-flex items-center justify-center gap-2 bg-primary text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:bg-primary-dark hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(61,204,199,0.3)]">
                             <i class="fab fa-google-play"></i>
                             <span>Google Play</span>
                         </a>
-                        <a href="#" class="inline-flex items-center justify-center gap-2 border-2 border-primary text-primary px-6 py-3 rounded-full font-semibold bg-transparent transition-all duration-300 hover:bg-primary hover:text-white hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(61,204,199,0.3)]">
+                        <a href="#" class="inline-flex items-center justify-center gap-2 card opacity-80 px-6 py-3 rounded-full font-semibold backdrop-blur-sm transition-all duration-300 hover:border-primary hover:text-primary hover:-translate-y-1">
                             <i class="fab fa-apple"></i>
                             <span>App Store</span>
                         </a>
                     </div>
                 </div>
 
-                <div class="flex-1 relative h-[600px] flex justify-center items-center">
-                    <div class="phone-3d relative w-[300px] h-[600px] bg-darker rounded-[40px] shadow-[0_25px_50px_rgba(0,0,0,0.5)] border border-white/10 overflow-hidden">
-                        <div class="absolute top-[15px] left-[15px] w-[270px] h-[570px] bg-gradient rounded-[30px] overflow-hidden flex flex-col">
+                <div class="flex-1 relative flex justify-center items-center perspective-container">
 
-                            <div class="px-6 py-6 flex justify-between items-center">
-                                <div class="text-primary font-bold text-xl">NutriTrack+</div>
-                                <div class="opacity-90 text-sm">09:41</div>
+                    <div class="absolute top-[20%] -left-[5%] z-20 glass-card p-4 rounded-2xl animate-float-delayed hidden md:block w-40">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-full bg-orange-500/20 flex items-center justify-center text-orange-500">
+                                <i class="fas fa-fire text-sm"></i>
+                            </div>
+                            <span class="text-xs opacity-90 font-semibold">Burned</span>
+                        </div>
+                        <div class="text-xl font-bold">840 <span class="text-xs font-normal opacity-70">kcal</span></div>
+                        <div class="w-full h-1.5 bg-gray-700 rounded-full mt-2 overflow-hidden">
+                            <div class="h-full bg-orange-500 w-[70%]"></div>
+                        </div>
+                    </div>
+
+                    <div class="absolute bottom-[25%] -right-[5%] z-20 glass-card p-4 rounded-2xl animate-float hidden md:block w-40">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-full bg-red-500/20 flex items-center justify-center text-red-500">
+                                <i class="fas fa-heartbeat text-sm"></i>
+                            </div>
+                            <span class="text-xs opacity-90 font-semibold">Heart Rate</span>
+                        </div>
+                        <div class="text-xl font-bold">98 <span class="text-xs font-normal opacity-70">bpm</span></div>
+                        <div class="mt-2 flex gap-1 items-end h-6 opacity-50">
+                            <div class="w-1 bg-red-500 h-[40%] rounded-sm"></div>
+                            <div class="w-1 bg-red-500 h-[70%] rounded-sm"></div>
+                            <div class="w-1 bg-red-500 h-[50%] rounded-sm"></div>
+                            <div class="w-1 bg-red-500 h-[100%] rounded-sm"></div>
+                            <div class="w-1 bg-red-500 h-[60%] rounded-sm"></div>
+                        </div>
+                    </div>
+
+                    <div class="phone-container relative w-[300px] h-[600px] bg-[#151515] rounded-[45px] shadow-[0_0_0_8px_#252525,0_50px_100px_rgba(0,0,0,0.6)] overflow-hidden">
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[120px] h-[25px] bg-[#252525] rounded-b-2xl z-30"></div>
+
+                        <div class="w-full h-full bg-gradient p-6 pt-12 flex flex-col relative">
+
+                            <div class="flex justify-between items-center mb-8">
+                                <div>
+                                    <p class="opacity-70 text-xs">Hello, Alex</p>
+                                    <h3 class="font-bold text-lg">Daily Progress</h3>
+                                </div>
+                                <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
+                                    <img src="assets/img/me.png" alt="User" class="w-8 h-8">
+                                </div>
                             </div>
 
-                            <div class="flex-1 px-6 flex flex-col gap-4">
-                                <!-- Service Card 1 -->
-                                <div class="rounded-2xl p-4 flex items-center gap-4 card transition-all duration-300 hover:bg-white/10 hover:translate-x-1 cursor-pointer">
-                                    <div class="w-10 h-10 bg-primary/20 text-primary rounded-xl flex items-center justify-center text-xl">
-                                        <i class="fas fa-chart-line"></i>
+                            <div class="p-4 rounded-2xl card mb-4">
+                                <div class="flex justify-between items-end h-[100px] gap-2 mb-2">
+                                    <div class="w-full bg-primary/20 rounded-t-md relative group h-[40%] hover:bg-primary/40 transition-all"></div>
+                                    <div class="w-full bg-primary/20 rounded-t-md relative group h-[60%] hover:bg-primary/40 transition-all"></div>
+                                    <div class="w-full bg-primary rounded-t-md relative group h-[85%] shadow-[0_0_20px_rgba(61,204,199,0.4)]"></div>
+                                    <div class="w-full bg-primary/20 rounded-t-md relative group h-[50%] hover:bg-primary/40 transition-all"></div>
+                                    <div class="w-full bg-primary/20 rounded-t-md relative group h-[70%] hover:bg-primary/40 transition-all"></div>
+                                </div>
+                                <p class="text-center text-xs text-gray-400 mt-2">Calories Intake vs Goal</p>
+                            </div>
+
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-3 p-3 rounded-xl card">
+                                    <div class="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center text-green-500">
+                                        <i class="fas fa-apple-alt"></i>
                                     </div>
-                                    <div>
-                                        <h4 class="font-medium text-sm mb-0.5">Pantau Nutrisi</h4>
-                                        <p class="opacity-80 text-xs">Lacak kalori & makro</p>
+                                    <div class="flex-1">
+                                        <h4 class="text-sm font-semibold">Breakfast</h4>
+                                        <p class="text-xs opacity-70">Oatmeal & Berries</p>
                                     </div>
+                                    <span class="text-sm font-bold">320</span>
                                 </div>
 
-                                <!-- Service Card 2 -->
-                                <div class="rounded-2xl p-4 flex items-center gap-4 card transition-all duration-300 hover:bg-white/10 hover:translate-x-1 cursor-pointer">
-                                    <div class="w-10 h-10 bg-accent/20 text-accent rounded-xl flex items-center justify-center text-xl">
-                                        <i class="fas fa-utensils"></i>
+                                <div class="flex items-center gap-3 p-3 rounded-xl card">
+                                    <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-500">
+                                        <i class="fas fa-glass-whiskey"></i>
                                     </div>
-                                    <div>
-                                        <h4 class=" font-medium text-sm mb-0.5">Rencana Makan</h4>
-                                        <p class="opacity-80 text-xs">Diet personalisasi</p>
+                                    <div class="flex-1">
+                                        <h4 class="text-sm font-semibold">Hydration</h4>
+                                        <p class="text-xs opacity-70">6/8 Glasses</p>
                                     </div>
+                                    <span class="text-sm font-bold">75%</span>
                                 </div>
 
-                                <!-- Service Card 3 -->
-                                <div class="rounded-2xl p-4 flex items-center gap-4 card transition-all duration-300 hover:bg-white/10 hover:translate-x-1 cursor-pointer">
-                                    <div class="w-10 h-10 bg-secondary/20 text-secondary rounded-xl flex items-center justify-center text-xl">
-                                        <i class="fas fa-dumbbell"></i>
+                                <div class="flex items-center gap-3 p-3 rounded-xl card">
+                                    <div class="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center text-purple-500">
+                                        <i class="fas fa-running"></i>
                                     </div>
-                                    <div>
-                                        <h4 class=" font-medium text-sm mb-0.5">Track Latihan</h4>
-                                        <p class="opacity-80 text-xs">Monitor aktivitas</p>
+                                    <div class="flex-1">
+                                        <h4 class="text-sm font-semibold">Evening Run</h4>
+                                        <p class="text-xs opacity-70">Scheduled 6:00 PM</p>
                                     </div>
-                                </div>
-
-                                <!-- Service Card 4 -->
-                                <div class="rounded-2xl p-4 flex items-center gap-4 card transition-all duration-300 hover:bg-white/10 hover:translate-x-1 cursor-pointer">
-                                    <div class="w-10 h-10 bg-[#FFC107]/20 text-[#FFC107] rounded-xl flex items-center justify-center text-xl">
-                                        <i class="fas fa-trophy"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class=" font-medium text-sm mb-0.5">Capai Target</h4>
-                                        <p class="opacity-80 text-xs">Progress & pencapaian</p>
-                                    </div>
+                                    <span class="text-xs bg-purple-500/20 text-purple-400 px-2 py-1 rounded">Soon</span>
                                 </div>
                             </div>
+
+                            <div class="mt-auto flex justify-between opacity-70 pt-4 border-t">
+                                <i class="fas fa-home text-primary"></i>
+                                <i class="fas fa-chart-bar hover:text-white transition"></i>
+                                <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center -mt-8 shadow-lg text-white border-2 border-primary">
+                                    <i class="fas fa-plus"></i>
+                                </div>
+                                <i class="fas fa-book hover:text-white transition"></i>
+                                <i class="fas fa-user hover:text-white transition"></i>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -348,60 +466,62 @@
                             Get expert nutritional guidance and personalized meal plans specifically for your journey.
                         </p>
                     </div>
+
                     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div class="mt-12 max-w-6xl mx-auto rounded-lg shadow-md card hover:border-[#0F9E99] overflow-hidden">
                             <div class="grid md:grid-cols-2 gap-0">
-                                <!-- Left Content -->
+
                                 <div class="p-8 md:p-12 flex flex-col justify-center">
                                     <div class="space-y-6">
+
                                         <div class="flex items-start gap-4">
                                             <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
                                                 <i class="fas fa-brain text-primary text-xl"></i>
                                             </div>
-                                            <div>
+                                            <div class="text-left">
                                                 <h3 class="font-semibold text-lg mb-2">Smart AI Recommendations</h3>
                                                 <p class="opacity-80 text-sm">Dapatkan rekomendasi makanan cerdas berdasarkan kebutuhan nutrisi dan preferensi Anda dengan teknologi AI.</p>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="flex items-start gap-4">
                                             <div class="w-12 h-12 bg-secondary/10 rounded-xl flex items-center justify-center flex-shrink-0">
                                                 <i class="fas fa-chart-pie text-secondary text-xl"></i>
                                             </div>
-                                            <div>
+                                            <div class="text-left">
                                                 <h3 class="font-semibold text-lg mb-2">Detailed Analytics</h3>
                                                 <p class="opacity-80 text-sm">Visualisasi lengkap dari asupan nutrisi harian, mingguan, dan bulanan dalam grafik yang mudah dipahami.</p>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="flex items-start gap-4">
                                             <div class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0">
                                                 <i class="fas fa-users text-accent text-xl"></i>
                                             </div>
-                                            <div>
+                                            <div class="text-left">
                                                 <h3 class="font-semibold text-lg mb-2">Community Support</h3>
                                                 <p class="opacity-80 text-sm">Bergabung dengan komunitas pengguna yang saling mendukung dalam perjalanan hidup sehat mereka.</p>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="flex items-start gap-4">
                                             <div class="w-12 h-12 bg-[#FFC107]/10 rounded-xl flex items-center justify-center flex-shrink-0">
                                                 <i class="fas fa-shield-alt text-[#FFC107] text-xl"></i>
                                             </div>
-                                            <div>
+                                            <div class="text-left">
                                                 <h3 class="font-semibold text-lg mb-2">Data Security</h3>
                                                 <p class="opacity-80 text-sm">Data kesehatan Anda tersimpan aman dengan enkripsi tingkat tinggi dan privasi terjaga.</p>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
-                                
-                                <!-- Right Visual -->
+
                                 <div class="bg-gradient-to-br from-primary/5 to-secondary/5 p-8 md:p-12 flex items-center justify-center">
                                     <div class="relative w-full max-w-sm">
                                         <div class="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-3xl"></div>
                                         <div class="absolute bottom-0 left-0 w-32 h-32 bg-secondary/20 rounded-full blur-3xl"></div>
-                                        
+
                                         <div class="relative card rounded-2xl p-6 shadow-xl">
                                             <div class="text-center mb-6">
                                                 <div class="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-2xl mb-4">
@@ -410,7 +530,7 @@
                                                 <h4 class="font-bold text-2xl mb-2">10,000+</h4>
                                                 <p class="opacity-80">Happy Users</p>
                                             </div>
-                                            
+
                                             <div class="space-y-3">
                                                 <div class="flex items-center justify-between card p-3 rounded-xl">
                                                     <span class="text-sm">User Rating</span>
@@ -419,12 +539,12 @@
                                                         <span class="font-semibold">4.8</span>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="flex items-center justify-between card p-3 rounded-xl">
                                                     <span class="text-sm">Meals Tracked</span>
                                                     <span class="font-semibold">500K+</span>
                                                 </div>
-                                                
+
                                                 <div class="flex items-center justify-between card p-3 rounded-xl">
                                                     <span class="text-sm">Success Rate</span>
                                                     <span class="font-semibold text-primary">92%</span>
@@ -440,8 +560,9 @@
             </div>
         </section>
 
-        <!-- See NutriTrack in Action Section -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- See NutriTrack in Action Section -->
             <section class="py-16 sm:py-24">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex flex-col md:flex-row items-center justify-between mb-12 sm:mb-16">
@@ -458,9 +579,9 @@
                         </a>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
                         <!-- Feature Card 1 -->
-                        <div class="rounded-lg shadow-md card hover:border-[#0F9E99] p-6 flex flex-col">
+                        <div class="rounded-lg shadow-md card hover:border-[#0F9E99] p-6 flex flex-col h-full">
                             <div class="mb-4">
                                 <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
                                     <i class="fas fa-camera text-primary text-3xl"></i>
@@ -487,7 +608,7 @@
                         </div>
 
                         <!-- Feature Card 2 -->
-                        <div class="rounded-lg shadow-md card hover:border-[#0F9E99] p-6 flex flex-col">
+                        <div class="rounded-lg shadow-md card hover:border-[#0F9E99] p-6 flex flex-col h-full">
                             <div class="mb-4">
                                 <div class="w-16 h-16 bg-secondary/10 rounded-2xl flex items-center justify-center mb-4">
                                     <i class="fas fa-chart-line text-secondary text-3xl"></i>
@@ -525,7 +646,7 @@
                         </div>
 
                         <!-- Feature Card 3 -->
-                        <div class="rounded-lg shadow-md card hover:border-[#0F9E99] p-6 flex flex-col">
+                        <div class="rounded-lg shadow-md card hover:border-[#0F9E99] p-6 flex flex-col h-full">
                             <div class="mb-4">
                                 <div class="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mb-4">
                                     <i class="fas fa-book-open text-accent text-3xl"></i>
@@ -804,7 +925,7 @@
                             </div>
 
                             <!-- 3 -->
-                            <div class="marquee-col h-full overflow-y-hidden hidden md:block">
+                            <div class="marquee-col h-full overflow-y-hidden hidden lg:block">
                                 <div class="marquee-track reverse px-2 py-4">
                                     <div
                                         class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
@@ -915,7 +1036,7 @@
                             </div>
 
                             <!-- 4 -->
-                            <div class="marquee-col h-full overflow-y-hidden hidden md:block">
+                            <div class="marquee-col h-full overflow-y-hidden hidden lg:block">
                                 <div class="marquee-track px-2 py-4">
                                     <div
                                         class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">

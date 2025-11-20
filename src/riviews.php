@@ -147,16 +147,78 @@
     <!-- Main -->
     <main>
         <!-- Hero / Intro -->
-        <section class="min-h-screen relative overflow-hidden flex items-center shadow-sm">
-            <div class="absolute inset-0 opacity-60"></div>
-            <div class="max-w-7xl mx-auto px-6 relative z-10">
-                <div class="max-w-3xl">
-                    <h1 class="text-4xl md:text-5xl font-bold tracking-tight">User Riviews</h1>
-                    <p class="mt-4 text-lg opacity-80">Stories from users who have experienced the benefits of NutriTrack.</p>
-                    <div class="mt-8 flex gap-3">
-                        <a href="#summary" class="px-5 py-3 rounded-md text-sm font-medium text-white bg-[#3dccc7] hover:bg-[#68d8d6]">See Summary</a>
-                        <a href="#list" class="px-5 py-3 rounded-md text-sm font-medium card">Read Riviews</a>
+        <section class="relative w-full min-h-screen flex items-center overflow-hidden px-[5%] py-20">
+
+            <div class="absolute top-1/2 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[100px] -translate-y-1/2 pointer-events-none"></div>
+
+            <div class="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+
+                <div>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                        Loved by <span class="text-primary">10,000+</span> <br> Healthy People.
+                    </h1>
+                    <p class="text-lg opacity-80 mb-8 leading-relaxed max-w-md">
+                        Baca cerita inspiratif dari pengguna yang telah berhasil mencapai target kesehatan mereka bersama NutriTrack.
+                    </p>
+
+                    <div class="flex items-center gap-4">
+                        <button class="inline-flex items-center justify-center gap-2 bg-primary text-white px-8 py-3.5 rounded-full font-semibold transition-all duration-300 hover:bg-primary/90 hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(61,204,199,0.3)]">
+                            Read Success Stories
+                        </button>
+                        <button class="inline-flex items-center justify-center gap-2 card opacity-80 px-6 py-3 rounded-full font-semibold backdrop-blur-sm transition duration-300 hover:bg-white/5">
+                            Share Yours
+                        </button>
                     </div>
+
+                    <div class="mt-10 flex items-center gap-3">
+                        <div class="flex text-yellow-400 text-xl">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <span class="font-semibold">4.9/5</span>
+                        <span class="opacity-70 text-sm border-l border-gray-700 pl-3">Based on App Store & Play Store</span>
+                    </div>
+                </div>
+
+                <div class="relative h-[500px] flex items-center justify-center">
+
+                    <div class="absolute inset-0 border border-white/5 rounded-full scale-75 animate-pulse"></div>
+                    <div class="absolute inset-0 border border-white/5 rounded-full scale-110 opacity-50"></div>
+
+                    <div class="relative z-20 backdrop-blur-xl card p-8 rounded-3xl shadow-2xl max-w-md">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="flex items-center gap-4">
+                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah" class="w-12 h-12 rounded-full bg-gray-700">
+                                <div>
+                                    <h4 class="font-bold">Sarah Jenkins</h4>
+                                    <p class="text-primary text-sm">Lost 15kg in 3 months</p>
+                                </div>
+                            </div>
+                            <i class="fas fa-quote-right text-4xl text-white/10"></i>
+                        </div>
+                        <p class="opacity-60 leading-relaxed mb-4">
+                            "Aplikasi ini benar-benar mengubah cara saya melihat makanan. Fitur AI-nya sangat akurat dan resepnya enak-enak!"
+                        </p>
+                        <div class="flex gap-1 text-yellow-400 text-sm">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                    </div>
+
+                    <div class="absolute top-10 right-10 z-10 card p-4 rounded-2xl shadow-xl w-64 transform rotate-6 opacity-60 hover:opacity-100 transition duration-300">
+                        <div class="flex items-center gap-2 mb-2">
+                            <div class="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-500 text-xs font-bold">BJ</div>
+                            <div class="flex text-yellow-400 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        </div>
+                        <p class="opacity-60 text-xs">"Tracking makro jadi super gampang."</p>
+                    </div>
+
+                    <div class="absolute bottom-10 left-0 z-10 card p-4 rounded-2xl shadow-xl w-64 transform -rotate-6 opacity-60 hover:opacity-100 transition duration-300">
+                        <div class="flex items-center gap-2 mb-2">
+                            <div class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-500 text-xs font-bold">AD</div>
+                            <div class="flex text-yellow-400 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        </div>
+                        <p class="opacity-60 text-xs">"UI-nya sangat bersih dan modern!"</p>
+                    </div>
+
                 </div>
             </div>
         </section>
