@@ -215,9 +215,9 @@ $foods = getMealsByUser($username);
                     <li><a href="dashboard.php" class="transition duration-200 transform text-hover-light">Dashboard</a>
                     </li>
                     <li><a href="user.php" class="transition duration-200 transform hover:scale-105">User</a></li>
-                    <li><a href="food.php" class="transition duration-200 transform hover:scale-105">Food</a></li>
+                    <li><a href="season.php" class="transition duration-200 transform hover:scale-105">Season</a></li>
                     <li><a href="meal.php" class="transition duration-200 transform hover:scale-105">Meal</a></li>
-                    <li><a href="staple.php" class="transition duration-200 transform hover:scale-105">Staple</a></li>
+                    <li><a href="food.php" class="transition duration-200 transform hover:scale-105">Food</a></li>
                     <li><a href="daily.php" class="transition duration-200 transform hover:scale-105">Daily</a></li>
                 </ul>
                 <div class="hidden md:flex items-center space-x-3">

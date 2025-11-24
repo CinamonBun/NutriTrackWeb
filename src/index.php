@@ -1188,9 +1188,9 @@
                 <div>
                     <h4 class="font-medium">Product</h4>
                     <ul class="mt-4 space-y-4 text-sm">
-                        <li><a href="#" class="opacity-80">Home</a>
+                        <li><a href="index.php" class="opacity-80">Home</a>
                         </li>
-                        <li><a href="#" class="opacity-80">Features</a>
+                        <li><a href="features.php" class="opacity-80">Features</a>
                         </li>
                         <li><a href="#" class="opacity-80">Download</a>
                         </li>
@@ -1200,7 +1200,7 @@
                 <div>
                     <h4 class="font-medium">Company</h4>
                     <ul class="mt-4 space-y-4 text-sm">
-                        <li><a href="#" class="opacity-80">4Ever
+                        <li><a href="4ever-young.php" class="opacity-80">4Ever
                                 Young</a></li>
                         <li><a href="#" class="opacity-80">Community</a>
                         </li>
@@ -1210,7 +1210,7 @@
                 <div>
                     <h4 class="font-medium">What Our Users Say</h4>
                     <ul class="mt-4 space-y-4 text-sm">
-                        <li><a href="#" class="opacity-80">Riviews</a>
+                        <li><a href="riviews.php" class="opacity-80">Riviews</a>
                         </li>
                     </ul>
                 </div>
@@ -1232,7 +1232,7 @@
                         </div>
 
                         <div id="dropdownMenu"
-                            class="hidden absolute right-0 mt-2 w-44 rounded-md shadow-lg ring-1 ring-black/10 focus:outline-none fade-in"
+                            class="hidden origin-top-right absolute right-0 mt-2 w-auto rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none fade-in"
                             role="menu" aria-orientation="vertical" aria-labelledby="dropdownButton">
                             <div class="py-1" role="none">
                                 <a href="#" class="block px-4 py-2 text-sm" role="menuitem">English</a>

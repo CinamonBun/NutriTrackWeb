@@ -81,6 +81,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
         rel="stylesheet">
+    <script src="https://kit.fontawesome.com/45b50d7995.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -216,38 +217,69 @@
         </section>
 
         <!-- About Us Section -->
-        <section id="difference" class="py-24 sm:py-32 bg-light-bg dark:bg-dark-bg">
-            <div class="max-w-7xl mx-auto px-6 lg:px-8">
-                <div class="text-center mb-26">
-                    <h2 class="text-4xl sm:text-5xl font-bold tracking-tight">
-                        The NutriTrack Difference
-                    </h2>
-                    <p class="mt-6 max-w-3xl mx-auto text-xl opacity-80 leading-relaxed">
-                        We are a team of nutritionists and software engineers who are passionate about helping people achieve their health goals.
+        <section id="values" class="py-24 px-[5%] relative">
+            <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#3dccc7]/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+            <div class="relative z-10 max-w-7xl mx-auto">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-[#3dccc7] font-bold tracking-wide uppercase text-sm mb-3">Who We Are</h2>
+                    <h1 class="text-3xl md:text-5xl font-bold mb-6">
+                        We don't just track calories. <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#3dccc7] to-green-400">We decode lifestyle.</span>
+                    </h1>
+                    <p class="opacity-80 text-lg">
+                        Menggabungkan ilmu gizi klinis dengan kecerdasan buatan untuk membantu Anda hidup lebih lama dan lebih baik.
                     </p>
                 </div>
 
-                <!-- Philosophy & Approach -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-15 max-w-5xl mx-auto">
-                    <!-- Our Philosophy -->
-                    <div class="text-center md:text-left">
-                        <h3 class="text-2xl font-semibold mb-6">
-                            Our Philosophy
-                        </h3>
-                        <p class="opacity-80 leading-relaxed text-lg">
-                            Simplicity is the ultimate sophistication. We believe in solving complex health challenges with clear, human-centered solutions—never adding what isn't needed.
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                    <div class="md:col-span-2 card rounded-3xl p-8 hover:border-[#3dccc7]/30 shadow-sm hover:shadow-lg transition duration-300 group">
+                        <div class="w-12 h-12 bg-[#3dccc7]/10 dark:bg-[#3dccc7]/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition duration-300">
+                            <i class="fas fa-bullseye text-[#3dccc7] text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Our Mission</h3>
+                        <p class="opacity-80 leading-relaxed">
+                            Misi kami adalah mendemokratisasi akses ke ahli gizi pribadi. Kami percaya bahwa setiap orang berhak mendapatkan panduan kesehatan yang akurat, terjangkau, dan dipersonalisasi—bukan sekadar saran umum dari internet.
                         </p>
                     </div>
 
-                    <!-- Our Approach -->
-                    <div class="text-center md:text-left">
-                        <h3 class="text-2xl font-semibold mb-6">
-                            Our Approach
-                        </h3>
-                        <p class="opacity-80 leading-relaxed text-lg">
-                            Every journey begins with deep listening. We partner closely with our users to understand their needs, then translate them into intuitive, effective, and sustainable outcomes.
+                    <div class="card rounded-3xl p-8 hover:border-[#3dccc7]/30 shadow-sm hover:shadow-lg transition duration-300 group">
+                        <div class="w-12 h-12 bg-purple-500/10 dark:bg-purple-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition duration-300">
+                            <i class="fas fa-flask text-purple-500 dark:text-purple-400 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Backed by Science</h3>
+                        <p class="opacity-80 text-sm">
+                            Setiap algoritma di NutriTrack divalidasi oleh jurnal medis terkemuka dan tim nutrisionis bersertifikat.
                         </p>
                     </div>
+
+                    <div class="card rounded-3xl p-8 hover:border-[#3dccc7]/30 shadow-sm hover:shadow-lg transition duration-300 group">
+                        <div class="w-12 h-12 bg-green-500/10 dark:bg-green-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition duration-300">
+                            <i class="fas fa-shield-alt text-green-500 dark:text-green-400 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Privacy First</h3>
+                        <p class="opacity-80 text-sm">
+                            Data kesehatan Anda adalah milik Anda. Kami menggunakan enkripsi end-to-end dan tidak pernah menjual data ke pihak ketiga.
+                        </p>
+                    </div>
+
+                    <div class="md:col-span-2 relative overflow-hidden bg-gradient card rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between gap-6 group cursor-pointer">
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-[#3dccc7]/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 group-hover:bg-[#3dccc7]/20 transition duration-500"></div>
+
+                        <div class="relative z-10 text-center md:text-left">
+                            <h3 class="text-2xl font-bold mb-2">Built by Dreamers</h3>
+                            <p class="opacity-80 text-sm md:text-base max-w-md">
+                                Kenalan dengan tim "4Ever Young" dibalik baris kode NutriTrack. Lihat bagaimana kami membangun ini dari nol.
+                            </p>
+                        </div>
+
+                        <a href="4ever-young.php" class="relative z-10 px-6 py-3 bg-white text-black font-bold rounded-full hover:bg-[#3dccc7] hover:text-white transition duration-300 flex items-center gap-2 shadow-lg">
+                            Meet the Creators
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -289,9 +321,9 @@
                 <div>
                     <h4 class="font-medium">Product</h4>
                     <ul class="mt-4 space-y-4 text-sm">
-                        <li><a href="#" class="opacity-80">Home</a>
+                        <li><a href="index.php" class="opacity-80">Home</a>
                         </li>
-                        <li><a href="#" class="opacity-80">Features</a>
+                        <li><a href="features.php" class="opacity-80">Features</a>
                         </li>
                         <li><a href="#" class="opacity-80">Download</a>
                         </li>
@@ -301,7 +333,7 @@
                 <div>
                     <h4 class="font-medium">Company</h4>
                     <ul class="mt-4 space-y-4 text-sm">
-                        <li><a href="#" class="opacity-80">4Ever
+                        <li><a href="4ever-young.php" class="opacity-80">4Ever
                                 Young</a></li>
                         <li><a href="#" class="opacity-80">Community</a>
                         </li>
@@ -311,7 +343,7 @@
                 <div>
                     <h4 class="font-medium">What Our Users Say</h4>
                     <ul class="mt-4 space-y-4 text-sm">
-                        <li><a href="#" class="opacity-80">Riviews</a>
+                        <li><a href="riviews.php" class="opacity-80">Riviews</a>
                         </li>
                     </ul>
                 </div>

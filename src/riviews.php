@@ -372,11 +372,11 @@
                 <div>
                     <h4 class="font-medium">Product</h4>
                     <ul class="mt-4 space-y-4 text-sm">
-                        <li><a href="#" class=" opacity-80">Home</a>
+                        <li><a href="index.php" class="opacity-80">Home</a>
                         </li>
-                        <li><a href="#" class=" opacity-80">Features</a>
+                        <li><a href="features.php" class="opacity-80">Features</a>
                         </li>
-                        <li><a href="#" class=" opacity-80">Download</a>
+                        <li><a href="#" class="opacity-80">Download</a>
                         </li>
                     </ul>
                 </div>
@@ -384,17 +384,17 @@
                 <div>
                     <h4 class="font-medium">Company</h4>
                     <ul class="mt-4 space-y-4 text-sm">
-                        <li><a href="#" class=" opacity-80">4Ever
+                        <li><a href="4ever-young.php" class="opacity-80">4Ever
                                 Young</a></li>
-                        <li><a href="#" class=" opacity-80">Community</a>
+                        <li><a href="#" class="opacity-80">Community</a>
                         </li>
                     </ul>
                 </div>
 
                 <div>
-                    <h4 class="font-medium text-light-text dark:text-dark-text">What Our Users Say</h4>
+                    <h4 class="font-medium">What Our Users Say</h4>
                     <ul class="mt-4 space-y-4 text-sm">
-                        <li><a href="#" class="text-light-text dark:text-dark-text opacity-80">Riviews</a>
+                        <li><a href="riviews.php" class="opacity-80">Riviews</a>
                         </li>
                     </ul>
                 </div>

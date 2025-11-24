@@ -20,22 +20,22 @@ if (isset($_GET['delete'])) {
     $deleteId = intval($_GET['delete']);
     if ($deleteId > 0) {
         // Try delete with user verification first
-        $result = deleteStaple($deleteId, $username);
+        $result = deleteFood($deleteId, $username);
 
         if ($result['status'] == 204) {
-            $message = 'Staple item deleted successfully!';
+            $message = 'Food item deleted successfully!';
         } else if ($result['status'] == 200) {
             // Some APIs return 200 instead of 204
-            $message = 'Staple item deleted successfully!';
+            $message = 'Food item deleted successfully!';
         } else {
             // Show detailed error
             $error = 'Failed to delete item (Status: ' . $result['status'] . '). ';
 
             // Try to delete without username check (for debugging)
-            $result2 = supabaseRequest('DELETE', '/rest/v1/staple?id=eq.' . $deleteId);
+            $result2 = supabaseRequest('DELETE', '/rest/v1/food?id=eq.' . $deleteId);
 
             if ($result2['status'] == 204 || $result2['status'] == 200) {
-                $message = 'Staple item deleted (without user check)!';
+                $message = 'Food item deleted (without user check)!';
                 $error = ''; // Clear error
             } else {
                 $error .= 'Item may not exist or username mismatch. Details: ' . json_encode($result['data']);
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_food'])) {
     $fat = isset($_POST['fat']) ? trim((string) $_POST['fat']) : '0';
 
     if ($foodName === '') {
-        $error = 'Staple name is required.';
+        $error = 'Food name is required.';
     } else {
         $foodData = [
             'name' => $foodName,
@@ -61,15 +61,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_food'])) {
             'protein' => $protein,
             'carbs' => $carbs,
             'fat' => $fat,
-            'username' => $username // Associate staple with user
+            'username' => $username // Associate food with user
             // Removed created_at - let Supabase use default now()
         ];
 
-        $result = createStaple($foodData);
+        $result = createFood($foodData);
 
         // DEBUG: Show the result
         if ($result['status'] == 201) {
-            $message = 'Staple item added successfully!';
+            $message = 'Food item added successfully!';
         } else {
             // Show detailed error for debugging
             $error = 'Failed to add item. Status: ' . $result['status'];
@@ -90,9 +90,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_food'])) {
     $fat = isset($_POST['edit_fat']) ? trim((string) $_POST['edit_fat']) : '0';
 
     if ($foodId <= 0) {
-        $error = 'Invalid staple item selected for editing.';
+        $error = 'Invalid food item selected for editing.';
     } elseif ($foodName === '') {
-        $error = 'Staple name is required.';
+        $error = 'Food name is required.';
     } else {
         $foodData = [
             'name' => $foodName,
@@ -102,9 +102,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_food'])) {
             'fat' => $fat
         ];
 
-        $result = updateStaple($foodId, $username, $foodData);
+        $result = updateFood($foodId, $username, $foodData);
         if ($result['status'] == 200) {
-            $message = 'Staple item updated successfully!';
+            $message = 'Food item updated successfully!';
         } else {
             $error = 'Failed to update item. Status: ' . $result['status'];
             if (!empty($result['data'])) {
@@ -115,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_food'])) {
 }
 
 // Fetch list - only for current user
-$foods = getStaplesByUser($username);
+$foods = getFoodsByUser($username);
 
 ?>
 <!DOCTYPE html>
@@ -124,7 +124,7 @@ $foods = getStaplesByUser($username);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NutriTrack - Staple Management</title>
+    <title>NutriTrack - Food Management</title>
     <link href="./output.css" rel="stylesheet">
     <style>
         body {
@@ -215,9 +215,9 @@ $foods = getStaplesByUser($username);
                     <li><a href="dashboard.php" class="transition duration-200 transform text-hover-light">Dashboard</a>
                     </li>
                     <li><a href="user.php" class="transition duration-200 transform hover:scale-105">User</a></li>
-                    <li><a href="food.php" class="transition duration-200 transform hover:scale-105">Food</a></li>
+                    <li><a href="season.php" class="transition duration-200 transform hover:scale-105">Season</a></li>
                     <li><a href="meal.php" class="transition duration-200 transform hover:scale-105">Meal</a></li>
-                    <li><a href="staple.php" class="transition duration-200 transform hover:scale-105">Staple</a></li>
+                    <li><a href="food.php" class="transition duration-200 transform hover:scale-105">Food</a></li>
                     <li><a href="daily.php" class="transition duration-200 transform hover:scale-105">Daily</a></li>
                 </ul>
                 <div class="hidden md:flex items-center space-x-3">
@@ -263,7 +263,7 @@ $foods = getStaplesByUser($username);
         <section class="pt-28 pb-12 md:pt-36 min-h-[60vh]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="mb-8">
-                    <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">Staple Management</h1>
+                    <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">Seasoning Management</h1>
                     <p class="mt-2 text-lg dark:opacity-80">Welcome back, <span
                             class="font-semibold"><?php echo htmlspecialchars($fullname); ?></span>.</p>
                 </div>
@@ -281,8 +281,8 @@ $foods = getStaplesByUser($username);
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <div class="p-6 rounded-lg shadow-md card">
-                        <h2 class="text-xl font-semibold">Add Staple</h2>
-                        <form class="mt-4 space-y-4" action="staple.php" method="POST">
+                        <h2 class="text-xl font-semibold">Add Seasoning</h2>
+                        <form class="mt-4 space-y-4" action="food.php" method="POST">
                             <input type="hidden" name="add_food" value="1">
                             <div>
                                 <label for="name" class="block text-sm font-medium mb-2">Name</label>
@@ -319,14 +319,14 @@ $foods = getStaplesByUser($username);
                             <div>
                                 <button type="submit"
                                     class="inline-flex justify-center gap-2 text-white bg-[#3dccc7] hover:bg-[#68d8d6] px-4 py-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2">
-                                    Add Staple
+                                    Add Seasoning
                                 </button>
                             </div>
                         </form>
                     </div>
 
                     <div class="p-6 rounded-lg shadow-md card">
-                        <h2 class="text-xl font-semibold">Your Staples</h2>
+                        <h2 class="text-xl font-semibold">Your Seasoning</h2>
                         <div class="mt-4 overflow-x-auto">
                             <table class="min-w-full text-sm">
                                 <thead>
@@ -342,7 +342,7 @@ $foods = getStaplesByUser($username);
                                 <tbody>
                                     <?php if (empty($foods)) { ?>
                                         <tr>
-                                            <td colspan="6" class="py-4 opacity-70">No staple items yet.</td>
+                                            <td colspan="6" class="py-4 opacity-70">No food items yet.</td>
                                         </tr>
                                         <?php } else {
                                         foreach ($foods as $f) { ?>
@@ -365,7 +365,7 @@ $foods = getStaplesByUser($username);
                                                         data-fat="<?php echo htmlspecialchars((string) $f['fat']); ?>">
                                                         Edit
                                                     </button>
-                                                    <a href="staple.php?delete=<?php echo (int) $f['id']; ?>"
+                                                    <a href="food.php?delete=<?php echo (int) $f['id']; ?>"
                                                         class="text-red-600 hover:underline dark:text-red-400"
                                                         onclick="return confirm('Delete this item?');">Delete</a>
                                                 </td>
@@ -381,15 +381,15 @@ $foods = getStaplesByUser($username);
         </section>
     </main>
 
-    <!-- Edit Meal Modal -->
+    <!-- Edit Food Modal -->
     <div id="edit-food-modal" class="fixed inset-0 z-50 hidden items-center justify-center px-4">
         <div class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
         <div class="relative w-full max-w-lg mx-auto card rounded-xl shadow-2xl p-6 fade-in">
             <div class="flex items-center justify-between mb-4">
-                <h3 class="text-xl font-semibold">Edit Staple</h3>
+                <h3 class="text-xl font-semibold">Edit Seasoning</h3>
                 <button type="button" id="close-edit-modal" class="opacity-80">✕</button>
             </div>
-            <form id="edit-food-form" class="space-y-4" method="POST" action="staple.php">
+            <form id="edit-food-form" class="space-y-4" method="POST" action="food.php">
                 <input type="hidden" name="edit_food" value="1">
                 <input type="hidden" name="food_id" id="edit-food-id">
                 <div>

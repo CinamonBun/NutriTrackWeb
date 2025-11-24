@@ -181,9 +181,9 @@ $foods = getFoodsByUser($username);
                     <li><a href="dashboard.php" class="transition duration-200 transform text-hover-light">Dashboard</a>
                     </li>
                     <li><a href="user.php" class="transition duration-200 transform hover:scale-105">User</a></li>
-                    <li><a href="food.php" class="transition duration-200 transform hover:scale-105">Food</a></li>
+                    <li><a href="season.php" class="transition duration-200 transform hover:scale-105">Season</a></li>
                     <li><a href="meal.php" class="transition duration-200 transform hover:scale-105">Meal</a></li>
-                    <li><a href="staple.php" class="transition duration-200 transform hover:scale-105">Staple</a></li>
+                    <li><a href="food.php" class="transition duration-200 transform hover:scale-105">Food</a></li>
                     <li><a href="daily.php" class="transition duration-200 transform hover:scale-105">Daily</a></li>
                 </ul>
                 <div class="hidden md:flex items-center space-x-3">
@@ -247,52 +247,7 @@ $foods = getFoodsByUser($username);
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <div class="p-6 rounded-lg shadow-md card">
-                        <h2 class="text-xl font-semibold">Add Food</h2>
-                        <form class="mt-4 space-y-4" action="food.php" method="POST">
-                            <input type="hidden" name="add_food" value="1">
-                            <div>
-                                <label for="name" class="block text-sm font-medium mb-2">Name</label>
-                                <input id="name" name="name" type="text" required
-                                    class="block w-full px-3 py-2 card rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                                    placeholder="e.g., Grilled Chicken Breast">
-                            </div>
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                <div>
-                                    <label for="calories" class="block text-sm font-medium mb-2">Calories</label>
-                                    <input id="calories" name="calories" type="number" step="0.01" min="0"
-                                        class="block w-full px-3 py-2 card rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                                        placeholder="0">
-                                </div>
-                                <div>
-                                    <label for="protein" class="block text-sm font-medium mb-2">Protein (g)</label>
-                                    <input id="protein" name="protein" type="number" step="0.01" min="0"
-                                        class="block w-full px-3 py-2 card rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                                        placeholder="0">
-                                </div>
-                                <div>
-                                    <label for="carbs" class="block text-sm font-medium mb-2">Carbs (g)</label>
-                                    <input id="carbs" name="carbs" type="number" step="0.01" min="0"
-                                        class="block w-full px-3 py-2 card rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                                        placeholder="0">
-                                </div>
-                                <div>
-                                    <label for="fat" class="block text-sm font-medium mb-2">Fat (g)</label>
-                                    <input id="fat" name="fat" type="number" step="0.01" min="0"
-                                        class="block w-full px-3 py-2 card rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                                        placeholder="0">
-                                </div>
-                            </div>
-                            <div>
-                                <button type="submit"
-                                    class="inline-flex justify-center gap-2 text-white bg-[#3dccc7] hover:bg-[#68d8d6] px-4 py-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2">
-                                    Add Food
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="p-6 rounded-lg shadow-md card">
-                        <h2 class="text-xl font-semibold">Your Foods</h2>
+                        <h2 class="text-xl font-semibold">Your Daily</h2>
                         <div class="mt-4 overflow-x-auto">
                             <table class="min-w-full text-sm">
                                 <thead>
