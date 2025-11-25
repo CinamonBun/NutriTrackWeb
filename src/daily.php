@@ -8,6 +8,9 @@ if (!isset($_SESSION['username'])) {
 $username = $_SESSION['username'];
 include 'config.php';
 
+// Check if user is admin
+requireAdmin($username);
+
 $message = '';
 $error = '';
 

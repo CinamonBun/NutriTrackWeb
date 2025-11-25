@@ -8,6 +8,9 @@ if (!isset($_SESSION['username'])) {
 $username = $_SESSION['username'];
 include 'config.php';
 
+// Check if user is admin
+requireAdmin($username);
+
 $message = '';
 $error = '';
 
@@ -431,9 +434,10 @@ $foods = getFoodsByUser($username);
         </div>
     </div>
 
+    <!-- Theme Switcher -->
     <div class="fixed bottom-6 right-6 z-50 flex flex-col items-center space-y-4">
         <div class="p-1 rounded-full card shadow-md transition-all duration-300">
-            <button id="settings-btn"
+            <a href="setting.php" id="settings-btn"
                 class="flex items-center justify-center p-2 rounded-full transition-colors duration-200">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-6 h-6">
@@ -441,7 +445,7 @@ $foods = getFoodsByUser($username);
                         d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.591 1.042c1.523-.878 3.25.848 2.372 2.372a1.724 1.724 0 001.042 2.591c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.042 2.591c.878 1.523-.849 3.25-2.372 2.372a1.724 1.724 0 00-2.591 1.042c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.591-1.042c-1.523.878-3.25-.849-2.372-2.372a1.724 1.724 0 00-1.042-2.591c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.042-2.591c-.878-1.524.849-3.25 2.372-2.372a1.724 1.724 0 002.591-1.042z" />
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-            </button>
+            </a>
         </div>
 
         <div id="theme-switcher"
