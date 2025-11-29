@@ -12,7 +12,44 @@ include 'config.php';
 requireAdmin($username);
 
 $user = getUserByUsername($username);
-$fullname = $user['fullname'] ?? $username
+$fullname = $user['fullname'] ?? $username;
+
+// Calculate statistics for today
+$today = date('Y-m-d');
+$todayStart = $today . 'T00:00:00';
+$todayEnd = $today . 'T23:59:59';
+
+// Get today's foods
+$todayFoods = supabaseRequest('GET', '/rest/v1/food?username=eq.' . urlencode($username) . '&created_at=gte.' . urlencode($todayStart) . '&created_at=lte.' . urlencode($todayEnd) . '&select=calories');
+$totalCalories = 0;
+$foodsCount = 0;
+if ($todayFoods['status'] == 200 && !empty($todayFoods['data'])) {
+    $foodsCount = count($todayFoods['data']);
+    foreach ($todayFoods['data'] as $food) {
+        $totalCalories += floatval($food['calories'] ?? 0);
+    }
+}
+
+// Get today's meals
+$todayMeals = supabaseRequest('GET', '/rest/v1/meal?username=eq.' . urlencode($username) . '&created_at=gte.' . urlencode($todayStart) . '&created_at=lte.' . urlencode($todayEnd) . '&select=calories,id');
+$mealsCount = 0;
+$mealsCalories = 0;
+if ($todayMeals['status'] == 200 && !empty($todayMeals['data'])) {
+    $mealsCount = count($todayMeals['data']);
+    foreach ($todayMeals['data'] as $meal) {
+        $mealsCalories += floatval($meal['calories'] ?? 0);
+    }
+}
+
+// Total calories from both foods and meals
+$totalCalories += $mealsCalories;
+
+// Total items logged today
+$totalItemsLogged = $mealsCount + $foodsCount;
+
+// Get total foods count (all time)
+$allFoods = getFoodsByUser($username);
+$totalFoodsCount = count($allFoods);
 ?>
 
 <!DOCTYPE html>
@@ -109,13 +146,13 @@ $fullname = $user['fullname'] ?? $username
 					<h1 class="text-2xl font-bold">NutriTrack+</h1>
 				</div>
 				<ul class="hidden md:flex items-center space-x-8">
-					<li><a href="dashboard.php" class="transition duration-200 transform text-hover-light">Dashboard</a>
+					<li><a href="dashboard.php" class="font-semibold text-[#3dccc7]">Dashboard</a>
 					</li>
-					<li><a href="user.php" class="transition duration-200 transform hover:scale-105">User</a></li>
-					<li><a href="season.php" class="transition duration-200 transform hover:scale-105">Season</a></li>
-					<li><a href="meal.php" class="transition duration-200 transform hover:scale-105">Meal</a></li>
-					<li><a href="food.php" class="transition duration-200 transform hover:scale-105">Food</a></li>
-					<li><a href="daily.php" class="transition duration-200 transform hover:scale-105">Daily</a></li>
+					<li><a href="user.php" class="transition duration-200 hover:scale-105">User</a></li>
+					<li><a href="season.php" class="transition duration-200 hover:scale-105">Season</a></li>
+					<li><a href="meal.php" class="transition duration-200 hover:scale-105">Meal</a></li>
+					<li><a href="food.php" class="transition duration-200 hover:scale-105">Food</a></li>
+					<li><a href="daily.php" class="transition duration-200 hover:scale-105">Daily</a></li>
 				</ul>
 				<div class="hidden md:flex items-center space-x-3">
 					<span class="dark:text-dark-text whitespace-nowrap">Hello,
@@ -166,17 +203,20 @@ $fullname = $user['fullname'] ?? $username
 				</div>
 
 				<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-					<div class="p-6 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
-						<div class="text-sm opacity-80">Calories Today</div>
-						<div class="mt-2 text-3xl font-semibold">0</div>
+					<div class="p-6 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99] transition-all duration-200">
+						<div class="text-sm opacity-80 mb-1">Calories Today</div>
+						<div class="mt-2 text-3xl font-semibold text-[#3dccc7]"><?php echo number_format($totalCalories, 0); ?></div>
+						<div class="text-xs opacity-60 mt-1">kcal</div>
 					</div>
-					<div class="p-6 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
-						<div class="text-sm opacity-80">Meals Logged</div>
-						<div class="mt-2 text-3xl font-semibold">0</div>
+					<div class="p-6 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99] transition-all duration-200">
+						<div class="text-sm opacity-80 mb-1">Items Logged</div>
+						<div class="mt-2 text-3xl font-semibold text-[#3dccc7]"><?php echo $totalItemsLogged; ?></div>
+						<div class="text-xs opacity-60 mt-1"><?php echo $mealsCount; ?> meals, <?php echo $foodsCount; ?> foods</div>
 					</div>
-					<div class="p-6 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
-						<div class="text-sm opacity-80">Water Intake</div>
-						<div class="mt-2 text-3xl font-semibold">0 L</div>
+					<div class="p-6 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99] transition-all duration-200">
+						<div class="text-sm opacity-80 mb-1">Total Foods</div>
+						<div class="mt-2 text-3xl font-semibold text-[#3dccc7]"><?php echo $totalFoodsCount; ?></div>
+						<div class="text-xs opacity-60 mt-1">all time</div>
 					</div>
 				</div>
 			</div>

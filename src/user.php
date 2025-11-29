@@ -398,7 +398,7 @@ if ($userResponse['status'] === 200) {
                                 <input type="hidden" id="create_level" name="level" value="<?php echo htmlspecialchars($createFormData['level']); ?>" required>
                                 <div class="relative w-full font-sans text-sm">
                                     <button type="button" id="create_level_btn" class="group w-full flex justify-between items-center 
-                                        card px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3dccc7] 
+                                        card px-4 py-3 rounded-lg focus:outline-none focus:ring-1 focus:ring-[#3dccc7] 
                                         cursor-pointer transition-all duration-300 ease-in-out
                                         hover:border-[#3dccc7]">
                                         <span id="create_level_display" class="text-sm font-medium">
@@ -447,16 +447,16 @@ if ($userResponse['status'] === 200) {
                     <?php } ?>
 
                     <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-neutral-200 text-sm">
+                        <table class="w-full text-sm divide-y divide-neutral-300">
                             <thead>
-                                <tr class="text-left text-xs uppercase tracking-widest opacity-60">
-                                    <th class="px-4 py-3">Username</th>
-                                    <th class="px-4 py-3">Level</th>
-                                    <th class="px-4 py-3">Date added</th>
-                                    <th class="px-4 py-3 text-center">Actions</th>
+                                <tr class="text-left opacity-70 text-xs uppercase tracking-widest">
+                                    <th class="py-3 px-4">Username</th>
+                                    <th class="py-3 px-4">Level</th>
+                                    <th class="py-3 px-4">Date added</th>
+                                    <th class="py-3 px-4 text-center">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-neutral-100">
+                            <tbody>
                                 <?php if (empty($users)) { ?>
                                     <tr>
                                         <td colspan="4" class="px-4 py-6 text-center opacity-70">
@@ -464,38 +464,49 @@ if ($userResponse['status'] === 200) {
                                         </td>
                                     </tr>
                                 <?php } else { ?>
-                                    <?php foreach ($users as $user) { ?>
-                                        <tr>
-                                            <td class="px-4 py-3">@<?php echo htmlspecialchars($user['username'] ?? '-'); ?>
+                                    <?php foreach ($users as $user) { 
+                                        // Format created_at
+                                        $createdAt = $user['created_at'] ?? '-';
+                                        if ($createdAt !== '-') {
+                                            try {
+                                                $date = new DateTime($createdAt);
+                                                $createdFormatted = $date->format('d M Y, H:i');
+                                            } catch (Exception $e) {
+                                                $createdFormatted = $createdAt;
+                                            }
+                                        } else {
+                                            $createdFormatted = '-';
+                                        }
+                                        
+                                        // Badge color based on level
+                                        $levelBadgeClass = '';
+                                        switch(strtolower($user['level'] ?? '')) {
+                                            case 'admin':
+                                                $levelBadgeClass = 'border-1 border-primary bg-primary/10 backdrop-blur-sm text-primary';
+                                                break;
+                                            case 'user':
+                                                $levelBadgeClass = 'border-1 border-accent bg-accent/10 backdrop-blur-sm text-accent';
+                                                break;
+                                            default:
+                                                $levelBadgeClass = 'bg-neutral-500';
+                                        }
+                                    ?>
+                                        <tr class="border-b border-neutral-200 transition-colors">
+                                            <td class="py-3 px-4">
+                                                <span class="font-medium">@<?php echo htmlspecialchars($user['username']); ?></span>
                                             </td>
-                                            <td class="px-4 py-3">
-                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium <?php
-                                                                                                                                        $level = $user['level'] ?? '';
-                                                                                                                                        if ($level === 'admin') {
-                                                                                                                                            echo 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200';
-                                                                                                                                        } elseif ($level === 'user') {
-                                                                                                                                            echo 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200';
-                                                                                                                                        } else {
-                                                                                                                                            echo 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200';
-                                                                                                                                        }
-                                                                                                                                        ?>">
-                                                    <?php echo htmlspecialchars($level ?: '—'); ?>
+                                            <td class="py-3 px-4">
+                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium <?php echo $levelBadgeClass; ?>">
+                                                    <?php echo htmlspecialchars($user['level']); ?>
                                                 </span>
                                             </td>
-                                            <td class="px-4 py-3">
-                                                <?php
-                                                $createdAt = $user['created_at'] ?? '';
-                                                if ($createdAt) {
-                                                    echo htmlspecialchars(substr($createdAt, 0, 10));
-                                                } else {
-                                                    echo '—';
-                                                }
-                                                ?>
+                                            <td class="py-3 px-4">
+                                                <span class="text-sm"><?php echo htmlspecialchars($createdFormatted); ?></span>
                                             </td>
-                                            <td class="px-4 py-3">
+                                            <td class="py-3 px-4">
                                                 <div class="flex items-center justify-center gap-2">
                                                     <button type="button"
-                                                        class="edit-btn px-3 py-1.5 rounded-lg border border-neutral-200 text-xs font-semibold hover:border-[#3dccc7]"
+                                                        class="edit-btn px-3 py-1.5 rounded-lg card text-xs font-semibold hover:border-[#3dccc7]"
                                                         data-username="<?php echo htmlspecialchars($user['username'] ?? '', ENT_QUOTES); ?>"
                                                         data-fullname="<?php echo htmlspecialchars($user['fullname'] ?? '', ENT_QUOTES); ?>"
                                                         data-email="<?php echo htmlspecialchars($user['email'] ?? '', ENT_QUOTES); ?>"
@@ -510,7 +521,7 @@ if ($userResponse['status'] === 200) {
                                                         <input type="hidden" name="username"
                                                             value="<?php echo htmlspecialchars($user['username']); ?>" />
                                                         <button type="submit"
-                                                            class="px-3 py-1.5 rounded-lg text-xs font-semibold text-red-600 border border-red-200 hover:bg-red-50">Delete</button>
+                                                            class="px-3 py-1.5 rounded-lg text-xs font-semibold text-red-600 border border-red-400 hover:bg-red-50">Delete</button>
                                                     </form>
                                                 </div>
                                             </td>

@@ -11,80 +11,20 @@ include 'config.php';
 // Check if user is admin
 requireAdmin($username);
 
-$message = '';
-$error = '';
+$listError = '';
 
 // Get current user info
 $user = getUserByUsername($username);
 $fullname = $user['fullname'] ?? $username;
 
-// Handle delete
-if (isset($_GET['delete'])) {
-    $deleteId = intval($_GET['delete']);
-    if ($deleteId > 0) {
-        // Try delete with user verification first
-        $result = deleteFood($deleteId, $username);
-
-        if ($result['status'] == 204) {
-            $message = 'Food item deleted successfully!';
-        } else if ($result['status'] == 200) {
-            // Some APIs return 200 instead of 204
-            $message = 'Food item deleted successfully!';
-        } else {
-            // Show detailed error
-            $error = 'Failed to delete item (Status: ' . $result['status'] . '). ';
-
-            // Try to delete without username check (for debugging)
-            $result2 = supabaseRequest('DELETE', '/rest/v1/food?id=eq.' . $deleteId);
-
-            if ($result2['status'] == 204 || $result2['status'] == 200) {
-                $message = 'Food item deleted (without user check)!';
-                $error = ''; // Clear error
-            } else {
-                $error .= 'Item may not exist or username mismatch. Details: ' . json_encode($result['data']);
-            }
-        }
-    }
+// Fetch user list (read-only view)
+$usersResponse = supabaseRequest('GET', '/rest/v1/user?select=id,fullname,username,email,phone,level,created_at&order=created_at.desc');
+$users = [];
+if ($usersResponse['status'] === 200 && !empty($usersResponse['data'])) {
+    $users = $usersResponse['data'];
+} else {
+    $listError = 'Gagal memuat data pengguna. Silakan coba muat ulang.';
 }
-
-// Handle add
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_food'])) {
-    $foodName = trim($_POST['name'] ?? '');
-    $calories = isset($_POST['calories']) ? trim((string) $_POST['calories']) : '0';
-    $protein = isset($_POST['protein']) ? trim((string) $_POST['protein']) : '0';
-    $carbs = isset($_POST['carbs']) ? trim((string) $_POST['carbs']) : '0';
-    $fat = isset($_POST['fat']) ? trim((string) $_POST['fat']) : '0';
-
-    if ($foodName === '') {
-        $error = 'Food name is required.';
-    } else {
-        $foodData = [
-            'name' => $foodName,
-            'calories' => $calories,
-            'protein' => $protein,
-            'carbs' => $carbs,
-            'fat' => $fat,
-            'username' => $username // Associate food with user
-            // Removed created_at - let Supabase use default now()
-        ];
-
-        $result = createFood($foodData);
-
-        // DEBUG: Show the result
-        if ($result['status'] == 201) {
-            $message = 'Food item added successfully!';
-        } else {
-            // Show detailed error for debugging
-            $error = 'Failed to add item. Status: ' . $result['status'];
-            if (!empty($result['data'])) {
-                $error .= ' | Details: ' . json_encode($result['data']);
-            }
-        }
-    }
-}
-
-// Fetch list - only for current user
-$foods = getFoodsByUser($username);
 
 ?>
 <!DOCTYPE html>
@@ -93,13 +33,11 @@ $foods = getFoodsByUser($username);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NutriTrack - Food Management</title>
+    <title>NutriTrack - Daily Fix</title>
     <link href="./output.css" rel="stylesheet">
     <style>
         body {
-            /* font-family: 'Inter', sans-serif; */
             font-family: 'Plus Jakarta Sans', sans-serif;
-            /* font-family: "Geist", sans-serif; */
         }
 
         .fade-in {
@@ -161,14 +99,31 @@ $foods = getFoodsByUser($username);
         #menu-toggle-btn[aria-expanded="true"] svg {
             transform: rotate(90deg);
         }
+
+        .modal-panel {
+            transform: translateY(12px);
+            opacity: 0;
+        }
+
+        .modal-panel.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
-        rel="stylesheet">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
         rel="stylesheet">
 </head>
 
@@ -181,26 +136,22 @@ $foods = getFoodsByUser($username);
                     <h1 class="text-2xl font-bold">NutriTrack+</h1>
                 </div>
                 <ul class="hidden md:flex items-center space-x-8">
-                    <li><a href="dashboard.php" class="transition duration-200 transform text-hover-light">Dashboard</a>
-                    </li>
-                    <li><a href="user.php" class="transition duration-200 transform hover:scale-105">User</a></li>
-                    <li><a href="season.php" class="transition duration-200 transform hover:scale-105">Season</a></li>
-                    <li><a href="meal.php" class="transition duration-200 transform hover:scale-105">Meal</a></li>
-                    <li><a href="food.php" class="transition duration-200 transform hover:scale-105">Food</a></li>
-                    <li><a href="daily.php" class="transition duration-200 transform hover:scale-105">Daily</a></li>
+                    <li><a href="dashboard.php" class="transition duration-200 hover:scale-105">Dashboard</a></li>
+                    <li><a href="user.php" class="transition duration-200 hover:scale-105">User</a></li>
+                    <li><a href="season.php" class="transition duration-200 hover:scale-105">Season</a></li>
+                    <li><a href="meal.php" class="transition duration-200 hover:scale-105">Meal</a></li>
+                    <li><a href="food.php" class="transition duration-200 hover:scale-105">Food</a></li>
+                    <li><a href="daily.php" class="font-semibold text-[#3dccc7]">Daily</a></li>
                 </ul>
                 <div class="hidden md:flex items-center space-x-3">
-                    <span class="dark:text-dark-text whitespace-nowrap">Hello,
-                        <?php echo htmlspecialchars($_SESSION['username']); ?></span>
+                    <span class="whitespace-nowrap">Hello, <?php echo htmlspecialchars($_SESSION['username']); ?></span>
                     <a href="logout.php"
-                        class="inline-flex justify-center gap-2 text-white bg-[#3dccc7] hover:bg-[#68d8d6] px-4 py-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 w-full">Logout</a>
+                        class="inline-flex justify-center gap-2 text-white bg-[#3dccc7] hover:bg-[#68d8d6] px-4 py-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors">Logout</a>
                 </div>
                 <div class="md:hidden">
-                    <button id="menu-toggle-btn" type="button" aria-expanded="false" aria-controls="mobile-menu"
-                        aria-label="Toggle navigation"
-                        class="p-2 rounded-lg transition text-gray-800 dark:text-gray-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#3dccc7]">
-                        <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
+                    <button id="menu-toggle-btn" type="button" aria-expanded="false"
+                        class="p-2 rounded-lg transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3dccc7]">
+                        <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M4 6h16M4 12h16m-7 6h7"></path>
                         </svg>
@@ -214,13 +165,12 @@ $foods = getFoodsByUser($username);
                         <a href="user.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">User</a>
                         <a href="food.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Food</a>
                         <a href="meal.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Meal</a>
-                        <a href="staple.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Staple</a>
-                        <a href="daily.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Daily</a>
+                        <a href="daily.php" class="block text-base font-medium text-[#3dccc7]">Daily</a>
                     </div>
-                    <div class="flex flex-col gap-3 py-3 border-t border-neutral-200 dark:border-neutral-700">
+                    <div class="flex flex-col gap-3 py-3 border-t">
                         <span class="text-sm opacity-70">Hello, <?php echo htmlspecialchars($_SESSION['username']); ?></span>
                         <a href="logout.php"
-                            class="inline-flex justify-center items-center gap-2 text-sm font-medium rounded-md py-2 px-4 text-white bg-[#3dccc7] hover:bg-[#68d8d6] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#3dccc7]">Logout</a>
+                            class="inline-flex justify-center items-center gap-2 text-sm font-medium rounded-md py-2 px-4 text-white bg-[#3dccc7] hover:bg-[#68d8d6] transition-colors duration-200">Logout</a>
                     </div>
                 </div>
             </div>
@@ -231,73 +181,170 @@ $foods = getFoodsByUser($username);
     <main>
         <section class="pt-28 pb-12 md:pt-36 min-h-[60vh]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="mb-8">
-                    <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">Daily Fix</h1>
-                    <p class="mt-2 text-lg dark:opacity-80">Welcome back, <span
-                            class="font-semibold"><?php echo htmlspecialchars($fullname); ?></span>.</p>
+                <div class="mb-10 space-y-2">
+                    <p class="text-sm uppercase tracking-widest opacity-60">Daily Fix</p>
+                    <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">Monitor user insights</h1>
+                    <p class="text-base opacity-80 max-w-3xl">
+                        Panel ini menampilkan snapshot pengguna terbaru lengkap dengan level, kontak, dan waktu registrasi untuk memudahkan pengecekan cepat sebelum membuka halaman User Management.
+                    </p>
                 </div>
 
-                <?php if (!empty($message)) { ?>
-                    <div class="mb-6 text-sm text-green-700 bg-green-100 dark:bg-green-900/20 dark:text-green-400 rounded-md px-4 py-3">
-                        <?php echo htmlspecialchars($message); ?>
-                    </div>
-                <?php } ?>
-                <?php if (!empty($error)) { ?>
-                    <div class="mb-6 text-sm text-red-700 bg-red-100 dark:bg-red-900/20 dark:text-red-400 rounded-md px-4 py-3">
-                        <?php echo htmlspecialchars($error); ?>
-                    </div>
-                <?php } ?>
-
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <div class="p-6 rounded-lg shadow-md card">
-                        <h2 class="text-xl font-semibold">Your Daily</h2>
-                        <div class="mt-4 overflow-x-auto">
-                            <table class="min-w-full text-sm">
-                                <thead>
-                                    <tr class="text-left opacity-70">
-                                        <th class="py-2 pr-4">Name</th>
-                                        <th class="py-2 pr-4">Cal</th>
-                                        <th class="py-2 pr-4">P (g)</th>
-                                        <th class="py-2 pr-4">C (g)</th>
-                                        <th class="py-2 pr-4">F (g)</th>
-                                        <th class="py-2 pr-4">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php if (empty($foods)) { ?>
-                                        <tr>
-                                            <td colspan="6" class="py-4 opacity-70">No food items yet.</td>
-                                        </tr>
-                                        <?php } else {
-                                        foreach ($foods as $f) { ?>
-                                            <tr class="border-t border-neutral-200 dark:border-neutral-700">
-                                                <td class="py-2 pr-4"><?php echo htmlspecialchars($f['name']); ?></td>
-                                                <td class="py-2 pr-4"><?php echo htmlspecialchars((string) $f['calories']); ?>
-                                                </td>
-                                                <td class="py-2 pr-4"><?php echo htmlspecialchars((string) $f['protein']); ?>
-                                                </td>
-                                                <td class="py-2 pr-4"><?php echo htmlspecialchars((string) $f['carbs']); ?></td>
-                                                <td class="py-2 pr-4"><?php echo htmlspecialchars((string) $f['fat']); ?></td>
-                                                <td class="py-2 pr-4">
-                                                    <a href="food.php?delete=<?php echo (int) $f['id']; ?>"
-                                                        class="text-red-600 hover:underline dark:text-red-400"
-                                                        onclick="return confirm('Delete this item?');">Delete</a>
-                                                </td>
-                                            </tr>
-                                    <?php }
-                                    } ?>
-                                </tbody>
-                            </table>
+                <!-- Full Width Table -->
+                <div class="p-6 rounded-lg shadow-md card">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+                        <div>
+                            <p class="text-2xl font-semibold">All users</p>
+                            <p class="text-sm opacity-70 mt-1">Showing <?php echo count($users); ?> record(s).</p>
                         </div>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm divide-y divide-neutral-300">
+                            <thead>
+                                <tr class="text-left opacity-70 text-xs uppercase tracking-widest">
+                                    <th class="py-3 px-4">Username</th>
+                                    <th class="py-3 px-4">Level</th>
+                                    <th class="py-3 px-4">Created At</th>
+                                    <th class="py-3 px-4 text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php if (!empty($listError)) { ?>
+                                    <tr>
+                                        <td colspan="4" class="py-4 px-4 text-red-600"><?php echo htmlspecialchars($listError); ?></td>
+                                    </tr>
+                                <?php } elseif (empty($users)) { ?>
+                                    <tr>
+                                        <td colspan="4" class="py-8 px-4 text-center opacity-70">
+                                            <p>Belum ada pengguna yang terdaftar</p>
+                                        </td>
+                                    </tr>
+                                <?php } else {
+                                    foreach ($users as $userRow) {
+                                        $detailData = [
+                                            'id' => $userRow['id'] ?? '-',
+                                            'fullname' => $userRow['fullname'] ?? '-',
+                                            'username' => $userRow['username'] ?? '-',
+                                            'email' => $userRow['email'] ?? '-',
+                                            'phone' => $userRow['phone'] ?? '-',
+                                            'level' => $userRow['level'] ?? '-',
+                                            'created_at' => $userRow['created_at'] ?? '-'
+                                        ];
+                                        
+                                        // Format created_at
+                                        $createdAt = $userRow['created_at'] ?? '-';
+                                        if ($createdAt !== '-') {
+                                            try {
+                                                $date = new DateTime($createdAt);
+                                                $createdFormatted = $date->format('d M Y, H:i');
+                                            } catch (Exception $e) {
+                                                $createdFormatted = $createdAt;
+                                            }
+                                        } else {
+                                            $createdFormatted = '-';
+                                        }
+                                        
+                                        // Badge color based on level
+                                        $levelBadgeClass = '';
+                                        switch(strtolower($userRow['level'] ?? '')) {
+                                            case 'admin':
+                                                $levelBadgeClass = 'border-1 border-primary bg-primary/10 backdrop-blur-sm text-primary';
+                                                break;
+                                            case 'user':
+                                                $levelBadgeClass = 'border-1 border-accent bg-accent/10 backdrop-blur-sm text-accent';
+                                                break;
+                                            default:
+                                                $levelBadgeClass = 'bg-neutral-500';
+                                        }
+                                ?>
+                                        <tr class="border-b border-neutral-200 transition-colors">
+                                            <td class="py-3 px-4">
+                                                <span class="font-medium">@<?php echo htmlspecialchars($userRow['username']); ?></span>
+                                            </td>
+                                            <td class="py-3 px-4">
+                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium <?php echo $levelBadgeClass; ?>">
+                                                    <?php echo htmlspecialchars($userRow['level']); ?>
+                                                </span>
+                                            </td>
+                                            <td class="py-3 px-4">
+                                                <span class="text-sm"><?php echo htmlspecialchars($createdFormatted); ?></span>
+                                            </td>
+                                            <td class="py-3 px-4 text-center">
+                                                <button type="button"
+                                                    class="detail-btn inline-flex items-center justify-center px-3 py-1.5 text-sm font-medium text-[#3dccc7] hover:text-white hover:bg-[#3dccc7] border border-[#3dccc7] rounded-md transition-all duration-200 hover:shadow-md"
+                                                    data-detail="<?php echo htmlspecialchars(json_encode($detailData), ENT_QUOTES, 'UTF-8'); ?>">
+                                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                    </svg>
+                                                    Detail
+                                                </button>
+                                            </td>
+                                        </tr>
+                                <?php }
+                                } ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
+    <!-- Detail Modal -->
+    <div id="detail-modal" class="fixed inset-0 z-50 hidden">
+        <div id="detail-modal-overlay" class="absolute inset-0 opacity-0 transition-opacity duration-200"></div>
+        <div id="detail-modal-panel"
+            class="relative max-w-lg mx-auto mt-24 card rounded-2xl shadow-2xl p-6 transform transition-all duration-200 modal-panel">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <p class="text-sm uppercase tracking-widest opacity-60">Detail User</p>
+                    <h3 id="detail-name" class="text-2xl font-semibold mt-1">-</h3>
+                </div>
+                <button id="detail-modal-close" type="button"
+                    class="p-2 rounded-full transition">
+                    <span class="sr-only">Tutup</span>
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="mt-5 grid grid-cols-2 gap-4 text-sm">
+                <div class="rounded-lg p-3 card">
+                    <p class="text-xs uppercase opacity-60 mb-1">Level</p>
+                    <p id="detail-level" class="text-lg font-semibold">-</p>
+                </div>
+                    <div class="rounded-lg p-3 card">
+                    <p class="text-xs uppercase opacity-60 mb-1">Username</p>
+                    <p id="detail-username" class="text-lg font-semibold break-words">-</p>
+                </div>
+                <div class="col-span-2 rounded-lg p-3 card">
+                    <p class="text-xs uppercase opacity-60 mb-1">Email</p>
+                    <p id="detail-email" class="text-base break-words">-</p>
+                </div>
+                <div class="col-span-2 rounded-lg p-3 card">
+                    <p class="text-xs uppercase opacity-60 mb-1">Phone</p>
+                    <p id="detail-phone" class="text-base">-</p>
+                </div>
+            </div>
+            <div class="mt-6 space-y-3 text-sm p-3 card rounded-lg">
+                <div>
+                    <p class="text-xs uppercase opacity-60 mb-1">User ID</p>
+                    <p id="detail-id" class="font-mono text-sm">-</p>
+                </div>
+                <div class="border-t pt-3">
+                    <p class="text-xs uppercase opacity-60 mb-1">Dibuat pada</p>
+                    <p id="detail-created" class="font-medium">-</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme Switcher -->
     <div class="fixed bottom-6 right-6 z-50 flex flex-col items-center space-y-4">
-        <div class="p-1 rounded-full card shadow-md transition-all duration-300">
-            <button id="settings-btn"
+        <div class="p-1 rounded-full card shadow-md">
+            <a href="setting.php"
                 class="flex items-center justify-center p-2 rounded-full transition-colors duration-200">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-6 h-6">
@@ -305,11 +352,10 @@ $foods = getFoodsByUser($username);
                         d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.591 1.042c1.523-.878 3.25.848 2.372 2.372a1.724 1.724 0 001.042 2.591c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.042 2.591c.878 1.523-.849 3.25-2.372 2.372a1.724 1.724 0 00-2.591 1.042c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.591-1.042c-1.523.878-3.25-.849-2.372-2.372a1.724 1.724 0 00-1.042-2.591c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.042-2.591c-.878-1.524.849-3.25 2.372-2.372a1.724 1.724 0 002.591-1.042z" />
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-            </button>
+            </a>
         </div>
 
-        <div id="theme-switcher"
-            class="flex flex-col p-1 rounded-full card transition-all duration-300">
+        <div id="theme-switcher" class="flex flex-col p-1 rounded-full card">
             <button id="system-btn"
                 class="flex items-center justify-center p-2 rounded-full transition-colors duration-200">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -338,6 +384,85 @@ $foods = getFoodsByUser($username);
     </div>
 
     <script>
+        // === Detail Modal Logic ===
+        const detailModal = document.getElementById('detail-modal');
+        const detailModalOverlay = document.getElementById('detail-modal-overlay');
+        const detailModalPanel = document.getElementById('detail-modal-panel');
+        const detailModalClose = document.getElementById('detail-modal-close');
+        const detailButtons = document.querySelectorAll('.detail-btn');
+        const detailFields = {
+            name: document.getElementById('detail-name'),
+            level: document.getElementById('detail-level'),
+            username: document.getElementById('detail-username'),
+            email: document.getElementById('detail-email'),
+            phone: document.getElementById('detail-phone'),
+            id: document.getElementById('detail-id'),
+            created: document.getElementById('detail-created')
+        };
+
+        const safeValue = (value, placeholder = '-') => {
+            if (value === null || value === undefined) return placeholder;
+            const trimmed = String(value).trim();
+            return trimmed === '' ? placeholder : trimmed;
+        };
+
+        const setDetailContent = (data) => {
+            detailFields.name.textContent = safeValue(data.fullname);
+            detailFields.level.textContent = safeValue(data.level);
+            detailFields.username.textContent = safeValue(data.username);
+            detailFields.email.textContent = safeValue(data.email);
+            detailFields.phone.textContent = safeValue(data.phone, 'Tidak ada nomor');
+            detailFields.id.textContent = safeValue(data.id);
+            detailFields.created.textContent = safeValue(data.created_at);
+        };
+
+        const openDetailModal = (data) => {
+            if (!detailModal || !detailModalPanel || !detailModalOverlay) return;
+            setDetailContent(data);
+            detailModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            requestAnimationFrame(() => {
+                detailModalOverlay.classList.remove('opacity-0');
+                detailModalOverlay.classList.add('opacity-100');
+                detailModalPanel.classList.add('show');
+            });
+        };
+
+        const closeDetailModal = () => {
+            if (!detailModal || !detailModalPanel || !detailModalOverlay) return;
+            detailModalOverlay.classList.remove('opacity-100');
+            detailModalOverlay.classList.add('opacity-0');
+            detailModalPanel.classList.remove('show');
+            const handleTransitionEnd = (event) => {
+                if (event.propertyName === 'opacity') {
+                    detailModal.classList.add('hidden');
+                    document.body.style.overflow = '';
+                    detailModalOverlay.removeEventListener('transitionend', handleTransitionEnd);
+                }
+            };
+            detailModalOverlay.addEventListener('transitionend', handleTransitionEnd);
+        };
+
+        detailButtons.forEach((btn) => {
+            btn.addEventListener('click', () => {
+                const rawDetail = btn.getAttribute('data-detail') || '{}';
+                try {
+                    const detailData = JSON.parse(rawDetail);
+                    openDetailModal(detailData);
+                } catch (error) {
+                    console.error('Failed to parse detail payload', error);
+                }
+            });
+        });
+
+        detailModalOverlay && detailModalOverlay.addEventListener('click', closeDetailModal);
+        detailModalClose && detailModalClose.addEventListener('click', closeDetailModal);
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && detailModal && !detailModal.classList.contains('hidden')) {
+                closeDetailModal();
+            }
+        });
+
         // === Mobile Menu Logic ===
         const menuToggleBtn = document.getElementById('menu-toggle-btn');
         const menuIconPath = document.querySelector('#menu-icon path');
@@ -357,86 +482,27 @@ $foods = getFoodsByUser($username);
             const openMobileMenu = () => {
                 mobileMenu.classList.remove('hidden');
                 mobileMenuPanel.classList.remove('animate-close');
-                mobileMenuPanel.classList.remove('animate-open');
-                void mobileMenuPanel.offsetWidth;
                 mobileMenuPanel.classList.add('animate-open');
                 menuToggleBtn.setAttribute('aria-expanded', 'true');
                 setMenuIcon('open');
-                document.body.style.overflow = 'hidden';
             };
 
-            const closeMobileMenu = ({
-                focusToggle = false
-            } = {}) => {
+            const closeMobileMenu = () => {
                 mobileMenuPanel.classList.remove('animate-open');
                 mobileMenuPanel.classList.add('animate-close');
                 menuToggleBtn.setAttribute('aria-expanded', 'false');
                 setMenuIcon('close');
-                document.body.style.overflow = '';
-                if (focusToggle) {
-                    menuToggleBtn.focus();
-                }
             };
 
             mobileMenuPanel.addEventListener('animationend', (event) => {
                 if (event.animationName === 'mobileMenuOut') {
                     mobileMenu.classList.add('hidden');
-                    mobileMenuPanel.classList.remove('animate-close');
                 }
             });
 
             menuToggleBtn.addEventListener('click', () => {
                 const isExpanded = menuToggleBtn.getAttribute('aria-expanded') === 'true';
-                if (isExpanded) {
-                    closeMobileMenu();
-                } else {
-                    openMobileMenu();
-                }
-            });
-
-            mobileMenu.querySelectorAll('a').forEach((link) => {
-                link.addEventListener('click', () => closeMobileMenu());
-            });
-
-            document.addEventListener('click', (event) => {
-                const isClickInsideMenu = mobileMenu.contains(event.target) || menuToggleBtn.contains(event.target);
-                if (!isClickInsideMenu && menuToggleBtn.getAttribute('aria-expanded') === 'true') {
-                    closeMobileMenu();
-                }
-            });
-
-            document.addEventListener('keydown', (event) => {
-                if (event.key === 'Escape' && menuToggleBtn.getAttribute('aria-expanded') === 'true') {
-                    closeMobileMenu({
-                        focusToggle: true
-                    });
-                }
-            });
-
-            window.addEventListener('resize', () => {
-                if (window.innerWidth >= 768 && menuToggleBtn.getAttribute('aria-expanded') === 'true') {
-                    closeMobileMenu();
-                    mobileMenu.classList.add('hidden');
-                    mobileMenuPanel.classList.remove('animate-close');
-                }
-            });
-        }
-
-        // === Dropdown Menu Logic ===
-        const dropdownButton = document.getElementById('dropdownButton');
-        const dropdownMenu = document.getElementById('dropdownMenu');
-        if (dropdownButton && dropdownMenu) {
-            dropdownButton.addEventListener('click', () => {
-                const expanded = dropdownButton.getAttribute('aria-expanded') === 'true' || false;
-                dropdownButton.setAttribute('aria-expanded', !expanded);
-                dropdownMenu.classList.toggle('hidden');
-            });
-
-            window.addEventListener('click', (event) => {
-                if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
-                    dropdownMenu.classList.add('hidden');
-                    dropdownButton.setAttribute('aria-expanded', 'false');
-                }
+                isExpanded ? closeMobileMenu() : openMobileMenu();
             });
         }
 
@@ -481,28 +547,15 @@ $foods = getFoodsByUser($username);
             });
         };
 
-        if (window.matchMedia) {
-            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-                if (!('theme' in localStorage)) {
-                    applyTheme('system');
-                }
-            });
-        }
-
         systemBtn && systemBtn.addEventListener('click', () => applyTheme('system'));
         lightBtn && lightBtn.addEventListener('click', () => applyTheme('light'));
         darkBtn && darkBtn.addEventListener('click', () => applyTheme('dark'));
+        applyTheme(getActiveTheme());
 
-        // Initialize theme on page load
-        const initialTheme = getActiveTheme();
-        applyTheme(initialTheme);
-
-        // === Sticky Header Logic ===
+        // === Sticky Header ===
         const header = document.getElementById('sticky-header');
-        const scrollThreshold = 50;
-
         window.addEventListener('scroll', () => {
-            if (window.scrollY > scrollThreshold) {
+            if (window.scrollY > 50) {
                 header.classList.add('bg-light-bg', 'dark:bg-dark-bg', 'shadow-lg', 'backdrop-blur-sm', 'bg-opacity-80', 'py-4');
                 header.classList.remove('py-6');
             } else {

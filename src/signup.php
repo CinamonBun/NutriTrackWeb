@@ -45,7 +45,8 @@ if (isset($_POST['signup'])) {
                     'email' => $email,
                     'username' => $username,
                     'password' => $password,
-                    'phone' => $phone
+                    'phone' => $phone,
+                    'level' => 'user' // Automatically set level to 'user' for new registrations
                 ];
 
                 $result = createUser($userData);

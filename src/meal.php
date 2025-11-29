@@ -215,13 +215,13 @@ $foods = getMealsByUser($username);
                     <h1 class="text-2xl font-bold">NutriTrack+</h1>
                 </div>
                 <ul class="hidden md:flex items-center space-x-8">
-                    <li><a href="dashboard.php" class="transition duration-200 transform text-hover-light">Dashboard</a>
+                    <li><a href="dashboard.php" class="transition duration-200 text-hover-light">Dashboard</a>
                     </li>
-                    <li><a href="user.php" class="transition duration-200 transform hover:scale-105">User</a></li>
-                    <li><a href="season.php" class="transition duration-200 transform hover:scale-105">Season</a></li>
-                    <li><a href="meal.php" class="transition duration-200 transform hover:scale-105">Meal</a></li>
-                    <li><a href="food.php" class="transition duration-200 transform hover:scale-105">Food</a></li>
-                    <li><a href="daily.php" class="transition duration-200 transform hover:scale-105">Daily</a></li>
+                    <li><a href="user.php" class="transition duration-200 hover:scale-105">User</a></li>
+                    <li><a href="season.php" class="transition duration-200 hover:scale-105">Season</a></li>
+                    <li><a href="meal.php" class="font-semibold text-[#3dccc7]">Meal</a></li>
+                    <li><a href="food.php" class="transition duration-200 hover:scale-105">Food</a></li>
+                    <li><a href="daily.php" class="transition duration-200 hover:scale-105">Daily</a></li>
                 </ul>
                 <div class="hidden md:flex items-center space-x-3">
                     <span class="dark:text-dark-text whitespace-nowrap">Hello,
@@ -262,27 +262,29 @@ $foods = getMealsByUser($username);
     </header>
 
     <!-- Main -->
-    <main>
-        <section class="pt-28 pb-12 md:pt-36 min-h-[60vh]">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="mb-8">
+    <main class="pt-28 md:pt-36 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+            <!-- Header Section -->
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+                <div>
+                    <p class="text-sm uppercase tracking-widest opacity-60">Meal</p>
                     <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">Meal Management</h1>
-                    <p class="mt-2 text-lg dark:opacity-80">Welcome back, <span
-                            class="font-semibold"><?php echo htmlspecialchars($fullname); ?></span>.</p>
+                    <p class="mt-2 text-base opacity-80">Create and manage your meal plans with detailed nutritional tracking.</p>
                 </div>
+            </div>
 
-                <?php if (!empty($message)) { ?>
-                    <div class="mb-6 text-sm text-green-700 bg-green-100 dark:bg-green-900/20 dark:text-green-400 rounded-md px-4 py-3">
-                        <?php echo htmlspecialchars($message); ?>
-                    </div>
-                <?php } ?>
-                <?php if (!empty($error)) { ?>
-                    <div class="mb-6 text-sm text-red-700 bg-red-100 dark:bg-red-900/20 dark:text-red-400 rounded-md px-4 py-3">
-                        <?php echo htmlspecialchars($error); ?>
-                    </div>
-                <?php } ?>
+            <?php if (!empty($message)) { ?>
+                <div class="text-sm text-green-700 bg-green-100 dark:bg-green-900/20 dark:text-green-400 rounded-md px-4 py-3">
+                    <?php echo htmlspecialchars($message); ?>
+                </div>
+            <?php } ?>
+            <?php if (!empty($error)) { ?>
+                <div class="text-sm text-red-700 bg-red-100 dark:bg-red-900/20 dark:text-red-400 rounded-md px-4 py-3">
+                    <?php echo htmlspecialchars($error); ?>
+                </div>
+            <?php } ?>
 
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <div class="p-6 rounded-lg shadow-md card">
                         <h2 class="text-xl font-semibold">Add Meal</h2>
                         <form class="mt-4 space-y-4" action="meal.php" method="POST">
@@ -381,7 +383,7 @@ $foods = getMealsByUser($username);
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
     </main>
 
     <!-- Edit Meal Modal -->
