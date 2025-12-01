@@ -7,97 +7,86 @@ if (!isset($_SESSION['username'])) {
 
 $username = $_SESSION['username'];
 include 'config.php';
+include 'db-functions.php';
 
-// Check if user is admin
+// Check admin
 requireAdmin($username);
 
 $message = '';
 $error = '';
 
-// Get current user info
+// Get user profile
 $user = getUserByUsername($username);
 $fullname = $user['fullname'] ?? $username;
 
-// Handle delete
+// ============================
+// DELETE FOOD
+// ============================
 if (isset($_GET['delete'])) {
     $deleteId = intval($_GET['delete']);
+
     if ($deleteId > 0) {
-        // Try delete with user verification first
-        $result = deleteFood($deleteId, $username);
+        $result = deleteFood($deleteId);
 
-        if ($result['status'] == 204) {
-            $message = 'Food item deleted successfully!';
-        } else if ($result['status'] == 200) {
-            // Some APIs return 200 instead of 204
-            $message = 'Food item deleted successfully!';
+        if ($result['status'] == 204 || $result['status'] == 200) {
+            $message = "Food item deleted successfully!";
         } else {
-            // Show detailed error
-            $error = 'Failed to delete item (Status: ' . $result['status'] . '). ';
-
-            // Try to delete without username check (for debugging)
-            $result2 = supabaseRequest('DELETE', '/rest/v1/food?id=eq.' . $deleteId);
-
-            if ($result2['status'] == 204 || $result2['status'] == 200) {
-                $message = 'Food item deleted (without user check)!';
-                $error = ''; // Clear error
-            } else {
-                $error .= 'Item may not exist or username mismatch. Details: ' . json_encode($result['data']);
-            }
+            $error = "Failed to delete item. Status: " . $result['status'];
         }
     }
 }
 
-// Handle add
+// ============================
+// ADD FOOD
+// ============================
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_food'])) {
     $foodName = trim($_POST['name'] ?? '');
-    $calories = isset($_POST['calories']) ? trim((string) $_POST['calories']) : '0';
-    $protein = isset($_POST['protein']) ? trim((string) $_POST['protein']) : '0';
-    $carbs = isset($_POST['carbs']) ? trim((string) $_POST['carbs']) : '0';
-    $fat = isset($_POST['fat']) ? trim((string) $_POST['fat']) : '0';
+    $calories = trim($_POST['calories'] ?? '0');
+    $protein  = trim($_POST['protein'] ?? '0');
+    $carbs    = trim($_POST['carbs'] ?? '0');
+    $fat      = trim($_POST['fat'] ?? '0');
 
     if ($foodName === '') {
-        $error = 'Food name is required.';
+        $error = "Food name is required.";
     } else {
-        $foodData = [
+        $data = [
             'name' => $foodName,
             'calories' => $calories,
             'protein' => $protein,
             'carbs' => $carbs,
             'fat' => $fat,
-            'username' => $username // Associate food with user
-            // Removed created_at - let Supabase use default now()
+            'username' => $username
         ];
 
-        $result = createFood($foodData);
+        $result = createFood($data);
 
-        // DEBUG: Show the result
         if ($result['status'] == 201) {
-            $message = 'Food item added successfully!';
+            $message = "Food added successfully!";
         } else {
-            // Show detailed error for debugging
-            $error = 'Failed to add item. Status: ' . $result['status'];
-            if (!empty($result['data'])) {
-                $error .= ' | Details: ' . json_encode($result['data']);
-            }
+            $error = "Failed to add. Status: " . $result['status'];
         }
     }
 }
 
-// Handle edit
+// ============================
+// EDIT FOOD
+// ============================
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_food'])) {
-    $foodId = isset($_POST['food_id']) ? intval($_POST['food_id']) : 0;
+    $foodId = intval($_POST['food_id'] ?? 0);
     $foodName = trim($_POST['edit_name'] ?? '');
-    $calories = isset($_POST['edit_calories']) ? trim((string) $_POST['edit_calories']) : '0';
-    $protein = isset($_POST['edit_protein']) ? trim((string) $_POST['edit_protein']) : '0';
-    $carbs = isset($_POST['edit_carbs']) ? trim((string) $_POST['edit_carbs']) : '0';
-    $fat = isset($_POST['edit_fat']) ? trim((string) $_POST['edit_fat']) : '0';
+    $calories = trim($_POST['edit_calories'] ?? '0');
+    $protein  = trim($_POST['edit_protein'] ?? '0');
+    $carbs    = trim($_POST['edit_carbs'] ?? '0');
+    $fat      = trim($_POST['edit_fat'] ?? '0');
 
     if ($foodId <= 0) {
-        $error = 'Invalid food item selected for editing.';
+        $error = "Invalid food item.";
     } elseif ($foodName === '') {
-        $error = 'Food name is required.';
+        $error = "Food name is required.";
     } else {
-        $foodData = [
+        $data = [
             'name' => $foodName,
             'calories' => $calories,
             'protein' => $protein,
@@ -105,22 +94,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_food'])) {
             'fat' => $fat
         ];
 
-        $result = updateFood($foodId, $username, $foodData);
+        $result = updateFood($foodId, $username, $data);
+
         if ($result['status'] == 200) {
-            $message = 'Food item updated successfully!';
+            $message = "Food updated successfully!";
         } else {
-            $error = 'Failed to update item. Status: ' . $result['status'];
-            if (!empty($result['data'])) {
-                $error .= ' | Details: ' . json_encode($result['data']);
-            }
+            $error = "Failed to update. Status: " . $result['status'];
         }
     }
 }
 
-// Fetch list - only for current user
-$foods = getFoodsByUser($username);
+// ============================
+// FETCH ALL FOODS (USER ONLY)
+// ============================
 
+$foods = getFoodsByUser();
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en" class="">
 
@@ -194,6 +185,27 @@ $foods = getFoodsByUser($username);
 
         #menu-toggle-btn[aria-expanded="true"] svg {
             transform: rotate(90deg);
+        }
+
+        .modal-panel {
+            transform: translateY(12px);
+            opacity: 0;
+        }
+
+        .modal-panel.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
         }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -285,108 +297,108 @@ $foods = getFoodsByUser($username);
             <?php } ?>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <div class="p-6 rounded-lg shadow-md card">
-                        <h2 class="text-xl font-semibold">Add Food</h2>
-                        <form class="mt-4 space-y-4" action="food.php" method="POST">
-                            <input type="hidden" name="add_food" value="1">
-                            <div>
-                                <label for="name" class="block text-sm font-medium mb-2">Name</label>
-                                <input id="name" name="name" type="text" required
-                                    class="block w-full px-3 py-2 card rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                                    placeholder="e.g., Grilled Chicken Breast">
-                            </div>
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                <div>
-                                    <label for="calories" class="block text-sm font-medium mb-2">Calories</label>
-                                    <input id="calories" name="calories" type="number" step="0.01" min="0"
-                                        class="block w-full px-3 py-2 card rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                                        placeholder="0">
-                                </div>
-                                <div>
-                                    <label for="protein" class="block text-sm font-medium mb-2">Protein (g)</label>
-                                    <input id="protein" name="protein" type="number" step="0.01" min="0"
-                                        class="block w-full px-3 py-2 card rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                                        placeholder="0">
-                                </div>
-                                <div>
-                                    <label for="carbs" class="block text-sm font-medium mb-2">Carbs (g)</label>
-                                    <input id="carbs" name="carbs" type="number" step="0.01" min="0"
-                                        class="block w-full px-3 py-2 card rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                                        placeholder="0">
-                                </div>
-                                <div>
-                                    <label for="fat" class="block text-sm font-medium mb-2">Fat (g)</label>
-                                    <input id="fat" name="fat" type="number" step="0.01" min="0"
-                                        class="block w-full px-3 py-2 card rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                                        placeholder="0">
-                                </div>
-                            </div>
-                            <div>
-                                <button type="submit"
-                                    class="inline-flex justify-center gap-2 text-white bg-[#3dccc7] hover:bg-[#68d8d6] px-4 py-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2">
-                                    Add Food
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="p-6 rounded-lg shadow-md card">
-                        <h2 class="text-xl font-semibold">Your Foods</h2>
-                        <div class="mt-4 overflow-x-auto">
-                            <table class="min-w-full text-sm">
-                                <thead>
-                                    <tr class="text-left opacity-70">
-                                        <th class="py-2 pr-4">Name</th>
-                                        <th class="py-2 pr-4">Cal</th>
-                                        <th class="py-2 pr-4">P (g)</th>
-                                        <th class="py-2 pr-4">C (g)</th>
-                                        <th class="py-2 pr-4">F (g)</th>
-                                        <th class="py-2 pr-4">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php if (empty($foods)) { ?>
-                                        <tr>
-                                            <td colspan="6" class="py-4 opacity-70">No food items yet.</td>
-                                        </tr>
-                                        <?php } else {
-                                        foreach ($foods as $f) { ?>
-                                            <tr class="border-t border-neutral-200 dark:border-neutral-700">
-                                                <td class="py-2 pr-4"><?php echo htmlspecialchars($f['name']); ?></td>
-                                                <td class="py-2 pr-4"><?php echo htmlspecialchars((string) $f['calories']); ?>
-                                                </td>
-                                                <td class="py-2 pr-4"><?php echo htmlspecialchars((string) $f['protein']); ?>
-                                                </td>
-                                                <td class="py-2 pr-4"><?php echo htmlspecialchars((string) $f['carbs']); ?></td>
-                                                <td class="py-2 pr-4"><?php echo htmlspecialchars((string) $f['fat']); ?></td>
-                                                <td class="py-2 pr-4 space-x-3">
-                                                    <button type="button"
-                                                        class="text-cyan-600 hover:underline dark:text-cyan-300 edit-food-btn"
-                                                        data-id="<?php echo (int) $f['id']; ?>"
-                                                        data-name="<?php echo htmlspecialchars($f['name']); ?>"
-                                                        data-calories="<?php echo htmlspecialchars((string) $f['calories']); ?>"
-                                                        data-protein="<?php echo htmlspecialchars((string) $f['protein']); ?>"
-                                                        data-carbs="<?php echo htmlspecialchars((string) $f['carbs']); ?>"
-                                                        data-fat="<?php echo htmlspecialchars((string) $f['fat']); ?>">
-                                                        Edit
-                                                    </button>
-                                                    <a href="food.php?delete=<?php echo (int) $f['id']; ?>"
-                                                        class="text-red-600 hover:underline dark:text-red-400"
-                                                        onclick="return confirm('Delete this item?');">Delete</a>
-                                                </td>
-                                            </tr>
-                                    <?php }
-                                    } ?>
-                                </tbody>
-                            </table>
+                <div class="p-6 rounded-lg shadow-md card">
+                    <h2 class="text-xl font-semibold">Add Food</h2>
+                    <form class="mt-4 space-y-4" action="food.php" method="POST">
+                        <input type="hidden" name="add_food" value="1">
+                        <div>
+                            <label for="name" class="block text-sm font-medium mb-2">Name</label>
+                            <input id="name" name="name" type="text" required
+                                class="block w-full px-3 py-2 card rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                                placeholder="e.g., Grilled Chicken Breast">
                         </div>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div>
+                                <label for="calories" class="block text-sm font-medium mb-2">Calories</label>
+                                <input id="calories" name="calories" type="number" step="0.01" min="0"
+                                    class="block w-full px-3 py-2 card rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                                    placeholder="0">
+                            </div>
+                            <div>
+                                <label for="protein" class="block text-sm font-medium mb-2">Protein (g)</label>
+                                <input id="protein" name="protein" type="number" step="0.01" min="0"
+                                    class="block w-full px-3 py-2 card rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                                    placeholder="0">
+                            </div>
+                            <div>
+                                <label for="carbs" class="block text-sm font-medium mb-2">Carbs (g)</label>
+                                <input id="carbs" name="carbs" type="number" step="0.01" min="0"
+                                    class="block w-full px-3 py-2 card rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                                    placeholder="0">
+                            </div>
+                            <div>
+                                <label for="fat" class="block text-sm font-medium mb-2">Fat (g)</label>
+                                <input id="fat" name="fat" type="number" step="0.01" min="0"
+                                    class="block w-full px-3 py-2 card rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                                    placeholder="0">
+                            </div>
+                        </div>
+                        <div>
+                            <button type="submit"
+                                class="inline-flex justify-center gap-2 text-white bg-[#3dccc7] hover:bg-[#68d8d6] px-4 py-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2">
+                                Add Food
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="p-6 rounded-lg shadow-md card">
+                    <h2 class="text-xl font-semibold">Your Foods</h2>
+                    <div class="mt-4 overflow-x-auto">
+                        <table class="min-w-full text-sm">
+                            <thead>
+                                <tr class="text-left opacity-70">
+                                    <th class="py-2 pr-4">Name</th>
+                                    <th class="py-2 pr-4">Cal</th>
+                                    <th class="py-2 pr-4">P (g)</th>
+                                    <th class="py-2 pr-4">C (g)</th>
+                                    <th class="py-2 pr-4">F (g)</th>
+                                    <th class="py-2 pr-4">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php if (empty($foods)) { ?>
+                                    <tr>
+                                        <td colspan="6" class="py-4 opacity-70">No food items yet.</td>
+                                    </tr>
+                                    <?php } else {
+                                    foreach ($foods as $f) { ?>
+                                        <tr class="border-t border-neutral-200 dark:border-neutral-700">
+                                            <td class="py-2 pr-4"><?php echo htmlspecialchars($f['foods_name']); ?></td>
+                                            <td class="py-2 pr-4"><?php echo htmlspecialchars((string) $f['calories_per_unit']); ?>
+                                            </td>
+                                            <td class="py-2 pr-4"><?php echo htmlspecialchars((string) $f['protein_per_unit']); ?>
+                                            </td>
+                                            <td class="py-2 pr-4"><?php echo htmlspecialchars((string) $f['carbs_per_unit']); ?></td>
+                                            <td class="py-2 pr-4"><?php echo htmlspecialchars((string) $f['fat_per_unit']); ?></td>
+                                            <td class="py-2 pr-4 space-x-3">
+                                                <button type="button"
+                                                    class="text-cyan-600 hover:underline dark:text-cyan-300 edit-food-btn"
+                                                    data-id="<?php echo (int) $f['id']; ?>"
+                                                    data-name="<?php echo htmlspecialchars($f['foods_name']); ?>"
+                                                    data-calories="<?php echo htmlspecialchars((string) $f['calories_per_unit']); ?>"
+                                                    data-protein="<?php echo htmlspecialchars((string) $f['protein_per_unit']); ?>"
+                                                    data-carbs="<?php echo htmlspecialchars((string) $f['carbs_per_unit']); ?>"
+                                                    data-fat="<?php echo htmlspecialchars((string) $f['fat_per_unit']); ?>">
+                                                    Edit
+                                                </button>
+                                                <a href="food.php?delete=<?php echo (int) $f['id']; ?>"
+                                                    class="text-red-600 hover:underline dark:text-red-400"
+                                                    onclick="return confirm('Delete this item?');">Delete</a>
+                                            </td>
+                                        </tr>
+                                <?php }
+                                } ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
+        </div>
     </main>
 
-    <!-- Edit Meal Modal -->
+    <!-- Edit Food Modal -->
     <div id="edit-food-modal" class="fixed inset-0 z-50 hidden items-center justify-center px-4">
         <div class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
         <div class="relative w-full max-w-lg mx-auto card rounded-xl shadow-2xl p-6 fade-in">

@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 if (!isset($_SESSION['username'])) {
     header("Location: signin.php");
     exit;
@@ -7,26 +8,74 @@ if (!isset($_SESSION['username'])) {
 
 $username = $_SESSION['username'];
 include 'config.php';
+include 'db-functions.php'; // pastikan ini ditambahkan
 
-// Check if user is admin
+// Hanya admin
 requireAdmin($username);
 
 $listError = '';
+$logError = '';
+$users = [];
+$dailyLogs = [];
 
-// Get current user info
+// Ambil profil admin
 $user = getUserByUsername($username);
 $fullname = $user['fullname'] ?? $username;
 
-// Fetch user list (read-only view)
-$usersResponse = supabaseRequest('GET', '/rest/v1/user?select=id,fullname,username,email,phone,level,created_at&order=created_at.desc');
-$users = [];
-if ($usersResponse['status'] === 200 && !empty($usersResponse['data'])) {
-    $users = $usersResponse['data'];
+
+// =======================================================
+// AMBIL LIST USER (READ-ONLY UNTUK ADMIN)
+// =======================================================
+
+$sql_users = "
+    SELECT id, fullname, username, email, phone, level, created_at,
+           height, weight, waist_size, age, gender, bmi, daily_calories_target
+    FROM users 
+    ORDER BY created_at DESC
+";
+
+$result_users = dbQuery($sql_users);
+
+if ($result_users) {
+    while ($row = mysqli_fetch_assoc($result_users)) {
+        $users[] = $row;
+    }
 } else {
-    $listError = 'Gagal memuat data pengguna. Silakan coba muat ulang.';
+    $listError = "Gagal memuat data pengguna.";
+}
+
+
+// =======================================================
+// AMBIL DAILY LOG PER USER (Semua user untuk admin dashboard)
+// =======================================================
+
+$sql_logs = "
+    SELECT 
+        d.id,
+        d.id_user,
+        u.fullname,
+        u.username,
+        d.tanggal,
+        d.consumed_calories,
+        d.log_water,
+        d.target_met
+    FROM daily_calories_history d
+    LEFT JOIN users u ON u.id = d.id_user
+    ORDER BY d.tanggal DESC
+";
+
+$result_logs = dbQuery($sql_logs);
+
+if ($result_logs) {
+    while ($row = mysqli_fetch_assoc($result_logs)) {
+        $dailyLogs[] = $row;
+    }
+} else {
+    $logError = "Gagal memuat log harian.";
 }
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en" class="">
 
@@ -197,7 +246,7 @@ if ($usersResponse['status'] === 200 && !empty($usersResponse['data'])) {
                             <p class="text-sm opacity-70 mt-1">Showing <?php echo count($users); ?> record(s).</p>
                         </div>
                     </div>
-                    
+
                     <div class="overflow-x-auto">
                         <table class="w-full text-sm divide-y divide-neutral-300">
                             <thead>
@@ -219,7 +268,7 @@ if ($usersResponse['status'] === 200 && !empty($usersResponse['data'])) {
                                             <p>Belum ada pengguna yang terdaftar</p>
                                         </td>
                                     </tr>
-                                <?php } else {
+                                    <?php } else {
                                     foreach ($users as $userRow) {
                                         $detailData = [
                                             'id' => $userRow['id'] ?? '-',
@@ -228,9 +277,17 @@ if ($usersResponse['status'] === 200 && !empty($usersResponse['data'])) {
                                             'email' => $userRow['email'] ?? '-',
                                             'phone' => $userRow['phone'] ?? '-',
                                             'level' => $userRow['level'] ?? '-',
-                                            'created_at' => $userRow['created_at'] ?? '-'
+                                            'created_at' => $userRow['created_at'] ?? '-',
+                                            'height' => $userRow['height'] ?? '-',
+                                            'weight' => $userRow['weight'] ?? '-',
+                                            'waist_size' => $userRow['waist_size'] ?? '-',
+                                            'age' => $userRow['age'] ?? '-',
+                                            'gender' => $userRow['gender'] ?? '-',
+                                            'bmi' => $userRow['bmi'] ?? '-',
+                                            'daily_calories_target' => $userRow['daily_calories_target'] ?? '-'
                                         ];
-                                        
+
+
                                         // Format created_at
                                         $createdAt = $userRow['created_at'] ?? '-';
                                         if ($createdAt !== '-') {
@@ -243,10 +300,10 @@ if ($usersResponse['status'] === 200 && !empty($usersResponse['data'])) {
                                         } else {
                                             $createdFormatted = '-';
                                         }
-                                        
+
                                         // Badge color based on level
                                         $levelBadgeClass = '';
-                                        switch(strtolower($userRow['level'] ?? '')) {
+                                        switch (strtolower($userRow['level'] ?? '')) {
                                             case 'admin':
                                                 $levelBadgeClass = 'border-1 border-primary bg-primary/10 backdrop-blur-sm text-primary';
                                                 break;
@@ -256,7 +313,7 @@ if ($usersResponse['status'] === 200 && !empty($usersResponse['data'])) {
                                             default:
                                                 $levelBadgeClass = 'bg-neutral-500';
                                         }
-                                ?>
+                                    ?>
                                         <tr class="border-b border-neutral-200 transition-colors">
                                             <td class="py-3 px-4">
                                                 <span class="font-medium">@<?php echo htmlspecialchars($userRow['username']); ?></span>
@@ -293,51 +350,111 @@ if ($usersResponse['status'] === 200 && !empty($usersResponse['data'])) {
 
     <!-- Detail Modal -->
     <div id="detail-modal" class="fixed inset-0 z-50 hidden">
-        <div id="detail-modal-overlay" class="absolute inset-0 opacity-0 transition-opacity duration-200"></div>
+        <div id="detail-modal-overlay"
+            class="absolute inset-0 backdrop-blur-sm opacity-0 transition-opacity duration-300"></div>
+
         <div id="detail-modal-panel"
-            class="relative max-w-lg mx-auto mt-24 card rounded-2xl shadow-2xl p-6 transform transition-all duration-200 modal-panel">
-            <div class="flex items-start justify-between gap-4">
+            class="relative w-full max-w-6xl mx-auto mt-16 sm:mt-20 card rounded-xl shadow-2xl p-8 transform transition-all duration-300 opacity-0 scale-95 modal-panel overflow-y-auto max-h-[90vh]">
+
+            <div class="flex items-center justify-between border-b pb-4 mb-6">
                 <div>
-                    <p class="text-sm uppercase tracking-widest opacity-60">Detail User</p>
-                    <h3 id="detail-name" class="text-2xl font-semibold mt-1">-</h3>
+                    <p class="text-sm uppercase tracking-widest text-[#3dccc7] font-medium">Detail User</p>
+                    <h3 id="detail-name" class="text-3xl font-bold mt-1">-</h3>
                 </div>
                 <button id="detail-modal-close" type="button"
-                    class="p-2 rounded-full transition">
+                    class="p-2 -mr-2 transition-colors duration-200 rounded-full">
                     <span class="sr-only">Tutup</span>
-                    <svg class="w-5 h-5" viewBox="0 0 24 24" stroke="currentColor" fill="none">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12" />
+                    <svg class="w-6 h-6" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
-            <div class="mt-5 grid grid-cols-2 gap-4 text-sm">
-                <div class="rounded-lg p-3 card">
-                    <p class="text-xs uppercase opacity-60 mb-1">Level</p>
-                    <p id="detail-level" class="text-lg font-semibold">-</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                <div class="md:col-span-1 space-y-6">
+                    <h4 class="text-lg font-semibold border-b border-dashed pb-2">Basic Information</h4>
+
+                    <div class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="rounded-lg p-4 card-1 shadow-md">
+                                <p class="text-xs uppercase tracking-wider mb-1">Level</p>
+                                <p id="detail-level" class="text-2xl font-bold text-[#3dccc7]">-</p>
+                            </div>
+                            <div class="rounded-lg p-4 card-1 shadow-md">
+                                <p class="text-xs uppercase tracking-wider mb-1">Username</p>
+                                <p id="detail-username" class="text-lg font-semibold break-words">-</p>
+                            </div>
+                        </div>
+
+                        <div class="rounded-lg p-4 card-1 shadow-md">
+                            <p class="text-xs uppercase tracking-wider mb-1">Email</p>
+                            <p id="detail-email" class="text-base break-words font-medium">-</p>
+                        </div>
+                        <div class="rounded-lg p-4 card-1 shadow-md">
+                            <p class="text-xs uppercase tracking-wider mb-1">Phone</p>
+                            <p id="detail-phone" class="text-base font-medium">-</p>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 space-y-3">
+                        <h4 class="text-lg font-semibold border-b border-dashed pb-2">Metadata</h4>
+                        <div class="rounded-lg p-4 card-1 shadow-md">
+                            <p class="text-xs uppercase tracking-wider mb-1 ">User ID</p>
+                            <p id="detail-id" class="font-mono text-xs text-gray-600">-</p>
+                        </div>
+                        <div class="rounded-lg p-4 card-1 shadow-md">
+                            <p class="text-xs uppercase tracking-wider mb-1">Created At</p>
+                            <p id="detail-created" class="font-medium text-sm">-</p>
+                        </div>
+                    </div>
                 </div>
-                    <div class="rounded-lg p-3 card">
-                    <p class="text-xs uppercase opacity-60 mb-1">Username</p>
-                    <p id="detail-username" class="text-lg font-semibold break-words">-</p>
+
+                <div class="md:col-span-2 space-y-6">
+                    <h4 class="text-lg font-semibold border-b border-dashed pb-2">Physical Data & Daily Target</h4>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 text-sm">
+
+                        <div class="rounded-lg p-4 card-1 shadow-md">
+                            <p class="text-xs uppercase tracking-wider mb-1">Gender</p>
+                            <p id="detail-gender" class="text-base font-medium">-</p>
+                        </div>
+
+                        <div class="rounded-lg p-4 card-1 shadow-md">
+                            <p class="text-xs uppercase tracking-wider mb-1">Age</p>
+                            <p id="detail-age" class="text-base font-medium">-</p>
+                        </div>
+
+                        <div class="rounded-lg p-4 card-1 shadow-md">
+                            <p class="text-xs uppercase tracking-wider mb-1">Height (cm)</p>
+                            <p id="detail-height" class="text-base font-medium">-</p>
+                        </div>
+
+                        <div class="rounded-lg p-4 card-1 shadow-md">
+                            <p class="text-xs uppercase tracking-wider mb-1">Weight (kg)</p>
+                            <p id="detail-weight" class="text-base font-medium">-</p>
+                        </div>
+
+                        <div class="rounded-lg p-4 card-1 shadow-md">
+                            <p class="text-xs uppercase tracking-wider mb-1">Waist Size (cm)</p>
+                            <p id="detail-waist" class="text-base font-medium">-</p>
+                        </div>
+
+                        <div class="rounded-lg p-4 card-1 shadow-md">
+                            <p class="text-xs uppercase tracking-wider mb-1">BMI</p>
+                            <p id="detail-bmi" class="text-xl font-bold text-red-500 dark:text-red-400">-</p>
+                        </div>
+
+                        <div class="sm:col-span-3 rounded-lg p-4 shadow-md border border-[#3dccc7]">
+                            <p class="text-sm uppercase tracking-wider text-[#3dccc7] mb-1 font-semibold">DAILY CALORIES TARGET</p>
+                            <p id="detail-target" class="text-3xl font-extrabold text-[#3dccc7]">- <span class="text-lg font-normal">kcal</span></p>
+                        </div>
+
+                    </div>
                 </div>
-                <div class="col-span-2 rounded-lg p-3 card">
-                    <p class="text-xs uppercase opacity-60 mb-1">Email</p>
-                    <p id="detail-email" class="text-base break-words">-</p>
-                </div>
-                <div class="col-span-2 rounded-lg p-3 card">
-                    <p class="text-xs uppercase opacity-60 mb-1">Phone</p>
-                    <p id="detail-phone" class="text-base">-</p>
-                </div>
+
             </div>
-            <div class="mt-6 space-y-3 text-sm p-3 card rounded-lg">
-                <div>
-                    <p class="text-xs uppercase opacity-60 mb-1">User ID</p>
-                    <p id="detail-id" class="font-mono text-sm">-</p>
-                </div>
-                <div class="border-t pt-3">
-                    <p class="text-xs uppercase opacity-60 mb-1">Dibuat pada</p>
-                    <p id="detail-created" class="font-medium">-</p>
-                </div>
-            </div>
+
         </div>
     </div>
 
@@ -390,6 +507,8 @@ if ($usersResponse['status'] === 200 && !empty($usersResponse['data'])) {
         const detailModalPanel = document.getElementById('detail-modal-panel');
         const detailModalClose = document.getElementById('detail-modal-close');
         const detailButtons = document.querySelectorAll('.detail-btn');
+        const detailLogList = document.getElementById('detail-log-list');
+
         const detailFields = {
             name: document.getElementById('detail-name'),
             level: document.getElementById('detail-level'),
@@ -397,8 +516,16 @@ if ($usersResponse['status'] === 200 && !empty($usersResponse['data'])) {
             email: document.getElementById('detail-email'),
             phone: document.getElementById('detail-phone'),
             id: document.getElementById('detail-id'),
-            created: document.getElementById('detail-created')
+            created: document.getElementById('detail-created'),
+            height: document.getElementById('detail-height'),
+            weight: document.getElementById('detail-weight'),
+            waist: document.getElementById('detail-waist'),
+            age: document.getElementById('detail-age'),
+            gender: document.getElementById('detail-gender'),
+            bmi: document.getElementById('detail-bmi'),
+            target: document.getElementById('detail-target')
         };
+
 
         const safeValue = (value, placeholder = '-') => {
             if (value === null || value === undefined) return placeholder;
@@ -414,6 +541,14 @@ if ($usersResponse['status'] === 200 && !empty($usersResponse['data'])) {
             detailFields.phone.textContent = safeValue(data.phone, 'Tidak ada nomor');
             detailFields.id.textContent = safeValue(data.id);
             detailFields.created.textContent = safeValue(data.created_at);
+            detailFields.height.textContent = safeValue(data.height);
+            detailFields.weight.textContent = safeValue(data.weight);
+            detailFields.waist.textContent = safeValue(data.waist_size);
+            detailFields.age.textContent = safeValue(data.age);
+            detailFields.gender.textContent = safeValue(data.gender);
+            detailFields.bmi.textContent = safeValue(data.bmi);
+            detailFields.target.textContent = safeValue(data.daily_calories_target);
+
         };
 
         const openDetailModal = (data) => {

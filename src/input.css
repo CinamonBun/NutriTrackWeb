@@ -76,6 +76,17 @@
     border-color: var(--dark-border);
   }
 
+  .card-1 {
+    background-color: var(--light-card);
+    border: 1px solid var(--light-border);
+    transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .dark .card-1 {
+    background-color: var(--dark-card);
+    border-color: var(--dark-border);
+  }
+
   /* Hover effects */
   .hover-card {
     transition: all 0.2s ease-in-out;

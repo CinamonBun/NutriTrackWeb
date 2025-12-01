@@ -1,55 +1,95 @@
 <?php
 session_start();
 if (!isset($_SESSION['username'])) {
-	header("Location: signin.php");
-	exit;
+    header("Location: signin.php");
+    exit;
 }
 
 $username = $_SESSION['username'];
+// Pastikan Anda sudah menyertakan file koneksi database
 include 'config.php';
+// WAJIB: Sertakan file fungsi database
+include 'db-functions.php'; 
 
-// Check if user is admin
+// Check if user is admin (Asumsi fungsi ini sudah didefinisikan)
 requireAdmin($username);
 
-$user = getUserByUsername($username);
+// 1. Get User Data
+$user = getUserByUsername($username); // (Asumsi ini mengambil id, fullname, dll. dari tabel users)
+$id_user = $user['id'] ?? 0;
 $fullname = $user['fullname'] ?? $username;
 
 // Calculate statistics for today
 $today = date('Y-m-d');
-$todayStart = $today . 'T00:00:00';
-$todayEnd = $today . 'T23:59:59';
 
-// Get today's foods
-$todayFoods = supabaseRequest('GET', '/rest/v1/food?username=eq.' . urlencode($username) . '&created_at=gte.' . urlencode($todayStart) . '&created_at=lte.' . urlencode($todayEnd) . '&select=calories');
 $totalCalories = 0;
 $foodsCount = 0;
-if ($todayFoods['status'] == 200 && !empty($todayFoods['data'])) {
-    $foodsCount = count($todayFoods['data']);
-    foreach ($todayFoods['data'] as $food) {
-        $totalCalories += floatval($food['calories'] ?? 0);
-    }
-}
-
-// Get today's meals
-$todayMeals = supabaseRequest('GET', '/rest/v1/meal?username=eq.' . urlencode($username) . '&created_at=gte.' . urlencode($todayStart) . '&created_at=lte.' . urlencode($todayEnd) . '&select=calories,id');
 $mealsCount = 0;
-$mealsCalories = 0;
-if ($todayMeals['status'] == 200 && !empty($todayMeals['data'])) {
-    $mealsCount = count($todayMeals['data']);
-    foreach ($todayMeals['data'] as $meal) {
-        $mealsCalories += floatval($meal['calories'] ?? 0);
+
+if ($id_user > 0) {
+    // 2. Query untuk mendapatkan semua log diary hari ini (meal dan food)
+    
+    $safe_id_user = escape($id_user);
+    $safe_today = escape($today);
+
+    // Ambil log diary, lakukan JOIN ke meals dan foods untuk mendapatkan kalori
+    $sql_today_logs = "
+        SELECT 
+            d.id_meals,
+            d.id_foods,
+            m.calories AS meal_calories, 
+            f.calories_per_unit AS food_calories
+        FROM 
+            diary d
+        LEFT JOIN 
+            meals m ON d.id_meals = m.id
+        LEFT JOIN 
+            foods f ON d.id_foods = f.id
+        WHERE 
+            d.id_user = '$safe_id_user' 
+            AND d.date = '$safe_today'
+    ";
+
+    $result_today_logs = dbQuery($sql_today_logs);
+    
+    if ($result_today_logs) {
+        while ($log = mysqli_fetch_assoc($result_today_logs)) {
+            // Log Makanan Jadi (Meal)
+            // Cek apakah id_meals tidak kosong dan kalori berhasil diambil dari tabel meals
+            if (!empty($log['id_meals']) && $log['meal_calories'] !== null) {
+                $totalCalories += floatval($log['meal_calories']);
+                $mealsCount++;
+            }
+            
+            // Log Bahan Makanan (Food)
+            // Cek apakah id_foods tidak kosong dan kalori berhasil diambil dari tabel foods
+            if (!empty($log['id_foods']) && $log['food_calories'] !== null) {
+                // Catatan: Karena tidak ada kolom serving size di tabel diary, 
+                // kami mengasumsikan satu entri food di diary mewakili 1 unit/serving dari foods.
+                $totalCalories += floatval($log['food_calories']); 
+                $foodsCount++;
+            }
+        }
+        mysqli_free_result($result_today_logs);
     }
 }
-
-// Total calories from both foods and meals
-$totalCalories += $mealsCalories;
 
 // Total items logged today
-$totalItemsLogged = $mealsCount + $foodsCount;
+$totalItemsLogged = $mealsCount + $foodsCount; 
 
-// Get total foods count (all time)
-$allFoods = getFoodsByUser($username);
-$totalFoodsCount = count($allFoods);
+// 3. Get total foods count (all time) - Menghitung semua makanan yang tersedia di sistem
+$totalFoodsCount = 0;
+$sql_total_foods = "SELECT COUNT(id) AS total_count FROM foods";
+$result_total_foods = dbQuery($sql_total_foods);
+
+if ($result_total_foods && mysqli_num_rows($result_total_foods) > 0) {
+    $data = mysqli_fetch_assoc($result_total_foods);
+    $totalFoodsCount = intval($data['total_count']);
+    mysqli_free_result($result_total_foods);
+}
+
+// Variabel-variabel ($fullname, $totalCalories, $totalItemsLogged, $mealsCount, $foodsCount, $totalFoodsCount)
+// sekarang siap digunakan di bagian HTML di bawahnya.
 ?>
 
 <!DOCTYPE html>

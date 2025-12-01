@@ -6,11 +6,13 @@ if (!isset($_SESSION['username'])) {
     exit;
 }
 
+// Pastikan Anda sudah menyertakan file koneksi database dan fungsi
 include 'config.php';
+include 'db-functions.php';
 
 $authUsername = $_SESSION['username'];
 
-// Check if user is admin
+// Check if user is admin (Asumsi fungsi ini sudah didefinisikan)
 requireAdmin($authUsername);
 $createError = '';
 $listError = '';
@@ -40,29 +42,23 @@ function redirectWithFlash($type, $message, $target = 'user.php')
 }
 
 /**
- * Build Supabase filter for the search term.
+ * Build SQL WHERE clause for the search term.
+ * Menggantikan buildSearchFilter Supabase.
  */
 function buildSearchFilter($term)
 {
-    if ($term === '') {
+    if (empty($term)) {
         return '';
     }
 
-    $sanitized = preg_replace('/[^a-zA-Z0-9@\.\-_ ]/', '', $term);
-    if ($sanitized === '') {
-        return '';
-    }
+    // Sanitize term for LIKE query
+    // Gunakan fungsi escape dari db_functions.php
+    $safe_term = '%' . escape(trim($term)) . '%';
 
-    $pattern = '*' . $sanitized . '*';
-    $encoded = rawurlencode($pattern);
-    // Ensure PostgREST wildcard asterisks remain literal
-    $encoded = str_replace('%2A', '*', $encoded);
+    // Build the SQL WHERE clause for searching username, fullname, or email
+    $filter = " WHERE username LIKE '$safe_term' OR fullname LIKE '$safe_term' OR email LIKE '$safe_term' ";
 
-    return '&or=('
-        . 'username.ilike.' . $encoded . ','
-        . 'fullname.ilike.' . $encoded . ','
-        . 'email.ilike.' . $encoded
-        . ')';
+    return $filter;
 }
 
 /**
@@ -86,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $createFormData['username'] = trim($_POST['username'] ?? '');
         $createFormData['password'] = trim($_POST['password'] ?? '');
         $createFormData['phone'] = trim($_POST['phone'] ?? '');
-        $createFormData['level'] = trim($_POST['level'] ?? '');
+        $createFormData['level'] = trim($_POST['level'] ?? 'user'); // Default to 'user'
 
         if (strlen($createFormData['fullname']) < 3) {
             $createError = 'Full name must be at least 3 characters.';
@@ -97,30 +93,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } elseif (strlen($createFormData['password']) < 6) {
             $createError = 'Password must be at least 6 characters.';
         } else {
+            // 1. Cek Username
             $existingUsername = getUserByUsername($createFormData['username']);
             if ($existingUsername !== null) {
                 $createError = 'Username already exists.';
             } else {
-                $emailCheck = supabaseRequest(
-                    'GET',
-                    '/rest/v1/user?email=eq.' . urlencode($createFormData['email']) . '&select=email'
-                );
-                if ($emailCheck['status'] === 200 && !empty($emailCheck['data'])) {
+                // 2. Cek Email (Menggantikan supabaseRequest)
+                $safe_email = escape($createFormData['email']);
+                $sql_email_check = "SELECT id FROM users WHERE email = '$safe_email' LIMIT 1";
+                $result_email_check = dbQuery($sql_email_check);
+
+                if ($result_email_check && mysqli_num_rows($result_email_check) > 0) {
                     $createError = 'Email already in use.';
                 } else {
+                    // 3. Buat Pengguna Baru
                     $payload = [
                         'fullname' => $createFormData['fullname'],
                         'email' => $createFormData['email'],
                         'username' => $createFormData['username'],
                         'password' => $createFormData['password'],
                         'phone' => $createFormData['phone'],
-                        'level' => $createFormData['level']
+                        'level' => $createFormData['level'],
+                        // Nilai default untuk kolom wajib yang tidak ada di form admin
+                        'height' => 0,
+                        'weight' => 0,
+                        'age' => 0,
+                        'gender' => 'Other',
+                        'daily_calories_target' => 2000,
                     ];
+
+                    // Asumsi createUser menangani hashing password dan insert ke DB
                     $result = createUser($payload);
+
                     if ($result['status'] === 201) {
                         redirectWithFlash('success', 'User created successfully.', $redirectTarget);
                     } else {
-                        $createError = 'Failed to create user. Please try again.';
+                        $db_error = $result['data']['error'] ?? 'Unknown database error';
+                        $createError = 'Failed to create user. Database Error: ' . $db_error;
                     }
                 }
             }
@@ -151,16 +160,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             redirectWithFlash('error', 'Please provide a valid email address.', $redirectTarget);
         }
 
+        // 1. Cek Email Unik (Menggantikan supabaseRequest)
         if ($email !== ($existingUser['email'] ?? '')) {
-            $emailCheck = supabaseRequest(
-                'GET',
-                '/rest/v1/user?email=eq.' . urlencode($email) . '&select=username'
-            );
-            if ($emailCheck['status'] === 200 && !empty($emailCheck['data'])) {
-                $emailOwner = $emailCheck['data'][0]['username'] ?? '';
-                if ($emailOwner !== $usernameToUpdate) {
-                    redirectWithFlash('error', 'Email already in use by another user.', $redirectTarget);
-                }
+            $safe_email = escape($email);
+            $safe_username_to_update = escape($usernameToUpdate);
+
+            // Cek apakah email sudah digunakan oleh pengguna lain
+            $sql_email_check = "SELECT username FROM users WHERE email = '$safe_email' AND username != '$safe_username_to_update' LIMIT 1";
+            $result_email_check = dbQuery($sql_email_check);
+
+            if ($result_email_check && mysqli_num_rows($result_email_check) > 0) {
+                redirectWithFlash('error', 'Email already in use by another user.', $redirectTarget);
             }
         }
 
@@ -175,14 +185,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (strlen($newPassword) < 6) {
                 redirectWithFlash('error', 'Password must be at least 6 characters.', $redirectTarget);
             }
+            // Asumsi updateUser akan menangani hashing password jika ada
             $updateData['password'] = $newPassword;
         }
 
+        // 2. Update Pengguna
         $response = updateUser($usernameToUpdate, $updateData);
         if ($response['status'] === 200) {
             redirectWithFlash('success', 'User updated successfully.', $redirectTarget);
         } else {
-            redirectWithFlash('error', 'Failed to update user. Please try again.', $redirectTarget);
+            $db_error = $response['data']['error'] ?? 'Unknown database error';
+            redirectWithFlash('error', 'Failed to update user. Error: ' . $db_error, $redirectTarget);
         }
     } elseif ($action === 'delete_user') {
         $redirectTarget = currentPageUrl();
@@ -192,26 +205,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } elseif ($targetUsername === $authUsername) {
             redirectWithFlash('error', 'You cannot delete your own account while signed in.', $redirectTarget);
         } else {
+            // 1. Hapus Pengguna
             $deleteResponse = deleteUser($targetUsername);
+
             if ($deleteResponse['status'] >= 200 && $deleteResponse['status'] < 300) {
                 redirectWithFlash('success', 'User deleted successfully.', $redirectTarget);
             } else {
-                redirectWithFlash('error', 'Failed to delete user.', $redirectTarget);
+                $db_error = $deleteResponse['data']['error'] ?? 'Unknown database error';
+                redirectWithFlash('error', 'Failed to delete user. Error: ' . $db_error, $redirectTarget);
             }
         }
     }
 }
 
-// Fetch user list for the table
-$userEndpoint = '/rest/v1/user?select=*&order=created_at.desc';
-$userEndpoint .= buildSearchFilter($searchTerm);
-$userResponse = supabaseRequest('GET', $userEndpoint);
+// =========================================================
+// Fetch user list for the table (Menggantikan supabaseRequest)
+// =========================================================
+
+// 1. Buat klausa WHERE
+$searchFilterSql = buildSearchFilter($searchTerm);
+
+// 2. Bangun kueri SQL
+$sql_fetch_users = "
+    SELECT id, fullname, email, username, phone, level, created_at 
+    FROM users 
+    $searchFilterSql 
+    ORDER BY created_at DESC
+";
+
+// 3. Eksekusi kueri
+$result_users = dbQuery($sql_fetch_users);
 $users = [];
-if ($userResponse['status'] === 200) {
-    $users = $userResponse['data'];
+
+if ($result_users) {
+    while ($row = mysqli_fetch_assoc($result_users)) {
+        $users[] = $row;
+    }
+    mysqli_free_result($result_users);
 } else {
-    $listError = 'Failed to load users from Supabase.';
+    $listError = 'Failed to load users from database.';
 }
+
+// Variabel $users, $listError, dan $createError siap digunakan di bagian HTML
 ?>
 
 <!DOCTYPE html>
@@ -234,13 +269,78 @@ if ($userResponse['status'] === 200) {
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(-6px);
+                transform: translateY(-10px);
             }
 
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+
+        .mobile-menu-panel {
+            transform-origin: top right;
+        }
+
+        .mobile-menu-panel.animate-open {
+            animation: mobileMenuIn 0.25s ease forwards;
+        }
+
+        .mobile-menu-panel.animate-close {
+            animation: mobileMenuOut 0.2s ease forwards;
+        }
+
+        @keyframes mobileMenuIn {
+            from {
+                opacity: 0;
+                transform: translateY(-12px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes mobileMenuOut {
+            from {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateY(-8px) scale(0.95);
+            }
+        }
+
+        #menu-toggle-btn svg {
+            transition: transform 0.2s ease;
+        }
+
+        #menu-toggle-btn[aria-expanded="true"] svg {
+            transform: rotate(90deg);
+        }
+
+        .modal-panel {
+            transform: translateY(12px);
+            opacity: 0;
+        }
+
+        .modal-panel.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
         }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -464,7 +564,7 @@ if ($userResponse['status'] === 200) {
                                         </td>
                                     </tr>
                                 <?php } else { ?>
-                                    <?php foreach ($users as $user) { 
+                                    <?php foreach ($users as $user) {
                                         // Format created_at
                                         $createdAt = $user['created_at'] ?? '-';
                                         if ($createdAt !== '-') {
@@ -477,10 +577,10 @@ if ($userResponse['status'] === 200) {
                                         } else {
                                             $createdFormatted = '-';
                                         }
-                                        
+
                                         // Badge color based on level
                                         $levelBadgeClass = '';
-                                        switch(strtolower($user['level'] ?? '')) {
+                                        switch (strtolower($user['level'] ?? '')) {
                                             case 'admin':
                                                 $levelBadgeClass = 'border-1 border-primary bg-primary/10 backdrop-blur-sm text-primary';
                                                 break;

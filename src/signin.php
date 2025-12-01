@@ -2,29 +2,41 @@
 session_start();
 
 include 'config.php';
+include 'db-functions.php'; 
+
+$error = ''; 
 
 if (isset($_POST['login'])) {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
-    // Get user from Supabase
     $user = getUserByUsername($username);
 
     if ($user !== null) {
-        // NOTE: Replace with password_verify if you store hashed passwords
-        // For hashed: if (password_verify($password, $user['password']))
+        
         if ($password === $user['password']) {
+
+            $_SESSION['id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
-            header("Location: dashboard.php");
+            $_SESSION['level'] = $user['level'];
+
+            if ($user['level'] === 'admin') {
+                header("Location: dashboard.php");
+            } 
+            else if ($user['level'] === 'user') {
+                header("Location: index.php");
+            } 
+            else {
+                header("Location: index.php");
+            }
             exit;
         }
     }
 
-    $error = "Username or password is incorrect";
+    $error = "Username atau password salah.";
 }
-
-
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -58,7 +70,6 @@ if (isset($_POST['login'])) {
 <body class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-8">
 
-        <!-- Header -->
         <div class="text-center">
             <div class="mx-auto h-12 w-12 bg-[#3dccc7] rounded-full flex items-center justify-center shadow-lg">
                 <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -75,7 +86,6 @@ if (isset($_POST['login'])) {
             </p>
         </div>
 
-        <!-- Login Form -->
         <div class="card rounded-xl shadow-xl p-8">
             <form class="space-y-4" action="signin.php" method="POST">
                 <div>
@@ -91,7 +101,7 @@ if (isset($_POST['login'])) {
                         </div>
                         <input id="username" name="username" type="text" required
                             class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 transition duration-200"
-                            placeholder="Enter your username">
+                            placeholder="Enter your username" value="<?php echo htmlspecialchars($username ?? ''); ?>">
                     </div>
                 </div>
 
@@ -168,7 +178,6 @@ if (isset($_POST['login'])) {
             </form>
         </div>
 
-        <!-- Footer -->
         <div class="text-center">
             <p class="text-sm text-gray-400">
                 © 2025 NutriTrack. All rights reserved.
@@ -209,7 +218,7 @@ if (isset($_POST['login'])) {
     </div>
 
     <script>
-        // === Theme Switcher Logic ===
+        // === Theme Switcher Logic (Tetap sama) ===
         const body = document.body;
         const systemBtn = document.getElementById('system-btn');
         const lightBtn = document.getElementById('light-btn');
